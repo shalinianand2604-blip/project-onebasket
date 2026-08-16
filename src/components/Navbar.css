@@ -1,0 +1,696 @@
+/* =========================================================
+   MAIN NAVBAR
+========================================================= */
+
+.navbar {
+  width: 100%;
+  min-height: 78px;
+
+  padding: 0 5%;
+
+  display: flex;
+  align-items: center;
+  gap: 28px;
+
+  box-sizing: border-box;
+
+  background: rgba(255, 249, 236, 0.97);
+
+  backdrop-filter: blur(18px);
+
+  border-bottom: 1px solid rgba(91, 58, 142, 0.12);
+
+  position: sticky;
+  top: 0;
+
+  z-index: 1000;
+
+  box-shadow:
+    0 5px 25px rgba(23, 21, 26, 0.06);
+}
+
+
+/* =========================================================
+   LOGO
+========================================================= */
+
+.logo {
+  display: flex;
+  align-items: center;
+
+  gap: 9px;
+
+  color: #5B3A8E;
+
+  text-decoration: none;
+
+  font-size: 25px;
+
+  font-weight: 900;
+
+  letter-spacing: -1px;
+
+  white-space: nowrap;
+
+  transition: 0.3s ease;
+}
+
+.logo:hover {
+  color: #7A2348;
+}
+
+
+.logo-mark {
+  width: 36px;
+  height: 36px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #5B3A8E;
+
+  color: #FFFFFF;
+
+  border-radius: 11px;
+
+  font-size: 19px;
+
+  font-weight: 900;
+
+  box-shadow:
+    0 5px 15px rgba(91, 58, 142, 0.22);
+
+  transition: 0.3s ease;
+}
+
+
+.logo:hover .logo-mark {
+  background: #7A2348;
+
+  transform:
+    rotate(-5deg)
+    scale(1.05);
+}
+
+
+/* =========================================================
+   NAVIGATION LINKS
+========================================================= */
+
+.nav-links {
+  display: flex;
+  align-items: center;
+
+  gap: 23px;
+
+  flex: 1;
+}
+
+
+.nav-links > a,
+.smart-button {
+  display: flex;
+  align-items: center;
+
+  gap: 6px;
+
+  color: #30282B;
+
+  text-decoration: none;
+
+  background: none;
+
+  border: none;
+
+  font-family: inherit;
+
+  font-size: 14px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  white-space: nowrap;
+
+  transition: 0.25s ease;
+}
+
+
+.nav-links > a:hover,
+.smart-button:hover {
+  color: #7A2348;
+}
+
+
+/* =========================================================
+   COMPARE
+========================================================= */
+
+.compare-link svg {
+  color: #5B3A8E;
+}
+
+
+/* =========================================================
+   DEALS
+========================================================= */
+
+.deals-link {
+  color: #7A2348 !important;
+}
+
+.deals-link svg {
+  color: #F4B942;
+}
+
+
+/* =========================================================
+   SMART
+========================================================= */
+
+.smart-container {
+  position: relative;
+}
+
+
+.smart-button {
+  padding: 9px 12px;
+
+  border-radius: 10px;
+
+  background: rgba(91, 58, 142, 0.08);
+
+  color: #5B3A8E !important;
+}
+
+
+.smart-button:hover {
+  background: #5B3A8E;
+
+  color: #FFFFFF !important;
+}
+
+
+/* =========================================================
+   SMART DROPDOWN
+========================================================= */
+
+.smart-menu {
+  position: absolute;
+
+  top: calc(100% + 17px);
+
+  left: -80px;
+
+  width: 315px;
+
+  padding: 12px;
+
+  box-sizing: border-box;
+
+  background: #FFFDF7;
+
+  border:
+    1px solid
+    rgba(91, 58, 142, 0.12);
+
+  border-radius: 18px;
+
+  box-shadow:
+    0 20px 55px
+    rgba(23, 21, 26, 0.16);
+
+  animation: menuAppear 0.2s ease;
+}
+
+
+@keyframes menuAppear {
+
+  from {
+    opacity: 0;
+
+    transform:
+      translateY(-8px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateY(0);
+  }
+}
+
+
+/* =========================================================
+   SMART TITLE
+========================================================= */
+
+.smart-title {
+  display: flex;
+  align-items: center;
+
+  gap: 11px;
+
+  padding: 13px;
+
+  margin-bottom: 7px;
+
+  background: #F3EAFB;
+
+  border-radius: 13px;
+
+  color: #5B3A8E;
+}
+
+
+.smart-title div {
+  display: flex;
+  flex-direction: column;
+
+  gap: 3px;
+}
+
+
+.smart-title strong {
+  font-size: 14px;
+}
+
+
+.smart-title span {
+  color: #766B73;
+
+  font-size: 11px;
+}
+
+
+/* =========================================================
+   SMART ITEMS
+========================================================= */
+
+.smart-item {
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  padding: 10px;
+
+  border-radius: 12px;
+
+  text-decoration: none;
+
+  transition: 0.2s ease;
+}
+
+
+.smart-item:hover {
+  background: #FFF5E2;
+
+  transform:
+    translateX(3px);
+}
+
+
+.smart-item > div:last-child {
+  display: flex;
+  flex-direction: column;
+
+  gap: 2px;
+}
+
+
+.smart-item strong {
+  color: #30282B;
+
+  font-size: 13px;
+}
+
+
+.smart-item span {
+  color: #8A7D82;
+
+  font-size: 11px;
+}
+
+
+/* =========================================================
+   SMART ICONS
+========================================================= */
+
+.smart-icon {
+  width: 36px;
+  height: 36px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 10px;
+
+  flex-shrink: 0;
+}
+
+
+.smart-icon.purple {
+  background: #E8DDF6;
+
+  color: #5B3A8E;
+}
+
+
+.smart-icon.burgundy {
+  background: #F4DCE5;
+
+  color: #7A2348;
+}
+
+
+.smart-icon.yellow {
+  background: #FFF0C4;
+
+  color: #9A7310;
+}
+
+
+.smart-icon.pink {
+  background: #F8DCE7;
+
+  color: #B85C78;
+}
+
+
+.smart-icon.green {
+  background: #DDEDE3;
+
+  color: #3E765B;
+}
+
+
+.smart-icon.dark {
+  background: #E7E3E5;
+
+  color: #30282B;
+}
+
+
+/* =========================================================
+   RIGHT SIDE ACTIONS
+========================================================= */
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+
+  margin-left: auto;
+}
+
+
+/* =========================================================
+   LOCATION
+========================================================= */
+
+.location-btn {
+  display: flex;
+  align-items: center;
+
+  gap: 7px;
+
+  padding: 7px 9px;
+
+  background: transparent;
+
+  border: none;
+
+  border-radius: 9px;
+
+  cursor: pointer;
+
+  color: #3E765B;
+
+  font-family: inherit;
+
+  transition: 0.25s ease;
+}
+
+
+.location-btn:hover {
+  background: #EAF2EC;
+}
+
+
+.location-btn span {
+  display: flex;
+  flex-direction: column;
+
+  align-items: flex-start;
+
+  line-height: 1.1;
+
+  font-size: 12px;
+
+  font-weight: 800;
+
+  color: #30282B;
+}
+
+
+.location-btn small {
+  font-size: 9px;
+
+  color: #8A7D82;
+
+  font-weight: 600;
+}
+
+
+/* =========================================================
+   ICON BUTTONS
+========================================================= */
+
+.icon-btn {
+  width: 38px;
+  height: 38px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  position: relative;
+
+  color: #30282B;
+
+  text-decoration: none;
+
+  border-radius: 10px;
+
+  transition: 0.25s ease;
+}
+
+
+.icon-btn:hover {
+  color: #7A2348;
+
+  background: #F7E8ED;
+}
+
+
+/* =========================================================
+   CART COUNT
+========================================================= */
+
+.cart-count {
+  position: absolute;
+
+  top: -2px;
+
+  right: -2px;
+
+  min-width: 17px;
+
+  height: 17px;
+
+  padding: 0 4px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  box-sizing: border-box;
+
+  background: #7A2348;
+
+  color: #FFFFFF;
+
+  border-radius: 20px;
+
+  font-size: 9px;
+
+  font-weight: 800;
+}
+
+
+/* =========================================================
+   ACCOUNT
+========================================================= */
+
+.account-btn {
+  display: flex;
+  align-items: center;
+
+  gap: 6px;
+
+  padding: 10px 15px;
+
+  background: #5B3A8E;
+
+  color: #FFFFFF;
+
+  text-decoration: none;
+
+  border-radius: 11px;
+
+  font-size: 13px;
+
+  font-weight: 800;
+
+  transition: 0.3s ease;
+
+  box-shadow:
+    0 5px 14px
+    rgba(91, 58, 142, 0.18);
+}
+
+
+.account-btn:hover {
+  background: #7A2348;
+
+  transform:
+    translateY(-2px);
+
+  box-shadow:
+    0 8px 20px
+    rgba(122, 35, 72, 0.22);
+}
+
+
+/* =========================================================
+   RESPONSIVE - 1200px
+========================================================= */
+
+@media (max-width: 1200px) {
+
+  .navbar {
+    gap: 18px;
+
+    padding: 0 3%;
+  }
+
+  .nav-links {
+    gap: 15px;
+  }
+
+  .location-btn span {
+    display: none;
+  }
+}
+
+
+/* =========================================================
+   RESPONSIVE - 950px
+========================================================= */
+
+@media (max-width: 950px) {
+
+  .nav-links > a:nth-child(1),
+  .nav-links > a:nth-child(2) {
+    display: none;
+  }
+
+  .nav-links {
+    justify-content: center;
+  }
+}
+
+
+/* =========================================================
+   RESPONSIVE - 700px
+========================================================= */
+
+@media (max-width: 700px) {
+
+  .navbar {
+    min-height: 68px;
+
+    padding: 0 15px;
+  }
+
+
+  .logo span:last-child {
+    display: none;
+  }
+
+
+  .logo-mark {
+    width: 38px;
+    height: 38px;
+  }
+
+
+  .nav-links {
+    gap: 8px;
+  }
+
+
+  .nav-links > a {
+    font-size: 0;
+  }
+
+
+  .nav-links > a svg {
+    width: 20px;
+    height: 20px;
+  }
+
+
+  .smart-button {
+    font-size: 0;
+  }
+
+
+  .smart-button svg {
+    width: 20px;
+    height: 20px;
+  }
+
+
+  .account-btn span {
+    display: none;
+  }
+
+
+  .account-btn {
+    width: 38px;
+    height: 38px;
+
+    padding: 0;
+
+    justify-content: center;
+  }
+
+
+  .smart-menu {
+    position: fixed;
+
+    top: 68px;
+
+    left: 50%;
+
+    width: min(315px, 90vw);
+
+    transform: translateX(-50%);
+  }
+}
