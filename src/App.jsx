@@ -2,37 +2,41 @@ import { Routes, Route } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import ScrollToTop from "./components/ScrollToTop";
 
 import Home from "./pages/Home";
 import Medicines from "./pages/Medicines";
 import Grocery from "./pages/Grocery";
+import AskOneBasket from "./pages/AskOneBasket";
 
 function App() {
   return (
     <>
+      <ScrollToTop />
+
       <Navbar />
 
       <Routes>
 
-        {/* HOME */}
         <Route
           path="/"
           element={<Home />}
         />
 
-        {/* MEDICINES */}
         <Route
           path="/medicines"
           element={<Medicines />}
         />
 
-        {/* GROCERY */}
         <Route
           path="/grocery"
           element={<Grocery />}
         />
+        <Route
+  path="/ask"
+  element={<AskOneBasket />}
+/>
 
-        {/* COMPARE */}
         <Route
           path="/compare"
           element={
@@ -42,7 +46,6 @@ function App() {
           }
         />
 
-        {/* DEALS */}
         <Route
           path="/deals"
           element={

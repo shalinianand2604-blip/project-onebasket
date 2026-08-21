@@ -1,19 +1,37 @@
-/* =========================================
-   ONEBASKET HOME
-   Yellow + Purple + Pink + Burgundy
-   Black + Green
-========================================= */
+
 .home-search {
   width: 100%;
 
   padding: 18px 6%;
 
-  background: #F3E8D2;
+  background: #FFFDF7;
 
   display: flex;
   justify-content: center;
 
   box-sizing: border-box;
+}
+.home-search {
+  width: 100%;
+  padding: 20px 6%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  box-sizing: border-box;
+
+  background: rgba(255, 249, 236, 0.97);
+
+  border-bottom: 1px solid rgba(91, 58, 142, 0.08);
+
+  position: relative;
+  z-index: 20;
+}
+
+.home-search .search-wrapper {
+  width: 100%;
+  max-width: 1000px;
 }
 
 .home-search .search-wrapper {

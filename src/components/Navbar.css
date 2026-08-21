@@ -6,11 +6,12 @@
   width: 100%;
   min-height: 78px;
 
-  padding: 0 5%;
+  padding: 0 4%;
 
   display: flex;
   align-items: center;
-  gap: 28px;
+
+  gap: 22px;
 
   box-sizing: border-box;
 
@@ -45,12 +46,13 @@
   text-decoration: none;
 
   font-size: 25px;
-
   font-weight: 900;
 
   letter-spacing: -1px;
 
   white-space: nowrap;
+
+  flex-shrink: 0;
 
   transition: 0.3s ease;
 }
@@ -58,7 +60,6 @@
 .logo:hover {
   color: #7A2348;
 }
-
 
 .logo-mark {
   width: 36px;
@@ -75,7 +76,6 @@
   border-radius: 11px;
 
   font-size: 19px;
-
   font-weight: 900;
 
   box-shadow:
@@ -83,7 +83,6 @@
 
   transition: 0.3s ease;
 }
-
 
 .logo:hover .logo-mark {
   background: #7A2348;
@@ -95,21 +94,23 @@
 
 
 /* =========================================================
-   NAVIGATION LINKS
+   NAVIGATION
 ========================================================= */
 
 .nav-links {
   display: flex;
   align-items: center;
 
-  gap: 23px;
+  gap: 18px;
 
   flex: 1;
+
+  min-width: 0;
+
+  overflow: visible;
 }
 
-
-.nav-links > a,
-.smart-button {
+.nav-links > a {
   display: flex;
   align-items: center;
 
@@ -119,26 +120,20 @@
 
   text-decoration: none;
 
-  background: none;
-
-  border: none;
-
   font-family: inherit;
 
   font-size: 14px;
 
   font-weight: 700;
 
-  cursor: pointer;
-
   white-space: nowrap;
+
+  flex-shrink: 0;
 
   transition: 0.25s ease;
 }
 
-
-.nav-links > a:hover,
-.smart-button:hover {
+.nav-links > a:hover {
   color: #7A2348;
 }
 
@@ -149,6 +144,10 @@
 
 .compare-link svg {
   color: #5B3A8E;
+}
+
+.compare-link:hover svg {
+  color: #7A2348;
 }
 
 
@@ -166,232 +165,62 @@
 
 
 /* =========================================================
-   SMART
+   ASK ONEBASKET
 ========================================================= */
 
-.smart-container {
-  position: relative;
-}
+.ask-onebasket-link {
+  display: flex;
 
+  align-items: center;
 
-.smart-button {
-  padding: 9px 12px;
+  gap: 7px;
 
-  border-radius: 10px;
+  padding: 9px 11px;
 
   background: rgba(91, 58, 142, 0.08);
 
   color: #5B3A8E !important;
-}
-
-
-.smart-button:hover {
-  background: #5B3A8E;
-
-  color: #FFFFFF !important;
-}
-
-
-/* =========================================================
-   SMART DROPDOWN
-========================================================= */
-
-.smart-menu {
-  position: absolute;
-
-  top: calc(100% + 17px);
-
-  left: -80px;
-
-  width: 315px;
-
-  padding: 12px;
-
-  box-sizing: border-box;
-
-  background: #FFFDF7;
-
-  border:
-    1px solid
-    rgba(91, 58, 142, 0.12);
-
-  border-radius: 18px;
-
-  box-shadow:
-    0 20px 55px
-    rgba(23, 21, 26, 0.16);
-
-  animation: menuAppear 0.2s ease;
-}
-
-
-@keyframes menuAppear {
-
-  from {
-    opacity: 0;
-
-    transform:
-      translateY(-8px);
-  }
-
-  to {
-    opacity: 1;
-
-    transform:
-      translateY(0);
-  }
-}
-
-
-/* =========================================================
-   SMART TITLE
-========================================================= */
-
-.smart-title {
-  display: flex;
-  align-items: center;
-
-  gap: 11px;
-
-  padding: 13px;
-
-  margin-bottom: 7px;
-
-  background: #F3EAFB;
-
-  border-radius: 13px;
-
-  color: #5B3A8E;
-}
-
-
-.smart-title div {
-  display: flex;
-  flex-direction: column;
-
-  gap: 3px;
-}
-
-
-.smart-title strong {
-  font-size: 14px;
-}
-
-
-.smart-title span {
-  color: #766B73;
-
-  font-size: 11px;
-}
-
-
-/* =========================================================
-   SMART ITEMS
-========================================================= */
-
-.smart-item {
-  display: flex;
-  align-items: center;
-
-  gap: 12px;
-
-  padding: 10px;
-
-  border-radius: 12px;
-
-  text-decoration: none;
-
-  transition: 0.2s ease;
-}
-
-
-.smart-item:hover {
-  background: #FFF5E2;
-
-  transform:
-    translateX(3px);
-}
-
-
-.smart-item > div:last-child {
-  display: flex;
-  flex-direction: column;
-
-  gap: 2px;
-}
-
-
-.smart-item strong {
-  color: #30282B;
-
-  font-size: 13px;
-}
-
-
-.smart-item span {
-  color: #8A7D82;
-
-  font-size: 11px;
-}
-
-
-/* =========================================================
-   SMART ICONS
-========================================================= */
-
-.smart-icon {
-  width: 36px;
-  height: 36px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
 
   border-radius: 10px;
 
+  text-decoration: none;
+
+  font-size: 13px;
+
+  font-weight: 800;
+
+  white-space: nowrap;
+
   flex-shrink: 0;
+
+  transition:
+    background 0.25s ease,
+    color 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
-
-.smart-icon.purple {
-  background: #E8DDF6;
-
+.ask-onebasket-link svg {
   color: #5B3A8E;
+
+  flex-shrink: 0;
+
+  transition: 0.25s ease;
 }
 
+.ask-onebasket-link:hover {
+  background: #5B3A8E;
 
-.smart-icon.burgundy {
-  background: #F4DCE5;
+  color: #FFFFFF !important;
 
-  color: #7A2348;
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 7px 18px rgba(91, 58, 142, 0.18);
 }
 
-
-.smart-icon.yellow {
-  background: #FFF0C4;
-
-  color: #9A7310;
-}
-
-
-.smart-icon.pink {
-  background: #F8DCE7;
-
-  color: #B85C78;
-}
-
-
-.smart-icon.green {
-  background: #DDEDE3;
-
-  color: #3E765B;
-}
-
-
-.smart-icon.dark {
-  background: #E7E3E5;
-
-  color: #30282B;
+.ask-onebasket-link:hover svg {
+  color: #FFFFFF;
 }
 
 
@@ -401,11 +230,18 @@
 
 .nav-actions {
   display: flex;
+
   align-items: center;
 
-  gap: 8px;
+  justify-content: flex-end;
+
+  gap: 5px;
 
   margin-left: auto;
+
+  flex-shrink: 0;
+
+  white-space: nowrap;
 }
 
 
@@ -415,11 +251,12 @@
 
 .location-btn {
   display: flex;
+
   align-items: center;
 
-  gap: 7px;
+  gap: 6px;
 
-  padding: 7px 9px;
+  padding: 7px 8px;
 
   background: transparent;
 
@@ -433,17 +270,20 @@
 
   font-family: inherit;
 
+  white-space: nowrap;
+
+  flex-shrink: 0;
+
   transition: 0.25s ease;
 }
-
 
 .location-btn:hover {
   background: #EAF2EC;
 }
 
-
 .location-btn span {
   display: flex;
+
   flex-direction: column;
 
   align-items: flex-start;
@@ -456,7 +296,6 @@
 
   color: #30282B;
 }
-
 
 .location-btn small {
   font-size: 9px;
@@ -476,6 +315,7 @@
   height: 38px;
 
   display: flex;
+
   align-items: center;
   justify-content: center;
 
@@ -487,9 +327,10 @@
 
   border-radius: 10px;
 
+  flex-shrink: 0;
+
   transition: 0.25s ease;
 }
-
 
 .icon-btn:hover {
   color: #7A2348;
@@ -506,16 +347,15 @@
   position: absolute;
 
   top: -2px;
-
   right: -2px;
 
   min-width: 17px;
-
   height: 17px;
 
   padding: 0 4px;
 
   display: flex;
+
   align-items: center;
   justify-content: center;
 
@@ -539,11 +379,14 @@
 
 .account-btn {
   display: flex;
+
   align-items: center;
+
+  justify-content: center;
 
   gap: 6px;
 
-  padding: 10px 15px;
+  padding: 10px 14px;
 
   background: #5B3A8E;
 
@@ -557,23 +400,23 @@
 
   font-weight: 800;
 
+  white-space: nowrap;
+
+  flex-shrink: 0;
+
   transition: 0.3s ease;
 
   box-shadow:
-    0 5px 14px
-    rgba(91, 58, 142, 0.18);
+    0 5px 14px rgba(91, 58, 142, 0.18);
 }
-
 
 .account-btn:hover {
   background: #7A2348;
 
-  transform:
-    translateY(-2px);
+  transform: translateY(-2px);
 
   box-shadow:
-    0 8px 20px
-    rgba(122, 35, 72, 0.22);
+    0 8px 20px rgba(122, 35, 72, 0.22);
 }
 
 
@@ -584,35 +427,117 @@
 @media (max-width: 1200px) {
 
   .navbar {
-    gap: 18px;
+    gap: 15px;
 
     padding: 0 3%;
   }
 
   .nav-links {
-    gap: 15px;
+    gap: 12px;
   }
 
-  .location-btn span {
-    display: none;
-  }
 }
 
 
 /* =========================================================
-   RESPONSIVE - 950px
+   RESPONSIVE - 1100px
 ========================================================= */
 
-@media (max-width: 950px) {
+@media (max-width: 1100px) {
 
-  .nav-links > a:nth-child(1),
-  .nav-links > a:nth-child(2) {
+  .navbar {
+    gap: 12px;
+  }
+
+  .nav-links {
+    gap: 9px;
+  }
+
+  .nav-links > a {
+    font-size: 13px;
+  }
+
+  .ask-onebasket-link {
+    padding: 8px 9px;
+
+    font-size: 12px;
+  }
+
+  .account-btn {
+    padding: 9px 11px;
+
+    font-size: 12px;
+  }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE - 1000px
+========================================================= */
+
+@media (max-width: 1000px) {
+
+  .navbar {
+    gap: 10px;
+  }
+
+  .nav-links {
+    gap: 7px;
+  }
+
+  .nav-links > a {
+    font-size: 12px;
+  }
+
+  .ask-onebasket-link {
+    padding: 8px;
+
+    font-size: 12px;
+  }
+
+  .location-btn {
+    padding: 6px;
+  }
+
+  .location-btn span {
+    font-size: 11px;
+  }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE - 900px
+========================================================= */
+
+@media (max-width: 900px) {
+
+  .nav-links > a:nth-child(1) {
     display: none;
   }
 
   .nav-links {
     justify-content: center;
   }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE - 800px
+========================================================= */
+
+@media (max-width: 800px) {
+
+  .nav-links > a:nth-child(2) {
+    display: none;
+  }
+
+  .nav-links {
+    gap: 6px;
+  }
+
 }
 
 
@@ -626,13 +551,16 @@
     min-height: 68px;
 
     padding: 0 15px;
+
+    gap: 8px;
   }
 
+
+  /* LOGO */
 
   .logo span:last-child {
     display: none;
   }
-
 
   .logo-mark {
     width: 38px;
@@ -640,15 +568,19 @@
   }
 
 
-  .nav-links {
-    gap: 8px;
-  }
+  /* NAVIGATION */
 
+  .nav-links {
+    gap: 5px;
+
+    justify-content: center;
+  }
 
   .nav-links > a {
     font-size: 0;
-  }
 
+    padding: 8px;
+  }
 
   .nav-links > a svg {
     width: 20px;
@@ -656,21 +588,57 @@
   }
 
 
-  .smart-button {
-    font-size: 0;
+  /* ASK ONEBASKET */
+
+  .ask-onebasket-link {
+    padding: 8px;
+
+    background: transparent;
+  }
+
+  .ask-onebasket-link:hover {
+    background: #F3EAFB;
+
+    color: #5B3A8E !important;
+
+    transform: none;
+
+    box-shadow: none;
+  }
+
+  .ask-onebasket-link:hover svg {
+    color: #5B3A8E;
+  }
+
+  .ask-onebasket-link svg {
+    width: 21px;
+    height: 21px;
   }
 
 
-  .smart-button svg {
-    width: 20px;
-    height: 20px;
+  /* RIGHT SIDE */
+
+  .nav-actions {
+    gap: 3px;
   }
 
+
+  /* LOCATION */
+
+  .location-btn {
+    padding: 7px;
+  }
+
+  .location-btn span {
+    display: none;
+  }
+
+
+  /* ACCOUNT */
 
   .account-btn span {
     display: none;
   }
-
 
   .account-btn {
     width: 38px;
@@ -681,16 +649,42 @@
     justify-content: center;
   }
 
+}
 
-  .smart-menu {
-    position: fixed;
 
-    top: 68px;
+/* =========================================================
+   VERY SMALL SCREEN
+========================================================= */
 
-    left: 50%;
+@media (max-width: 480px) {
 
-    width: min(315px, 90vw);
+  .navbar {
+    padding: 0 10px;
 
-    transform: translateX(-50%);
+    gap: 5px;
   }
+
+  .nav-links {
+    gap: 2px;
+  }
+
+  .nav-actions {
+    gap: 1px;
+  }
+
+  .icon-btn {
+    width: 34px;
+    height: 34px;
+  }
+
+  .account-btn {
+    width: 34px;
+    height: 34px;
+  }
+
+  .logo-mark {
+    width: 35px;
+    height: 35px;
+  }
+
 }
