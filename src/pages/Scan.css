@@ -1,0 +1,1027 @@
+.scan-page {
+  min-height: calc(100vh - 78px);
+  padding: 38px 6% 60px;
+  box-sizing: border-box;
+  background: #fffdf7;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.scan-header {
+  max-width: 950px;
+  margin: 0 auto 25px;
+
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.scan-header-icon {
+  width: 54px;
+  height: 54px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 15px;
+
+  background: #f3eafb;
+  color: #5b3a8e;
+}
+
+.scan-header p {
+  margin: 0 0 4px;
+
+  color: #7a2348;
+
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+}
+
+.scan-header h1 {
+  margin: 0;
+
+  color: #30282b;
+
+  font-size: 27px;
+  font-weight: 900;
+}
+
+.scan-header span {
+  display: block;
+
+  margin-top: 4px;
+
+  color: #8a7d82;
+
+  font-size: 12px;
+}
+
+
+/* =========================================================
+   SCANNER CARD
+========================================================= */
+
+.scanner-card {
+  width: 100%;
+  max-width: 850px;
+
+  margin: 0 auto;
+
+  padding: 22px;
+
+  box-sizing: border-box;
+
+  background: #ffffff;
+
+  border: 1px solid #e5ddeb;
+
+  border-radius: 22px;
+
+  box-shadow:
+    0 15px 45px rgba(23, 21, 26, 0.08);
+}
+
+
+/* =========================================================
+   SCANNER VIEW
+========================================================= */
+
+.scanner-view {
+  position: relative;
+
+  width: 100%;
+  height: 330px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+
+  border-radius: 18px;
+
+  background:
+    radial-gradient(
+      circle at center,
+      #f5eff9 0%,
+      #eee8f2 45%,
+      #e6dfe9 100%
+    );
+}
+
+.scanner-center {
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  text-align: center;
+
+  color: #5b3a8e;
+}
+
+.scanner-center h2 {
+  margin: 12px 0 5px;
+
+  color: #30282b;
+
+  font-size: 18px;
+}
+
+.scanner-center p {
+  margin: 0;
+
+  color: #8a7d82;
+
+  font-size: 11px;
+}
+
+
+/* =========================================================
+   SCANNER CORNERS
+========================================================= */
+
+.scanner-corner {
+  position: absolute;
+
+  width: 55px;
+  height: 55px;
+
+  border-color: #5b3a8e;
+  border-style: solid;
+}
+
+.top-left {
+  top: 45px;
+  left: 25%;
+  border-width: 4px 0 0 4px;
+  border-radius: 10px 0 0 0;
+}
+
+.top-right {
+  top: 45px;
+  right: 25%;
+  border-width: 4px 4px 0 0;
+  border-radius: 0 10px 0 0;
+}
+
+.bottom-left {
+  bottom: 45px;
+  left: 25%;
+  border-width: 0 0 4px 4px;
+  border-radius: 0 0 0 10px;
+}
+
+.bottom-right {
+  bottom: 45px;
+  right: 25%;
+  border-width: 0 4px 4px 0;
+  border-radius: 0 0 10px 0;
+}
+
+
+/* =========================================================
+   SCAN LINE
+========================================================= */
+
+.scan-line {
+  position: absolute;
+
+  left: 25%;
+  right: 25%;
+
+  height: 3px;
+
+  background: #7a2348;
+
+  box-shadow:
+    0 0 15px rgba(122, 35, 72, 0.6);
+
+  animation: scanMove 1.3s ease-in-out infinite;
+}
+
+@keyframes scanMove {
+  0% {
+    top: 45px;
+  }
+
+  50% {
+    top: calc(100% - 48px);
+  }
+
+  100% {
+    top: 45px;
+  }
+}
+
+
+/* =========================================================
+   UPLOADED IMAGE
+========================================================= */
+
+.uploaded-preview {
+  width: 100%;
+  height: 100%;
+
+  object-fit: contain;
+
+  padding: 20px;
+
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.scan-status {
+  margin-top: 12px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 7px;
+
+  color: #3e765b;
+
+  font-size: 11px;
+  font-weight: 700;
+}
+
+
+/* =========================================================
+   OPTIONS
+========================================================= */
+
+.scan-options {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap: 10px;
+
+  margin-top: 18px;
+}
+
+.scan-option {
+  min-height: 70px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  padding: 12px;
+
+  border: 1px solid #e2d9e7;
+
+  border-radius: 13px;
+
+  background: #ffffff;
+
+  color: #30282b;
+
+  font-family: inherit;
+
+  text-align: left;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.scan-option:hover:not(:disabled) {
+  border-color: #cbb7dd;
+
+  background: #faf6fc;
+
+  transform: translateY(-2px);
+}
+
+.scan-option.primary {
+  border-color: #5b3a8e;
+
+  background: #f3eafb;
+}
+
+.scan-option:disabled {
+  opacity: 0.5;
+
+  cursor: not-allowed;
+}
+
+.scan-option-icon {
+  width: 40px;
+  height: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  border-radius: 10px;
+
+  background: #ffffff;
+
+  color: #5b3a8e;
+}
+
+.scan-option strong {
+  display: block;
+
+  font-size: 12px;
+}
+
+.scan-option span {
+  display: block;
+
+  margin-top: 3px;
+
+  color: #8a7d82;
+
+  font-size: 9px;
+}
+
+
+/* =========================================================
+   NOTE
+========================================================= */
+
+.scan-note {
+  margin: 15px 0 0;
+
+  text-align: center;
+
+  color: #aaa0a5;
+
+  font-size: 9px;
+}
+
+
+/* =========================================================
+   RESULT CARD
+========================================================= */
+
+.scan-result-card {
+  max-width: 850px;
+
+  margin: 0 auto;
+
+  padding: 25px;
+
+  box-sizing: border-box;
+
+  background: #ffffff;
+
+  border: 1px solid #e5ddeb;
+
+  border-radius: 22px;
+
+  box-shadow:
+    0 15px 45px rgba(23, 21, 26, 0.08);
+}
+
+
+/* =========================================================
+   RESULT HEADER
+========================================================= */
+
+.result-heading {
+  display: flex;
+
+  justify-content: space-between;
+
+  gap: 20px;
+}
+
+.result-heading p {
+  margin: 0 0 4px;
+
+  color: #7a2348;
+
+  font-size: 9px;
+  font-weight: 900;
+
+  letter-spacing: 1px;
+}
+
+.result-heading h2 {
+  margin: 0;
+
+  color: #30282b;
+
+  font-size: 24px;
+}
+
+.result-heading span {
+  display: block;
+
+  margin-top: 5px;
+
+  color: #8a7d82;
+
+  font-size: 11px;
+}
+
+.close-scan {
+  width: 36px;
+  height: 36px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+  border-radius: 9px;
+
+  background: #f5eff6;
+
+  color: #7a2348;
+
+  cursor: pointer;
+}
+
+
+/* =========================================================
+   PRODUCT INFO
+========================================================= */
+
+.scan-product-info {
+  display: flex;
+
+  align-items: center;
+
+  gap: 18px;
+
+  margin-top: 22px;
+}
+
+.scan-product-image {
+  width: 100px;
+  height: 100px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  overflow: hidden;
+
+  border-radius: 16px;
+
+  background: #f5eff9;
+}
+
+.scan-product-image img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: contain;
+}
+
+.scan-product-image span {
+  font-size: 45px;
+}
+
+.scan-rating {
+  display: flex;
+
+  align-items: center;
+
+  gap: 5px;
+
+  margin-bottom: 8px;
+
+  font-size: 11px;
+}
+
+.scan-rating span {
+  color: #d89e12;
+
+  font-size: 15px;
+}
+
+.scan-rating small {
+  color: #8a7d82;
+}
+
+.scan-main-price {
+  display: flex;
+
+  align-items: center;
+
+  gap: 9px;
+}
+
+.scan-main-price strong {
+  color: #7a2348;
+
+  font-size: 24px;
+}
+
+.scan-main-price del {
+  color: #a69ba0;
+
+  font-size: 12px;
+}
+
+.scan-main-price span {
+  padding: 4px 7px;
+
+  border-radius: 5px;
+
+  background: #eaf3ed;
+
+  color: #3e765b;
+
+  font-size: 9px;
+
+  font-weight: 800;
+}
+
+
+/* =========================================================
+   BEST PRICE
+========================================================= */
+
+.best-price-box {
+  margin-top: 20px;
+
+  padding: 15px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  border-radius: 13px;
+
+  background: #eef6f0;
+
+  border: 1px solid #d7e9db;
+
+  color: #3e765b;
+}
+
+.best-price-icon {
+  width: 40px;
+  height: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 10px;
+
+  background: #ffffff;
+}
+
+.best-price-box div:nth-child(2) {
+  flex: 1;
+}
+
+.best-price-box span {
+  display: block;
+
+  font-size: 8px;
+
+  font-weight: 900;
+
+  letter-spacing: 1px;
+}
+
+.best-price-box strong {
+  display: block;
+
+  margin-top: 2px;
+
+  font-size: 20px;
+}
+
+
+/* =========================================================
+   STORE COMPARISON
+========================================================= */
+
+.store-comparison {
+  margin-top: 20px;
+}
+
+.store-comparison h3 {
+  margin: 0 0 10px;
+
+  color: #30282b;
+
+  font-size: 15px;
+}
+
+.store-row {
+  min-height: 50px;
+
+  padding: 0 12px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 10px;
+
+  border-bottom: 1px solid #eee8ef;
+}
+
+.store-row > div {
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+}
+
+.store-row strong {
+  color: #40383c;
+
+  font-size: 12px;
+}
+
+.store-row > strong {
+  color: #7a2348;
+
+  font-size: 15px;
+}
+
+.store-row span {
+  padding: 3px 5px;
+
+  border-radius: 4px;
+
+  background: #eaf3ed;
+
+  color: #3e765b;
+
+  font-size: 7px;
+
+  font-weight: 900;
+}
+
+.store-row.best-store {
+  background: #fafdfb;
+}
+
+
+/* =========================================================
+   ACTIONS
+========================================================= */
+
+.scan-actions {
+  display: grid;
+
+  grid-template-columns:
+    1fr 1fr 1.3fr;
+
+  gap: 9px;
+
+  margin-top: 20px;
+}
+
+.scan-actions button,
+.scan-actions a {
+  min-height: 45px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 7px;
+
+  box-sizing: border-box;
+
+  border-radius: 11px;
+
+  font-family: inherit;
+
+  font-size: 11px;
+
+  font-weight: 800;
+
+  text-decoration: none;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.scan-wishlist {
+  border: 1px solid #dfd3e4;
+
+  background: #ffffff;
+
+  color: #7a2348;
+}
+
+.scan-wishlist:hover,
+.scan-wishlist.liked {
+  background: #f8e4eb;
+
+  border-color: #e7c4d1;
+}
+
+.scan-cart {
+  background: #5b3a8e;
+
+  color: #ffffff;
+
+  border: 1px solid #5b3a8e;
+}
+
+.scan-cart:hover {
+  background: #7a2348;
+}
+
+.scan-compare {
+  background: #fff5e2;
+
+  color: #7a2348;
+
+  border: 1px solid #f1dfba;
+}
+
+.scan-compare:hover {
+  background: #f8e7c8;
+}
+
+
+/* =========================================================
+   SCAN AGAIN
+========================================================= */
+
+.scan-again {
+  margin: 15px auto 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 7px;
+
+  border: none;
+
+  background: transparent;
+
+  color: #5b3a8e;
+
+  font-family: inherit;
+
+  font-size: 10px;
+
+  font-weight: 800;
+
+  cursor: pointer;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+  .scan-page {
+    padding: 22px 12px 35px;
+  }
+
+  .scan-header h1 {
+    font-size: 22px;
+  }
+
+  .scanner-card,
+  .scan-result-card {
+    padding: 15px;
+
+    border-radius: 17px;
+  }
+
+  .scanner-view {
+    height: 270px;
+  }
+
+  .scan-options {
+    grid-template-columns: 1fr;
+  }
+
+  .scan-product-info {
+    align-items: flex-start;
+  }
+
+  .scan-product-image {
+    width: 75px;
+    height: 75px;
+  }
+
+  .scan-main-price {
+    flex-wrap: wrap;
+  }
+
+  .scan-actions {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+@media (max-width: 480px) {
+
+  .scan-header-icon {
+    width: 45px;
+    height: 45px;
+  }
+
+  .scan-header h1 {
+    font-size: 20px;
+  }
+
+  .scanner-view {
+    height: 230px;
+  }
+
+  .scanner-corner {
+    width: 42px;
+    height: 42px;
+  }
+
+  .scan-product-info {
+    gap: 12px;
+  }
+
+  .scan-product-image {
+    width: 65px;
+    height: 65px;
+  }
+
+  .scan-product-image span {
+    font-size: 32px;
+  }
+
+}
+/* =========================================================
+   REAL QR / BARCODE SCANNER
+========================================================= */
+
+.real-scanner-wrapper {
+  width: 100%;
+  position: relative;
+
+  overflow: hidden;
+
+  border-radius: 18px;
+
+  background: #17151a;
+
+  padding-bottom: 15px;
+}
+
+.barcode-reader {
+  width: 100%;
+  min-height: 330px;
+}
+
+/* html5-qrcode creates its own video */
+
+#barcode-reader video {
+  width: 100% !important;
+  height: 330px !important;
+
+  object-fit: cover;
+
+  border-radius: 18px 18px 0 0;
+}
+
+/* Hide unnecessary library controls */
+
+#barcode-reader img {
+  max-width: 100%;
+}
+
+/* Scanner status */
+
+.scanner-status {
+  min-height: 35px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 7px;
+
+  padding: 8px 15px;
+
+  box-sizing: border-box;
+
+  color: #ffffff;
+
+  font-size: 11px;
+
+  text-align: center;
+}
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+
+  display: inline-block;
+
+  border-radius: 50%;
+
+  background: #67b57d;
+
+  animation: scannerPulse 1s infinite;
+}
+
+@keyframes scannerPulse {
+
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.4;
+    transform: scale(0.7);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+}
+
+
+/* Stop scanner */
+
+.stop-scan-button {
+  margin: 0 auto;
+
+  min-height: 38px;
+
+  padding: 8px 14px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 7px;
+
+  border: 1px solid rgba(255,255,255,0.2);
+
+  border-radius: 9px;
+
+  background: rgba(255,255,255,0.1);
+
+  color: #ffffff;
+
+  font-family: inherit;
+
+  font-size: 10px;
+
+  font-weight: 800;
+
+  cursor: pointer;
+}
+
+.stop-scan-button:hover {
+  background: rgba(255,255,255,0.18);
+}
+
+
+/* =========================================================
+   REAL SCANNER MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+  .barcode-reader {
+    min-height: 270px;
+  }
+
+  #barcode-reader video {
+    height: 270px !important;
+  }
+
+}
