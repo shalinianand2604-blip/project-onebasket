@@ -5,31 +5,19 @@
 .navbar {
   width: 100%;
   min-height: 78px;
-
   padding: 0 4%;
-
   display: flex;
   align-items: center;
-
   gap: 22px;
-
   box-sizing: border-box;
-
   background: rgba(255, 249, 236, 0.97);
-
   backdrop-filter: blur(18px);
-
   border-bottom: 1px solid rgba(91, 58, 142, 0.12);
-
   position: sticky;
   top: 0;
-
   z-index: 1000;
-
-  box-shadow:
-    0 5px 25px rgba(23, 21, 26, 0.06);
+  box-shadow: 0 5px 25px rgba(23, 21, 26, 0.06);
 }
-
 
 /* =========================================================
    LOGO
@@ -38,22 +26,14 @@
 .logo {
   display: flex;
   align-items: center;
-
   gap: 9px;
-
   color: #5B3A8E;
-
   text-decoration: none;
-
   font-size: 25px;
   font-weight: 900;
-
   letter-spacing: -1px;
-
   white-space: nowrap;
-
   flex-shrink: 0;
-
   transition: 0.3s ease;
 }
 
@@ -61,37 +41,20 @@
   color: #7A2348;
 }
 
-.logo-mark {
-  width: 36px;
-  height: 36px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  background: #5B3A8E;
-
-  color: #FFFFFF;
-
-  border-radius: 11px;
-
-  font-size: 19px;
-  font-weight: 900;
-
-  box-shadow:
-    0 5px 15px rgba(91, 58, 142, 0.22);
-
-  transition: 0.3s ease;
+/* ✅ Updated logo styles */
+.logo-img {
+  height: 40px;
+  width: auto;
+  margin-right: 6px;
+  border-radius: 8px;
+  box-shadow: 0 3px 8px rgba(91, 58, 142, 0.15);
 }
 
-.logo:hover .logo-mark {
-  background: #7A2348;
-
-  transform:
-    rotate(-5deg)
-    scale(1.05);
+.logo-text {
+  font-size: 22px;
+  font-weight: 800;
+  color: #5B3A8E;
 }
-
 
 /* =========================================================
    NAVIGATION
@@ -100,43 +63,29 @@
 .nav-links {
   display: flex;
   align-items: center;
-
   gap: 18px;
-
   flex: 1;
-
   min-width: 0;
-
   overflow: visible;
 }
 
 .nav-links > a {
   display: flex;
   align-items: center;
-
   gap: 6px;
-
   color: #30282B;
-
   text-decoration: none;
-
   font-family: inherit;
-
   font-size: 14px;
-
   font-weight: 700;
-
   white-space: nowrap;
-
   flex-shrink: 0;
-
   transition: 0.25s ease;
 }
 
 .nav-links > a:hover {
   color: #7A2348;
 }
-
 
 /* =========================================================
    COMPARE
@@ -150,7 +99,6 @@
   color: #7A2348;
 }
 
-
 /* =========================================================
    DEALS
 ========================================================= */
@@ -163,66 +111,42 @@
   color: #F4B942;
 }
 
-
 /* =========================================================
    ASK ONEBASKET
 ========================================================= */
 
 .ask-onebasket-link {
   display: flex;
-
   align-items: center;
-
   gap: 7px;
-
   padding: 9px 11px;
-
   background: rgba(91, 58, 142, 0.08);
-
   color: #5B3A8E !important;
-
   border-radius: 10px;
-
   text-decoration: none;
-
   font-size: 13px;
-
   font-weight: 800;
-
   white-space: nowrap;
-
   flex-shrink: 0;
-
-  transition:
-    background 0.25s ease,
-    color 0.25s ease,
-    transform 0.25s ease,
-    box-shadow 0.25s ease;
+  transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .ask-onebasket-link svg {
   color: #5B3A8E;
-
   flex-shrink: 0;
-
   transition: 0.25s ease;
 }
 
 .ask-onebasket-link:hover {
   background: #5B3A8E;
-
   color: #FFFFFF !important;
-
   transform: translateY(-1px);
-
-  box-shadow:
-    0 7px 18px rgba(91, 58, 142, 0.18);
+  box-shadow: 0 7px 18px rgba(91, 58, 142, 0.18);
 }
 
 .ask-onebasket-link:hover svg {
   color: #FFFFFF;
 }
-
 
 /* =========================================================
    RIGHT SIDE ACTIONS
@@ -230,20 +154,13 @@
 
 .nav-actions {
   display: flex;
-
   align-items: center;
-
   justify-content: flex-end;
-
   gap: 5px;
-
   margin-left: auto;
-
   flex-shrink: 0;
-
   white-space: nowrap;
 }
-
 
 /* =========================================================
    LOCATION
@@ -251,440 +168,14 @@
 
 .location-btn {
   display: flex;
-
   align-items: center;
-
   gap: 6px;
-
   padding: 7px 8px;
-
   background: transparent;
-
   border: none;
-
   border-radius: 9px;
-
   cursor: pointer;
-
   color: #3E765B;
-
   font-family: inherit;
-
   white-space: nowrap;
-
-  flex-shrink: 0;
-
-  transition: 0.25s ease;
-}
-
-.location-btn:hover {
-  background: #EAF2EC;
-}
-
-.location-btn span {
-  display: flex;
-
-  flex-direction: column;
-
-  align-items: flex-start;
-
-  line-height: 1.1;
-
-  font-size: 12px;
-
-  font-weight: 800;
-
-  color: #30282B;
-}
-
-.location-btn small {
-  font-size: 9px;
-
-  color: #8A7D82;
-
-  font-weight: 600;
-}
-
-
-/* =========================================================
-   ICON BUTTONS
-========================================================= */
-
-.icon-btn {
-  width: 38px;
-  height: 38px;
-
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
-
-  position: relative;
-
-  color: #30282B;
-
-  text-decoration: none;
-
-  border-radius: 10px;
-
-  flex-shrink: 0;
-
-  transition: 0.25s ease;
-}
-
-.icon-btn:hover {
-  color: #7A2348;
-
-  background: #F7E8ED;
-}
-
-
-/* =========================================================
-   CART COUNT
-========================================================= */
-
-.cart-count {
-  position: absolute;
-
-  top: -2px;
-  right: -2px;
-
-  min-width: 17px;
-  height: 17px;
-
-  padding: 0 4px;
-
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
-
-  box-sizing: border-box;
-
-  background: #7A2348;
-
-  color: #FFFFFF;
-
-  border-radius: 20px;
-
-  font-size: 9px;
-
-  font-weight: 800;
-}
-
-
-/* =========================================================
-   ACCOUNT
-========================================================= */
-
-.account-btn {
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  gap: 6px;
-
-  padding: 10px 14px;
-
-  background: #5B3A8E;
-
-  color: #FFFFFF;
-
-  text-decoration: none;
-
-  border-radius: 11px;
-
-  font-size: 13px;
-
-  font-weight: 800;
-
-  white-space: nowrap;
-
-  flex-shrink: 0;
-
-  transition: 0.3s ease;
-
-  box-shadow:
-    0 5px 14px rgba(91, 58, 142, 0.18);
-}
-
-.account-btn:hover {
-  background: #7A2348;
-
-  transform: translateY(-2px);
-
-  box-shadow:
-    0 8px 20px rgba(122, 35, 72, 0.22);
-}
-
-
-/* =========================================================
-   RESPONSIVE - 1200px
-========================================================= */
-
-@media (max-width: 1200px) {
-
-  .navbar {
-    gap: 15px;
-
-    padding: 0 3%;
-  }
-
-  .nav-links {
-    gap: 12px;
-  }
-
-}
-
-
-/* =========================================================
-   RESPONSIVE - 1100px
-========================================================= */
-
-@media (max-width: 1100px) {
-
-  .navbar {
-    gap: 12px;
-  }
-
-  .nav-links {
-    gap: 9px;
-  }
-
-  .nav-links > a {
-    font-size: 13px;
-  }
-
-  .ask-onebasket-link {
-    padding: 8px 9px;
-
-    font-size: 12px;
-  }
-
-  .account-btn {
-    padding: 9px 11px;
-
-    font-size: 12px;
-  }
-
-}
-
-
-/* =========================================================
-   RESPONSIVE - 1000px
-========================================================= */
-
-@media (max-width: 1000px) {
-
-  .navbar {
-    gap: 10px;
-  }
-
-  .nav-links {
-    gap: 7px;
-  }
-
-  .nav-links > a {
-    font-size: 12px;
-  }
-
-  .ask-onebasket-link {
-    padding: 8px;
-
-    font-size: 12px;
-  }
-
-  .location-btn {
-    padding: 6px;
-  }
-
-  .location-btn span {
-    font-size: 11px;
-  }
-
-}
-
-
-/* =========================================================
-   RESPONSIVE - 900px
-========================================================= */
-
-@media (max-width: 900px) {
-
-  .nav-links > a:nth-child(1) {
-    display: none;
-  }
-
-  .nav-links {
-    justify-content: center;
-  }
-
-}
-
-
-/* =========================================================
-   RESPONSIVE - 800px
-========================================================= */
-
-@media (max-width: 800px) {
-
-  .nav-links > a:nth-child(2) {
-    display: none;
-  }
-
-  .nav-links {
-    gap: 6px;
-  }
-
-}
-
-
-/* =========================================================
-   RESPONSIVE - 700px
-========================================================= */
-
-@media (max-width: 700px) {
-
-  .navbar {
-    min-height: 68px;
-
-    padding: 0 15px;
-
-    gap: 8px;
-  }
-
-
-  /* LOGO */
-
-  .logo span:last-child {
-    display: none;
-  }
-
-  .logo-mark {
-    width: 38px;
-    height: 38px;
-  }
-
-
-  /* NAVIGATION */
-
-  .nav-links {
-    gap: 5px;
-
-    justify-content: center;
-  }
-
-  .nav-links > a {
-    font-size: 0;
-
-    padding: 8px;
-  }
-
-  .nav-links > a svg {
-    width: 20px;
-    height: 20px;
-  }
-
-
-  /* ASK ONEBASKET */
-
-  .ask-onebasket-link {
-    padding: 8px;
-
-    background: transparent;
-  }
-
-  .ask-onebasket-link:hover {
-    background: #F3EAFB;
-
-    color: #5B3A8E !important;
-
-    transform: none;
-
-    box-shadow: none;
-  }
-
-  .ask-onebasket-link:hover svg {
-    color: #5B3A8E;
-  }
-
-  .ask-onebasket-link svg {
-    width: 21px;
-    height: 21px;
-  }
-
-
-  /* RIGHT SIDE */
-
-  .nav-actions {
-    gap: 3px;
-  }
-
-
-  /* LOCATION */
-
-  .location-btn {
-    padding: 7px;
-  }
-
-  .location-btn span {
-    display: none;
-  }
-
-
-  /* ACCOUNT */
-
-  .account-btn span {
-    display: none;
-  }
-
-  .account-btn {
-    width: 38px;
-    height: 38px;
-
-    padding: 0;
-
-    justify-content: center;
-  }
-
-}
-
-
-/* =========================================================
-   VERY SMALL SCREEN
-========================================================= */
-
-@media (max-width: 480px) {
-
-  .navbar {
-    padding: 0 10px;
-
-    gap: 5px;
-  }
-
-  .nav-links {
-    gap: 2px;
-  }
-
-  .nav-actions {
-    gap: 1px;
-  }
-
-  .icon-btn {
-    width: 34px;
-    height: 34px;
-  }
-
-  .account-btn {
-    width: 34px;
-    height: 34px;
-  }
-
-  .logo-mark {
-    width: 35px;
-    height: 35px;
-  }
-
 }

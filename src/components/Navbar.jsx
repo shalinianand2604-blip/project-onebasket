@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 
 import LocationSelector from "./LocationSelector";
+import logo from "../assets/onebasket-logo.png";
 
 import {
   Heart,
@@ -13,178 +14,63 @@ import {
 
 import "./Navbar.css";
 
-
 function Navbar() {
-
   return (
-
     <nav className="navbar">
-
-
       {/* =================================================
           LOGO
       ================================================= */}
-
-      <Link
-        to="/"
-        className="logo"
-      >
-
-        <span className="logo-mark">
-          O
-        </span>
-
-        <span>
-          OneBasket
-        </span>
-
-      </Link>
-
+      <Link to="/" className="logo">
+  <img src={logo} alt="OneBasket Logo" className="logo-img" />
+  <span className="logo-text">OneBasket</span>
+</Link>
 
       {/* =================================================
           NAVIGATION LINKS
       ================================================= */}
-
       <div className="nav-links">
+        <Link to="/">Home</Link>
+        <Link to="/medicines">Medicines</Link>
+        <Link to="/grocery">Grocery</Link>
 
-
-        {/* HOME */}
-
-        <Link to="/">
-          Home
-        </Link>
-
-
-        {/* MEDICINES */}
-
-        <Link to="/medicines">
-          Medicines
-        </Link>
-
-
-        {/* GROCERY */}
-
-        <Link to="/grocery">
-          Grocery
-        </Link>
-
-
-        {/* COMPARE */}
-
-        <Link
-          to="/compare"
-          className="compare-link"
-        >
-
+        <Link to="/compare" className="compare-link">
           <Scale size={16} />
-
-          <span>
-            Compare
-          </span>
-
+          <span>Compare</span>
         </Link>
 
-
-        {/* DEALS */}
-
-        <Link
-          to="/deals"
-          className="deals-link"
-        >
-
+        <Link to="/deals" className="deals-link">
           <Flame size={16} />
-
-          <span>
-            Deals
-          </span>
-
+          <span>Deals</span>
         </Link>
 
-
-        {/* =================================================
-            ASK ONEBASKET
-        ================================================= */}
-
-        <Link
-          to="/ask"
-          className="ask-onebasket-link"
-        >
-
+        <Link to="/ask" className="ask-onebasket-link">
           <Bot size={17} />
-
-          <span>
-            Ask OneBasket
-          </span>
-
+          <span>Ask OneBasket</span>
         </Link>
-
       </div>
-
 
       {/* =================================================
           RIGHT SIDE ACTIONS
       ================================================= */}
-
       <div className="nav-actions">
-
-
-        {/* LOCATION */}
-
         <LocationSelector />
 
-
-        {/* WISHLIST */}
-
-        <Link
-          to="/wishlist"
-          className="icon-btn"
-          aria-label="Wishlist"
-        >
-
+        <Link to="/wishlist" className="icon-btn" aria-label="Wishlist">
           <Heart size={20} />
-
         </Link>
 
-
-        {/* CART */}
-
-        <Link
-          to="/cart"
-          className="icon-btn cart-btn"
-          aria-label="Cart"
-        >
-
+        <Link to="/cart" className="icon-btn cart-btn" aria-label="Cart">
           <ShoppingCart size={20} />
-
-          <span className="cart-count">
-            0
-          </span>
-
+          <span className="cart-count">0</span>
         </Link>
 
-
-        {/* ACCOUNT */}
-
-        <Link
-          to="/login"
-          className="account-btn"
-        >
-
+        <Link to="/login" className="account-btn">
           <User size={18} />
-
-          <span>
-            Account
-          </span>
-
+          <span>Account</span>
         </Link>
-
-
       </div>
-
     </nav>
-
   );
 }
-
 
 export default Navbar;

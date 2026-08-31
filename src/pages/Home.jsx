@@ -8,10 +8,6 @@ function Home() {
   return (
     <div className="home">
 
-      {/* =================================================
-          SEARCH BAR - HOME PAGE ONLY
-      ================================================= */}
-
       <div className="home-search">
         <SearchBar
           placeholder="Search medicines, groceries & more..."
