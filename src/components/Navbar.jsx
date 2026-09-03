@@ -12,63 +12,135 @@ import {
   Flame,
 } from "lucide-react";
 
+import { useCart } from "../pages/CartContext";
+
 import "./Navbar.css";
 
 function Navbar() {
+
+  const { cartCount } = useCart();
+
   return (
     <nav className="navbar">
-      {/* =================================================
-          LOGO
-      ================================================= */}
+
+      {/* LOGO */}
       <Link to="/" className="logo">
-  <img src={logo} alt="OneBasket Logo" className="logo-img" />
-  <span className="logo-text">OneBasket</span>
-</Link>
 
-      {/* =================================================
-          NAVIGATION LINKS
-      ================================================= */}
+        <img
+          src={logo}
+          alt="OneBasket Logo"
+          className="logo-img"
+        />
+
+        <span className="logo-text">
+          OneBasket
+        </span>
+
+      </Link>
+
+
+      {/* NAVIGATION */}
       <div className="nav-links">
-        <Link to="/">Home</Link>
-        <Link to="/medicines">Medicines</Link>
-        <Link to="/grocery">Grocery</Link>
 
-        <Link to="/compare" className="compare-link">
+        <Link to="/">
+          Home
+        </Link>
+
+        <Link to="/medicines">
+          Medicines
+        </Link>
+
+        <Link to="/grocery">
+          Grocery
+        </Link>
+
+
+        <Link
+          to="/compare"
+          className="compare-link"
+        >
           <Scale size={16} />
-          <span>Compare</span>
+
+          <span>
+            Compare
+          </span>
         </Link>
 
-        <Link to="/deals" className="deals-link">
+
+        <Link
+          to="/deals"
+          className="deals-link"
+        >
           <Flame size={16} />
-          <span>Deals</span>
+
+          <span>
+            Deals
+          </span>
         </Link>
 
-        <Link to="/ask" className="ask-onebasket-link">
+
+        <Link
+          to="/ask"
+          className="ask-onebasket-link"
+        >
           <Bot size={17} />
-          <span>Ask OneBasket</span>
+
+          <span>
+            Ask OneBasket
+          </span>
         </Link>
+
       </div>
 
-      {/* =================================================
-          RIGHT SIDE ACTIONS
-      ================================================= */}
+
+      {/* RIGHT SIDE */}
       <div className="nav-actions">
+
         <LocationSelector />
 
-        <Link to="/wishlist" className="icon-btn" aria-label="Wishlist">
+
+        {/* WISHLIST */}
+        <Link
+          to="/wishlist"
+          className="icon-btn"
+          aria-label="Wishlist"
+        >
           <Heart size={20} />
         </Link>
 
-        <Link to="/cart" className="icon-btn cart-btn" aria-label="Cart">
+
+        {/* CART */}
+        <Link
+          to="/cart"
+          className="icon-btn cart-btn"
+          aria-label="Cart"
+        >
+
           <ShoppingCart size={20} />
-          <span className="cart-count">0</span>
+
+          <span className="cart-count">
+            {cartCount || 0}
+          </span>
+
         </Link>
 
-        <Link to="/login" className="account-btn">
+
+        {/* ACCOUNT */}
+        <Link
+          to="/login"
+          className="account-btn"
+        >
+
           <User size={18} />
-          <span>Account</span>
+
+          <span>
+            Account
+          </span>
+
         </Link>
+
       </div>
+
     </nav>
   );
 }

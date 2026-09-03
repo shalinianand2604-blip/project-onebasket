@@ -15,16 +15,7 @@ function Home() {
       </div>
 
 
-      {/* =================================================
-          HERO SECTION
-      ================================================= */}
-
       <section className="hero">
-
-        {/* =================================================
-            HERO CONTENT
-        ================================================= */}
-
         <motion.div
           className="hero-content"
 
@@ -77,25 +68,10 @@ function Home() {
             >
               Compare Prices
             </Link>
-
-
-            <Link
-              to="/medicines"
-              className="secondary-btn"
-            >
-              Explore Medicines
-            </Link>
-
           </div>
 
         </motion.div>
-
-
-        {/* =================================================
-            HERO INFORMATION CARDS
-        ================================================= */}
-
-        <motion.div
+  <motion.div
           className="hero-card"
 
           initial={{
@@ -112,11 +88,6 @@ function Home() {
             duration: 0.8,
           }}
         >
-
-          {/* =================================================
-              MEDICINE CARD
-          ================================================= */}
-
           <div className="floating-card">
 
             <span>
@@ -140,12 +111,6 @@ function Home() {
             </b>
 
           </div>
-
-
-          {/* =================================================
-              GROCERY CARD
-          ================================================= */}
-
           <div className="floating-card">
 
             <span>
@@ -173,12 +138,6 @@ function Home() {
         </motion.div>
 
       </section>
-
-
-      {/* =================================================
-          CATEGORIES
-      ================================================= */}
-
       <section className="categories">
 
         <div className="section-heading">
@@ -195,13 +154,7 @@ function Home() {
 
 
         <div className="category-container">
-
-
-          {/* =================================================
-              MEDICINES
-          ================================================= */}
-
-          <motion.div
+      <motion.div
             className="category-card medicine"
 
             whileHover={{
@@ -227,12 +180,6 @@ function Home() {
             </Link>
 
           </motion.div>
-
-
-          {/* =================================================
-              GROCERIES
-          ================================================= */}
-
           <motion.div
             className="category-card grocery"
 
@@ -259,7 +206,6 @@ function Home() {
             </Link>
 
           </motion.div>
-
 
         </div>
 

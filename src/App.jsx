@@ -1,5 +1,9 @@
 import { Routes, Route } from "react-router-dom";
 
+import Scan from "./pages/Scan";
+import Wishlist from "./pages/WishList";
+import Cart from "./pages/Cart";
+
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import ScrollToTop from "./components/ScrollToTop";
@@ -9,56 +13,88 @@ import Medicines from "./pages/Medicines";
 import Grocery from "./pages/Grocery";
 import AskOneBasket from "./pages/AskOneBasket";
 
+import { WishlistProvider } from "./pages/WishListContext";
+import { CartProvider } from "./pages/CartContext";
+
 function App() {
   return (
-    <>
-      <ScrollToTop />
+    <CartProvider>
+      <WishlistProvider>
 
-      <Navbar />
+        <ScrollToTop />
 
-      <Routes>
+        <Navbar />
 
-        <Route
-          path="/"
-          element={<Home />}
-        />
+        <Routes>
 
-        <Route
-          path="/medicines"
-          element={<Medicines />}
-        />
+          {/* HOME */}
+          <Route
+            path="/"
+            element={<Home />}
+          />
 
-        <Route
-          path="/grocery"
-          element={<Grocery />}
-        />
-        <Route
-  path="/ask"
-  element={<AskOneBasket />}
-/>
+          {/* SMART SCAN */}
+          <Route
+            path="/scan"
+            element={<Scan />}
+          />
 
-        <Route
-          path="/compare"
-          element={
-            <div style={{ padding: "100px" }}>
-              <h1>Compare Coming Soon ⚖️</h1>
-            </div>
-          }
-        />
+          {/* MEDICINES */}
+          <Route
+            path="/medicines"
+            element={<Medicines />}
+          />
 
-        <Route
-          path="/deals"
-          element={
-            <div style={{ padding: "100px" }}>
-              <h1>Deals Coming Soon 🔥</h1>
-            </div>
-          }
-        />
+          {/* GROCERY */}
+          <Route
+            path="/grocery"
+            element={<Grocery />}
+          />
 
-      </Routes>
+          {/* ASK ONEBASKET */}
+          <Route
+            path="/ask"
+            element={<AskOneBasket />}
+          />
 
-      <Footer />
-    </>
+          {/* WISHLIST */}
+          <Route
+            path="/wishlist"
+            element={<Wishlist />}
+          />
+
+          {/* CART */}
+          <Route
+            path="/cart"
+            element={<Cart />}
+          />
+
+          {/* COMPARE */}
+          <Route
+            path="/compare"
+            element={
+              <div style={{ padding: "100px" }}>
+                <h1>Compare Coming Soon ⚖️</h1>
+              </div>
+            }
+          />
+
+          {/* DEALS */}
+          <Route
+            path="/deals"
+            element={
+              <div style={{ padding: "100px" }}>
+                <h1>Deals Coming Soon 🔥</h1>
+              </div>
+            }
+          />
+
+        </Routes>
+
+        <Footer />
+
+      </WishlistProvider>
+    </CartProvider>
   );
 }
 

@@ -27,11 +27,6 @@ function Wishlist() {
     addToCart,
   } = useCart();
 
-
-  /* =================================================
-     ADD WISHLIST PRODUCT TO CART
-  ================================================= */
-
   const handleAddToCart = (product) => {
 
     addToCart(product);
@@ -41,13 +36,7 @@ function Wishlist() {
     );
 
   };
-
-
-  /* =================================================
-     EMPTY WISHLIST
-  ================================================= */
-
-  if (wishlistItems.length === 0) {
+if (wishlistItems.length === 0) {
 
     return (
 
@@ -93,20 +82,11 @@ function Wishlist() {
     );
 
   }
-
-
-  /* =================================================
-     WISHLIST PAGE
-  ================================================= */
-
   return (
 
     <div className="wishlist-page">
 
       <div className="wishlist-container">
-
-
-        {/* ================= HEADER ================= */}
 
         <div className="wishlist-header">
 
@@ -142,10 +122,6 @@ function Wishlist() {
           </div>
 
         </div>
-
-
-        {/* ================= PRODUCTS ================= */}
-
         <div className="wishlist-grid">
 
           {wishlistItems.map((product) => (
@@ -154,11 +130,7 @@ function Wishlist() {
               className="wishlist-card"
               key={product.id}
             >
-
-
-              {/* ================= REMOVE HEART ================= */}
-
-              <button
+             <button
                 type="button"
                 className="wishlist-remove"
                 onClick={() =>
@@ -175,35 +147,19 @@ function Wishlist() {
                 />
 
               </button>
-
-
-              {/* ================= PRODUCT ICON ================= */}
-
-              <div className="wishlist-product-icon">
+               <div className="wishlist-product-icon">
 
                 {product.icon || "🛍️"}
 
               </div>
-
-
-              {/* ================= CATEGORY ================= */}
-
-              <p className="wishlist-category">
+                 <p className="wishlist-category">
 
                 {product.category || "Product"}
 
               </p>
-
-
-              {/* ================= PRODUCT NAME ================= */}
-
               <h2>
                 {product.name}
               </h2>
-
-
-              {/* ================= QUANTITY ================= */}
-
               {product.quantity && (
 
                 <p className="wishlist-quantity">
@@ -213,9 +169,6 @@ function Wishlist() {
                 </p>
 
               )}
-
-
-              {/* ================= PRICE ================= */}
 
               <div className="wishlist-price-row">
 
@@ -235,9 +188,6 @@ function Wishlist() {
                 )}
 
               </div>
-
-
-              {/* ================= DETAILS ================= */}
 
               <div className="wishlist-details">
 
@@ -269,9 +219,6 @@ function Wishlist() {
 
               </div>
 
-
-              {/* ================= AVAILABILITY ================= */}
-
               <div className="wishlist-availability">
 
                 <CheckCircle size={14} />
@@ -285,14 +232,7 @@ function Wishlist() {
                 </span>
 
               </div>
-
-
-              {/* ================= ACTION BUTTONS ================= */}
-
               <div className="wishlist-actions">
-
-
-                {/* ADD TO CART */}
 
                 <button
                   type="button"
@@ -314,9 +254,6 @@ function Wishlist() {
                     : "Add to Cart"}
 
                 </button>
-
-
-                {/* DELETE */}
 
                 <button
                   type="button"

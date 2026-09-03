@@ -13,14 +13,7 @@ import "./Footer.css";
 function Footer() {
   return (
     <footer className="footer">
-
-      {/* =========================
-          MAIN FOOTER
-      ========================= */}
-
       <div className="footer-main">
-
-        {/* BRAND */}
 
         <div className="footer-brand">
 
@@ -48,11 +41,6 @@ function Footer() {
 
         </div>
 
-
-        {/* =========================
-            EXPLORE
-        ========================= */}
-
         <div className="footer-column">
 
           <h3>Explore</h3>
@@ -79,11 +67,6 @@ function Footer() {
 
         </div>
 
-
-        {/* =========================
-            SMART SHOPPING
-        ========================= */}
-
         <div className="footer-column">
 
           <h3>Smart Shopping</h3>
@@ -109,12 +92,6 @@ function Footer() {
           </Link>
 
         </div>
-
-
-        {/* =========================
-            SUPPORT
-        ========================= */}
-
         <div className="footer-column">
 
           <h3>Support</h3>
@@ -141,11 +118,6 @@ function Footer() {
 
         </div>
 
-
-        {/* =========================
-            CONTACT
-        ========================= */}
-
         <div className="footer-contact">
 
           <h3>Get in touch</h3>
@@ -155,7 +127,7 @@ function Footer() {
             <MapPin size={17} />
 
             <span>
-              Chennai, Tamil Nadu
+              Madurai, Tamil Nadu
             </span>
 
           </div>
@@ -181,9 +153,6 @@ function Footer() {
             </span>
 
           </div>
-
-
-          {/* SOCIAL LINKS */}
 
           <div className="social-links">
 
@@ -214,11 +183,6 @@ function Footer() {
 
       </div>
 
-
-      {/* =========================
-          HIGHLIGHT
-      ========================= */}
-
       <div className="footer-highlight">
 
         <div>
@@ -242,13 +206,7 @@ function Footer() {
         </Link>
 
       </div>
-
-
-      {/* =========================
-          BOTTOM
-      ========================= */}
-
-      <div className="footer-bottom">
+  <div className="footer-bottom">
 
         <p>
           © 2026 OneBasket. All rights reserved.

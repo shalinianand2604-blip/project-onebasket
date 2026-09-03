@@ -1,5 +1,8 @@
 import { useState } from "react";
-import { useSearchParams, useNavigate } from "react-router-dom";
+import {
+  useSearchParams,
+  useNavigate,
+} from "react-router-dom";
 
 import {
   Pill,
@@ -18,9 +21,15 @@ import {
   ArrowRight,
   SlidersHorizontal,
   X,
+  Heart,
+  ShoppingCart,
+  Star,
 } from "lucide-react";
 
 import "./Medicines.css";
+
+import { useWishlist } from "./WishListContext";
+import { useCart } from "./CartContext";
 
 
 /* =========================================================
@@ -222,110 +231,245 @@ const categories = [
 
 const products = [
   {
+    id: 101,
     name: "Paracetamol",
     type: "Pain Relief",
+    description: "Common pain and fever relief medicine",
+    price: 25,
+    mrp: 32,
+    discount: "22% OFF",
+    rating: 4.7,
+    reviews: 156,
   },
 
   {
+    id: 102,
     name: "Paracetamol 500mg",
     type: "Pain Relief",
+    description: "500mg pain and fever relief tablets",
+    price: 32,
+    mrp: 40,
+    discount: "20% OFF",
+    rating: 4.6,
+    reviews: 121,
   },
 
   {
+    id: 103,
     name: "Paracetamol 650mg",
     type: "Pain Relief",
+    description: "650mg pain and fever relief tablets",
+    price: 38,
+    mrp: 46,
+    discount: "17% OFF",
+    rating: 4.7,
+    reviews: 184,
   },
 
   {
+    id: 104,
     name: "Crocin",
     type: "Pain Relief",
+    description: "Pain and fever relief medicine",
+    price: 30,
+    mrp: 36,
+    discount: "17% OFF",
+    rating: 4.5,
+    reviews: 98,
   },
 
   {
+    id: 105,
     name: "Dolo 650",
     type: "Pain Relief",
+    description: "650mg tablet for pain and fever relief",
+    price: 30,
+    mrp: 38,
+    discount: "21% OFF",
+    rating: 4.8,
+    reviews: 245,
   },
 
   {
+    id: 106,
     name: "Ibuprofen",
     type: "Pain Relief",
+    description: "Pain and inflammation relief medicine",
+    price: 42,
+    mrp: 50,
+    discount: "16% OFF",
+    rating: 4.5,
+    reviews: 87,
   },
 
   {
+    id: 107,
     name: "Cetirizine",
     type: "Cold & Cough",
+    description: "Common allergy relief medicine",
+    price: 28,
+    mrp: 35,
+    discount: "20% OFF",
+    rating: 4.6,
+    reviews: 112,
   },
 
   {
+    id: 108,
     name: "Azithromycin",
     type: "General",
+    description: "Prescription antibiotic medicine",
+    price: 65,
+    mrp: 78,
+    discount: "17% OFF",
+    rating: 4.4,
+    reviews: 76,
   },
 
   {
+    id: 109,
     name: "Vitamin C",
     type: "Vitamins",
+    description: "Vitamin C supplement tablets",
+    price: 120,
+    mrp: 145,
+    discount: "17% OFF",
+    rating: 4.7,
+    reviews: 143,
   },
 
   {
+    id: 110,
     name: "Vitamin D",
     type: "Vitamins",
+    description: "Vitamin D supplement",
+    price: 135,
+    mrp: 160,
+    discount: "16% OFF",
+    rating: 4.6,
+    reviews: 91,
   },
 
   {
+    id: 111,
     name: "Vitamin B Complex",
     type: "Vitamins",
+    description: "Daily vitamin B complex supplement",
+    price: 110,
+    mrp: 130,
+    discount: "15% OFF",
+    rating: 4.5,
+    reviews: 84,
   },
 
   {
+    id: 112,
     name: "Multivitamins",
     type: "Vitamins",
+    description: "Daily multivitamin supplement",
+    price: 180,
+    mrp: 220,
+    discount: "18% OFF",
+    rating: 4.7,
+    reviews: 137,
   },
 
   {
+    id: 113,
     name: "Cough Syrup",
     type: "Cold & Cough",
+    description: "Soothing cough relief syrup",
+    price: 95,
+    mrp: 115,
+    discount: "17% OFF",
+    rating: 4.4,
+    reviews: 72,
   },
 
   {
+    id: 114,
     name: "Cold & Cough Tablets",
     type: "Cold & Cough",
+    description: "Relief from common cold symptoms",
+    price: 48,
+    mrp: 60,
+    discount: "20% OFF",
+    rating: 4.5,
+    reviews: 88,
   },
 
   {
+    id: 115,
     name: "Pain Relief Tablets",
     type: "Pain Relief",
+    description: "Tablets for everyday pain relief",
+    price: 35,
+    mrp: 45,
+    discount: "22% OFF",
+    rating: 4.5,
+    reviews: 69,
   },
 
   {
+    id: 116,
     name: "First Aid Kit",
     type: "First Aid",
+    description: "Essential supplies for basic first aid",
+    price: 249,
+    mrp: 299,
+    discount: "17% OFF",
+    rating: 4.8,
+    reviews: 115,
   },
 
   {
+    id: 117,
     name: "Eye Drops",
     type: "Eye & Ear Care",
+    description: "Lubricating eye drops",
+    price: 89,
+    mrp: 105,
+    discount: "15% OFF",
+    rating: 4.5,
+    reviews: 64,
   },
 
   {
+    id: 118,
     name: "Ear Drops",
     type: "Eye & Ear Care",
+    description: "Ear care drops",
+    price: 78,
+    mrp: 95,
+    discount: "18% OFF",
+    rating: 4.4,
+    reviews: 51,
   },
 
   {
+    id: 119,
     name: "Antiseptic",
     type: "First Aid",
+    description: "Antiseptic solution for wound care",
+    price: 72,
+    mrp: 85,
+    discount: "15% OFF",
+    rating: 4.6,
+    reviews: 82,
   },
 
   {
+    id: 120,
     name: "Bandages",
     type: "First Aid",
+    description: "Adhesive bandages for minor wounds",
+    price: 45,
+    mrp: 55,
+    discount: "18% OFF",
+    rating: 4.7,
+    reviews: 97,
   },
 ];
-
-
-/* =========================================================
-   MEDICINES PAGE
-========================================================= */
 
 function Medicines() {
 
@@ -333,26 +477,18 @@ function Medicines() {
 
   const navigate = useNavigate();
 
-
-  /* =========================================================
-     SEARCH
-  ========================================================= */
+  const {
+    toggleWishlist,
+    isWishlisted,
+  } = useWishlist();
+  const {
+    addToCart,
+  } = useCart();
 
   const search =
     searchParams.get("search") || "";
-
-
-  /* =========================================================
-     CHECK WHETHER USER CAME FROM CATEGORY
-  ========================================================= */
-
   const fromCategory =
     searchParams.get("fromCategory") === "true";
-
-
-  /* =========================================================
-     OPEN CATEGORY
-  ========================================================= */
 
   const [openCategory, setOpenCategory] =
     useState(null);
@@ -375,6 +511,14 @@ function Medicines() {
 
 
   /* =========================================================
+     LOCAL CART DISPLAY STATE
+  ========================================================= */
+
+  const [addedProducts, setAddedProducts] =
+    useState([]);
+
+
+  /* =========================================================
      FILTER OPTIONS
   ========================================================= */
 
@@ -394,23 +538,26 @@ function Medicines() {
 
   const results = products.filter((product) => {
 
+    const searchQuery =
+      search.toLowerCase().trim();
+
     const matchesSearch =
-      !search.trim() ||
+      !searchQuery ||
       product.name
         .toLowerCase()
-        .includes(search.toLowerCase());
-
+        .includes(searchQuery) ||
+      product.type
+        .toLowerCase()
+        .includes(searchQuery);
 
     const matchesFilter =
       selectedFilter === "All" ||
       product.type === selectedFilter;
 
-
     return (
       matchesSearch &&
       matchesFilter
     );
-
   });
 
 
@@ -427,7 +574,6 @@ function Medicines() {
         ? null
         : categoryName
     );
-
   };
 
 
@@ -439,29 +585,20 @@ function Medicines() {
     subcategory
   ) => {
 
-    /* Close category */
     setOpenCategory(null);
 
-    /* Close filter */
     setFilterOpen(false);
-
-    /*
-      IMPORTANT:
-      fromCategory=true tells the page
-      that the user came from a category.
-    */
 
     navigate(
       `/medicines?search=${encodeURIComponent(
         subcategory
       )}&fromCategory=true`
     );
-
   };
 
 
   /* =========================================================
-     PRODUCT CLICK
+     MEDICINE SEARCH CLICK
   ========================================================= */
 
   const handleMedicineClick = (
@@ -477,7 +614,30 @@ function Medicines() {
         medicine
       )}`
     );
+  };
 
+
+  /* =========================================================
+     ADD TO CART
+  ========================================================= */
+
+  const handleAddToCart = (product) => {
+
+    addToCart(product);
+
+    setAddedProducts((previous) => {
+
+      if (
+        previous.includes(product.id)
+      ) {
+        return previous;
+      }
+
+      return [
+        ...previous,
+        product.id,
+      ];
+    });
   };
 
 
@@ -494,7 +654,6 @@ function Medicines() {
     setFilterOpen(false);
 
     setSelectedFilter("All");
-
   };
 
 
@@ -503,9 +662,7 @@ function Medicines() {
   ========================================================= */
 
   const handleClearFilter = () => {
-
     setSelectedFilter("All");
-
   };
 
 
@@ -516,9 +673,7 @@ function Medicines() {
   const handleFilterSelect = (
     filter
   ) => {
-
     setSelectedFilter(filter);
-
   };
 
 
@@ -573,18 +728,11 @@ function Medicines() {
 
             {/* =================================================
                 FILTER
-
-                IMPORTANT:
-                Hidden when user comes from
-                a medicine category.
             ================================================= */}
 
             {!fromCategory && (
 
               <div className="filter-wrapper">
-
-
-                {/* FILTER BUTTON */}
 
                 <button
                   type="button"
@@ -622,16 +770,9 @@ function Medicines() {
                 </button>
 
 
-                {/* =================================================
-                    FILTER PANEL
-                ================================================= */}
-
                 {filterOpen && (
 
                   <div className="medicine-filter-panel">
-
-
-                    {/* FILTER HEADER */}
 
                     <div className="filter-header">
 
@@ -646,7 +787,6 @@ function Medicines() {
                         </p>
 
                       </div>
-
 
                       <button
                         type="button"
@@ -663,8 +803,6 @@ function Medicines() {
 
                     </div>
 
-
-                    {/* FILTER OPTIONS */}
 
                     <div className="filter-options">
 
@@ -709,8 +847,6 @@ function Medicines() {
                     </div>
 
 
-                    {/* FILTER FOOTER */}
-
                     <div className="filter-bottom">
 
                       <button
@@ -748,69 +884,191 @@ function Medicines() {
 
 
           {/* =================================================
-              RESULTS
+              MEDICINE PRODUCT RESULTS
           ================================================= */}
 
           {results.length > 0 ? (
 
             <div className="medicine-results">
 
-              {results.map((product) => (
+              {results.map((product) => {
 
-                <button
-                  className="medicine-result-card"
-                  key={product.name}
-                  type="button"
-                  onClick={() =>
-                    handleMedicineClick(
-                      product.name
-                    )
-                  }
-                >
+                const liked =
+                  isWishlisted(
+                    product.id
+                  );
 
-                  {/* ICON */}
+                const added =
+                  addedProducts.includes(
+                    product.id
+                  );
 
-                  <div className="result-icon">
-                    💊
-                  </div>
+                return (
+
+                  <article
+                    className="medicine-result-card"
+                    key={product.id}
+                  >
+
+                    {/* =================================================
+                        HEART
+                    ================================================= */}
+
+                    <button
+                      type="button"
+                      className={
+                        `medicine-result-wishlist ${
+                          liked
+                            ? "liked"
+                            : ""
+                        }`
+                      }
+                      onClick={(event) => {
+
+                        event.stopPropagation();
+
+                        toggleWishlist(
+                          product
+                        );
+
+                      }}
+                      aria-label={
+                        liked
+                          ? "Remove from wishlist"
+                          : "Add to wishlist"
+                      }
+                    >
+
+                      <Heart
+                        size={18}
+                        fill={
+                          liked
+                            ? "currentColor"
+                            : "none"
+                        }
+                      />
+
+                    </button>
 
 
-                  {/* DETAILS */}
+                    {/* =================================================
+                        MEDICINE ICON
+                    ================================================= */}
 
-                  <div className="result-details">
+                    <div className="medicine-result-icon">
 
-                    <p className="result-category">
-                      {product.type}
-                    </p>
+                      <Pill
+                        size={40}
+                      />
 
-                    <h3>
-                      {product.name}
-                    </h3>
-
-                    <p>
-                      Available medicine
-                    </p>
-
-                  </div>
+                    </div>
 
 
-                  {/* VIEW PRODUCT */}
+                    {/* =================================================
+                        PRODUCT DETAILS
+                    ================================================= */}
 
-                  <div className="view-product">
+                    <div className="medicine-result-details">
 
-                    <span>
-                      View Product
-                    </span>
+                      <span className="medicine-result-category">
 
-                    <ArrowRight
-                      size={16}
-                    />
+                        {product.type}
 
-                  </div>
+                      </span>
 
-                </button>
 
-              ))}
+                      <h3>
+                        {product.name}
+                      </h3>
+
+
+                      <p>
+                        {product.description}
+                      </p>
+
+
+                      {/* =================================================
+                          RATING
+                      ================================================= */}
+
+                      <div className="medicine-result-rating">
+
+                        <span>
+                          ★
+                        </span>
+
+                        <strong>
+                          {product.rating}
+                        </strong>
+
+                        <small>
+                          ({product.reviews})
+                        </small>
+
+                      </div>
+
+
+                      {/* =================================================
+                          PRICE
+                      ================================================= */}
+
+                      <div className="medicine-result-price">
+
+                        <strong>
+                          ₹{product.price}
+                        </strong>
+
+                        <del>
+                          ₹{product.mrp}
+                        </del>
+
+                        <span>
+                          {product.discount}
+                        </span>
+
+                      </div>
+
+
+                      {/* =================================================
+                          ADD TO CART
+                      ================================================= */}
+
+                      <button
+                        type="button"
+                        className={
+                          `medicine-result-cart ${
+                            added
+                              ? "added"
+                              : ""
+                          }`
+                        }
+                        onClick={(event) => {
+
+                          event.stopPropagation();
+
+                          handleAddToCart(
+                            product
+                          );
+
+                        }}
+                      >
+
+                        <ShoppingCart
+                          size={15}
+                        />
+
+                        {added
+                          ? "Added to Cart"
+                          : "Add to Cart"}
+
+                      </button>
+
+                    </div>
+
+                  </article>
+
+                );
+              })}
 
             </div>
 
@@ -833,7 +1091,6 @@ function Medicines() {
               <p>
                 Try searching for another medicine.
               </p>
-
 
               <button
                 type="button"
@@ -860,9 +1117,6 @@ function Medicines() {
 
       <section className="medicine-category-section">
 
-
-        {/* HEADING */}
-
         <div className="medicine-heading">
 
           <div>
@@ -880,9 +1134,7 @@ function Medicines() {
         </div>
 
 
-        {/* =================================================
-            ALL MEDICINES
-        ================================================= */}
+        {/* ALL MEDICINES */}
 
         <button
           className="all-medicines"
@@ -924,7 +1176,6 @@ function Medicines() {
               openCategory ===
               category.name;
 
-
             return (
 
               <div
@@ -938,10 +1189,7 @@ function Medicines() {
                 key={category.name}
               >
 
-
-                {/* =================================================
-                    CATEGORY HEADER
-                ================================================= */}
+                {/* CATEGORY HEADER */}
 
                 <button
                   type="button"
@@ -952,8 +1200,6 @@ function Medicines() {
                     )
                   }
                 >
-
-                  {/* ICON */}
 
                   <div
                     className={
@@ -968,8 +1214,6 @@ function Medicines() {
                   </div>
 
 
-                  {/* INFORMATION */}
-
                   <div className="category-info">
 
                     <h3>
@@ -982,8 +1226,6 @@ function Medicines() {
 
                   </div>
 
-
-                  {/* ARROW */}
 
                   <ChevronDown
                     size={18}
@@ -999,9 +1241,7 @@ function Medicines() {
                 </button>
 
 
-                {/* =================================================
-                    SUBCATEGORY
-                ================================================= */}
+                {/* SUBCATEGORY */}
 
                 {isOpen && (
 
@@ -1049,10 +1289,7 @@ function Medicines() {
       </section>
 
     </div>
-
   );
-
 }
-
 
 export default Medicines;

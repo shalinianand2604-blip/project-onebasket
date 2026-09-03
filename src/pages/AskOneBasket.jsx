@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+
 import {
   Bot,
   Send,
@@ -8,14 +9,17 @@ import {
   ShoppingCart,
   Tag,
   MapPin,
-  X,
+  ScanLine,
+  Package,
+  RotateCcw,
+  CreditCard,
+  UserCircle,
+  Heart,
 } from "lucide-react";
 
 import "./AskOneBasket.css";
 
-
 function AskOneBasket() {
-
   const navigate = useNavigate();
 
   const [message, setMessage] = useState("");
@@ -25,56 +29,275 @@ function AskOneBasket() {
       id: 1,
       sender: "bot",
       text:
-        "Hi! 👋 I'm OneBasket. I can help you find medicines, groceries, compare prices and check delivery options. What are you looking for?",
+        "Hi! 👋 I'm OneBasket Assistant. How can I help You?",
     },
   ]);
 
   const messagesEndRef = useRef(null);
-
-  // Always open this page at the top, while keeping chat scrolling inside the messages area.
   useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "instant",
+    });
   }, []);
-
-
-  /* =========================================================
-     AUTO SCROLL
-  ========================================================= */
-
   useEffect(() => {
-
     messagesEndRef.current?.scrollIntoView({
       behavior: "smooth",
       block: "end",
     });
-
   }, [messages]);
 
-
-  /* =========================================================
-     BOT RESPONSE
-  ========================================================= */
-
-  const getBotResponse = (text) => {
-
+  const hasAny = (query, words) => {
+    return words.some((word) => query.includes(word));
+  };
+const getBotResponse = (text) => {
     const query = text.toLowerCase().trim();
 
-
-    /* MEDICINES */
-
     if (
-      query.includes("paracetamol") ||
-      query.includes("dolo") ||
-      query.includes("crocin") ||
-      query.includes("ibuprofen") ||
-      query.includes("cetirizine") ||
-      query.includes("azithromycin")
+      query === "hi" ||
+      query === "hello" ||
+      query === "hey" ||
+      query === "hai" ||
+      query === "hii" ||
+      query === "helo" ||
+      query.includes("good morning") ||
+      query.includes("good afternoon") ||
+      query.includes("good evening")
     ) {
-
       return {
         text:
-          "Sure! 💊 I can help you find that medicine. You can view the available medicines and check their details and prices.",
+          "Hello! 👋 Welcome to OneBasket. I can help you with orders, shopping, medicines, groceries, delivery, prices, returns, refunds, Smart Scan and more. What would you like to know?",
+        action: null,
+      };
+    }
+  if (
+      hasAny(query, [
+        "what is onebasket",
+        "what is one basket",
+        "about onebasket",
+        "about one basket",
+        "tell me about onebasket",
+        "tell me about one basket",
+        "what does onebasket do",
+        "what is this website",
+        "what is this app",
+      ])
+    ) {
+      return {
+        text:
+          "OneBasket is a smart shopping platform for medicines and groceries. You can search products, browse categories, compare prices, find deals, use Smart Scan, add products to your cart, save items to your wishlist and manage your shopping from one place.",
+        action: null,
+      };
+    }
+   if (
+      hasAny(query, [
+        "how does onebasket work",
+        "how onebasket works",
+        "how does this website work",
+        "how does the website work",
+        "how to use onebasket",
+        "how can i use onebasket",
+        "how do i use onebasket",
+        "how do i use this website",
+        "how can i use this website",
+        "how to shop",
+        "how can i shop",
+      ])
+    ) {
+      return {
+        text:
+          "Using OneBasket is simple 😊. Choose Medicines or Grocery, search for a product or browse categories, open a product, compare available prices, add the item to your cart and continue shopping or checkout. You can also use Smart Scan to identify products.",
+        action: null,
+      };
+    }
+    if (
+      hasAny(query, [
+        "website features",
+        "features of onebasket",
+        "what features",
+        "what can i do here",
+        "what can i do on this website",
+        "what does this website offer",
+        "what services do you provide",
+        "what services does onebasket provide",
+        "features",
+      ])
+    ) {
+      return {
+        text:
+          "OneBasket includes 💊 Medicines, 🛒 Grocery, 💰 Price Comparison, 📷 Smart Scan, 🔥 Deals, 📦 Order support, 📍 Delivery location, ❤️ Wishlist, 🛍️ Cart, 👤 Account and Ask OneBasket.",
+        action: null,
+      };
+    }
+    if (
+      hasAny(query, [
+        "my order",
+        "my orders",
+        "about my order",
+        "know about my order",
+        "tell me about my order",
+        "order details",
+        "order detail",
+        "order status",
+        "status of my order",
+        "check my order",
+        "check order",
+        "track my order",
+        "track order",
+        "where is my order",
+        "where's my order",
+        "where is the order",
+        "order tracking",
+        "track my package",
+        "track my parcel",
+        "package status",
+        "parcel status",
+        "has my order shipped",
+        "is my order shipped",
+        "when will my order arrive",
+        "when will my order come",
+        "when will my order be delivered",
+        "order delivery status",
+      ])
+    ) {
+      return {
+        text:
+          "📦 Sure! I can help you with your order. For the latest order status, please check your Orders section after signing in. You can use it to see your order details, delivery status and expected delivery information.",
+        action: null,
+      };
+    }
+    if (
+      hasAny(query, [
+        "cancel my order",
+        "cancel order",
+        "cancel the order",
+        "i want to cancel",
+        "can i cancel my order",
+        "can i cancel the order",
+        "how to cancel my order",
+        "how do i cancel",
+      ])
+    ) {
+      return {
+        text:
+          "📦 To cancel an order, open your order details and check whether cancellation is available for that order. Orders that are already being prepared for delivery may not be cancellable.",
+        action: null,
+      };
+    }
+    if (
+      hasAny(query, [
+        "return my order",
+        "return order",
+        "return the order",
+        "return product",
+        "return an item",
+        "i want to return",
+        "how to return",
+        "how do i return",
+        "can i return",
+        "product return",
+      ])
+    ) {
+      return {
+        text:
+          "↩️ To return a product, open the order containing that item and check the available return option. Return availability can depend on the product and order status.",
+        action: null,
+      };
+    }
+if (
+      hasAny(query, [
+        "refund",
+        "where is my refund",
+        "when will i get my refund",
+        "refund status",
+        "refund money",
+        "money back",
+        "when will refund come",
+      ])
+    ) {
+      return {
+        text:
+          "💳 For a refund, check the order details and payment information for the returned or cancelled item. The refund status depends on the order and payment method.",
+        action: null,
+      };
+    }
 
+    if (
+      hasAny(query, [
+        "payment",
+        "pay",
+        "how can i pay",
+        "payment methods",
+        "how to pay",
+        "online payment",
+        "cash on delivery",
+        "cod",
+      ])
+    ) {
+      return {
+        text:
+          "💳 Payment information is handled during checkout. Select the available payment option shown for your order and complete the purchase.",
+        action: null,
+      };
+    }
+
+    if (
+      hasAny(query, [
+        "what can i buy",
+        "what products can i buy",
+        "what products are available",
+        "what products do you have",
+        "what do you sell",
+        "products available",
+        "what can i purchase",
+      ])
+    ) {
+      return {
+        text:
+          "You can shop for medicines and everyday groceries on OneBasket. Grocery categories include fruits and vegetables, dairy and breakfast, rice and dal, oil and ghee, snacks, beverages, packaged food and more.",
+        action: null,
+      };
+    }
+    if (
+      hasAny(query, [
+        "smart scan",
+        "what is scan",
+        "what is smart scan",
+        "how does scan work",
+        "how to scan",
+        "scan product",
+        "scan a product",
+        "how can i scan",
+        "scan an item",
+        "scan item",
+        "camera scan",
+      ])
+    ) {
+      return {
+        text:
+          "📷 Smart Scan lets you identify a product using your camera or an uploaded image. Open Smart Scan, take a photo or upload one, and use the result to explore the product information.",
+        action: {
+          label: "Open Smart Scan",
+          path: "/scan",
+        },
+      };
+    }
+    if (
+      hasAny(query, [
+        "paracetamol",
+        "dolo",
+        "dolo 650",
+        "crocin",
+        "ibuprofen",
+        "cetirizine",
+        "azithromycin",
+        "amoxicillin",
+      ])
+    ) {
+      return {
+        text:
+          "💊 Sure! I can help you find that medicine. Open Medicines to search for the product and view the available medicine details.",
         action: {
           label: "View Medicines",
           path: `/medicines?search=${encodeURIComponent(text)}`,
@@ -82,42 +305,78 @@ function AskOneBasket() {
       };
     }
 
-
-    /* GENERAL MEDICINE */
-
     if (
-      query.includes("medicine") ||
-      query.includes("medicines") ||
-      query.includes("tablet") ||
-      query.includes("capsule") ||
-      query.includes("syrup") ||
-      query.includes("pharmacy")
+      hasAny(query, [
+        "medicine",
+        "medicines",
+        "tablet",
+        "tablets",
+        "capsule",
+        "capsules",
+        "syrup",
+        "pharmacy",
+        "medical",
+        "drug",
+      ])
     ) {
-
       return {
         text:
-          "Sure! 💊 What medicine are you looking for? You can tell me the medicine name, such as Paracetamol, Dolo 650 or Cetirizine.",
-        action: null,
+          "💊 Sure! What medicine are you looking for? Tell me the medicine name and I can take you to the Medicines section.",
+        action: {
+          label: "Open Medicines",
+          path: "/medicines",
+        },
       };
     }
-
-
-    /* GROCERY */
-
     if (
-      query.includes("grocery") ||
-      query.includes("groceries") ||
-      query.includes("rice") ||
-      query.includes("milk") ||
-      query.includes("vegetable") ||
-      query.includes("vegetables") ||
-      query.includes("fruit") ||
-      query.includes("fruits")
+      hasAny(query, [
+        "rice",
+        "milk",
+        "vegetable",
+        "vegetables",
+        "fruit",
+        "fruits",
+        "oil",
+        "ghee",
+        "snack",
+        "snacks",
+        "biscuit",
+        "biscuits",
+        "cookie",
+        "cookies",
+        "coffee",
+        "tea",
+        "egg",
+        "eggs",
+        "noodles",
+        "pasta",
+        "masala",
+        "atta",
+        "dal",
+      ])
     ) {
-
       return {
         text:
-          "Sure! 🛒 I can help you find groceries. Tell me what grocery item you're looking for and I'll take you to the grocery section.",
+          "🛒 Sure! I can help you find that grocery item. Open Grocery to browse the available categories and products.",
+        action: {
+          label: "Browse Groceries",
+          path: "/grocery",
+        },
+      };
+    }
+    if (
+      hasAny(query, [
+        "grocery",
+        "groceries",
+        "supermarket",
+        "grocery section",
+        "shopping items",
+        "grocery shopping",
+      ])
+    ) {
+      return {
+        text:
+          "🛒 OneBasket has a Grocery section with everyday essentials organized into categories and subcategories. You can browse or search for the item you need.",
         action: {
           label: "Browse Groceries",
           path: "/grocery",
@@ -125,20 +384,40 @@ function AskOneBasket() {
       };
     }
 
-
-    /* COMPARE */
-
     if (
-      query.includes("compare") ||
-      query.includes("cheapest") ||
-      query.includes("best price") ||
-      query.includes("lowest price") ||
-      query.includes("price comparison")
+      hasAny(query, [
+        "compare",
+        "cheapest",
+        "best price",
+        "lowest price",
+        "price comparison",
+        "cheaper",
+        "compare prices",
+        "which is cheaper",
+        "find cheap",
+      ])
     ) {
-
       return {
         text:
-          "Absolutely! 💰 OneBasket can help you compare prices and find the better deal.",
+          "💰 OneBasket helps you compare available product prices so you can find a better deal before shopping.",
+        action: {
+          label: "Compare Prices",
+          path: "/compare",
+        },
+      };
+    }
+    if (
+      hasAny(query, [
+        "how to compare",
+        "how can i compare",
+        "how do i compare",
+        "how to compare prices",
+        "how can i compare prices",
+      ])
+    ) {
+      return {
+        text:
+          "💰 Search for a product or open the Compare section. From there, you can compare available product options and prices before making your choice.",
         action: {
           label: "Compare Prices",
           path: "/compare",
@@ -146,97 +425,114 @@ function AskOneBasket() {
       };
     }
 
-
-    /* DELIVERY */
-
     if (
-      query.includes("delivery") ||
-      query.includes("deliver") ||
-      query.includes("delivery area") ||
-      query.includes("where do you deliver")
+      hasAny(query, [
+        "delivery",
+        "deliver",
+        "delivery area",
+        "where do you deliver",
+        "delivery location",
+        "delivery cities",
+        "delivery available",
+        "do you deliver",
+        "can you deliver",
+        "delivery time",
+        "how long does delivery take",
+        "when can i get it",
+      ])
     ) {
-
       return {
         text:
-          "📍 We provide delivery options across supported cities in South India. You can select your state and then choose your city using the delivery selector in the navbar.",
+          "📍 You can select your delivery location from the Delivery option in the navbar. Choose the available state and city to check delivery-related options.",
         action: null,
       };
     }
-
-
-    /* LOCATION */
-
     if (
-      query.includes("chennai") ||
-      query.includes("bangalore") ||
-      query.includes("bengaluru") ||
-      query.includes("hyderabad") ||
-      query.includes("kochi") ||
-      query.includes("kerala") ||
-      query.includes("tamil nadu") ||
-      query.includes("karnataka") ||
-      query.includes("telangana") ||
-      query.includes("andhra")
+      hasAny(query, [
+        "chennai",
+        "madurai",
+        "bangalore",
+        "bengaluru",
+        "hyderabad",
+        "kochi",
+        "kerala",
+        "tamil nadu",
+        "karnataka",
+        "telangana",
+        "andhra",
+        "my location",
+        "change location",
+        "select location",
+        "change city",
+        "change state",
+      ])
     ) {
-
       return {
         text:
-          "📍 You can select your state and city from the Delivery option in the navbar. OneBasket will use your selected location for delivery-related options.",
+          "📍 You can select or change your state and city from the Delivery option in the navbar. OneBasket uses the selected location for delivery-related options.",
         action: null,
       };
     }
-
-
-    /* DEALS */
-
     if (
-      query.includes("deal") ||
-      query.includes("deals") ||
-      query.includes("offer") ||
-      query.includes("offers") ||
-      query.includes("discount") ||
-      query.includes("discounts")
+      hasAny(query, [
+        "deal",
+        "deals",
+        "offer",
+        "offers",
+        "discount",
+        "discounts",
+        "sale",
+        "coupon",
+        "coupons",
+      ])
     ) {
-
       return {
         text:
-          "🔥 We have a Deals section where you can explore available offers and discounts.",
+          "🔥 You can explore available offers, discounts and deals from the Deals section.",
         action: {
           label: "View Deals",
           path: "/deals",
         },
       };
     }
-
-
-    /* CART */
-
     if (
-      query.includes("cart") ||
-      query.includes("shopping cart")
+      hasAny(query, [
+        "cart",
+        "shopping cart",
+        "my cart",
+        "open cart",
+        "show cart",
+        "view cart",
+        "added products",
+        "items in my cart",
+        "what is in my cart",
+      ])
     ) {
-
       return {
         text:
-          "🛒 You can view the products you've added to your cart here.",
+          "🛒 You can view the products you have added, change quantities and continue shopping from your Cart.",
         action: {
           label: "Open Cart",
           path: "/cart",
         },
       };
     }
-
-
-    /* WISHLIST */
-
     if (
-      query.includes("wishlist") ||
-      query.includes("saved products")
+      hasAny(query, [
+        "wishlist",
+        "wish list",
+        "saved products",
+        "saved items",
+        "favourite products",
+        "favorite products",
+        "liked products",
+        "my favourites",
+        "my favorites",
+      ])
     ) {
-
       return {
         text:
-          "❤️ You can view your saved products in your wishlist.",
+          "❤️ Your Wishlist contains products you have saved for later. You can open it to view your saved items.",
         action: {
           label: "Open Wishlist",
           path: "/wishlist",
@@ -244,85 +540,155 @@ function AskOneBasket() {
       };
     }
 
-
-    /* GREETING */
-
     if (
-      query === "hi" ||
-      query === "hello" ||
-      query === "hey" ||
-      query.includes("good morning") ||
-      query.includes("good evening")
+      hasAny(query, [
+        "account",
+        "my account",
+        "login",
+        "log in",
+        "sign in",
+        "signin",
+        "profile",
+        "my profile",
+      ])
     ) {
-
       return {
         text:
-          "Hello! 👋 Welcome to OneBasket. What would you like help with today?",
+          "👤 You can access your OneBasket account from the Account option in the navbar.",
+        action: {
+          label: "Open Account",
+          path: "/login",
+        },
+      };
+    }
+    if (
+      hasAny(query, [
+        "home page",
+        "homepage",
+        "go home",
+        "open home",
+        "home",
+      ])
+    ) {
+      return {
+        text:
+          "🏠 The OneBasket Home page gives you quick access to shopping, search, Smart Scan, Medicines, Grocery, comparison, deals and other features.",
+        action: {
+          label: "Go to Home",
+          path: "/",
+        },
+      };
+    }
+    if (
+      hasAny(query, [
+        "where can i find",
+        "where is medicines",
+        "where is grocery",
+        "where is compare",
+        "where is deals",
+        "where is cart",
+        "where is wishlist",
+        "where is account",
+        "how do i open",
+        "how can i open",
+        "where can i open",
+      ])
+    ) {
+      return {
+        text:
+          "You can use the OneBasket navbar to access Home, Medicines, Grocery, Compare, Deals, Ask OneBasket, Delivery Location, Wishlist, Cart and Account.",
         action: null,
       };
     }
-
-
-    /* HELP */
-
+ 
     if (
-      query.includes("help") ||
-      query.includes("what can you do") ||
-      query.includes("how can you help")
+      hasAny(query, [
+        "help",
+        "what can you do",
+        "how can you help",
+        "what should i ask",
+        "what can i ask",
+        "show me options",
+      ])
     ) {
-
       return {
         text:
-          "I can help you with 💊 medicines, 🛒 groceries, 💰 price comparison, 🔥 deals, 📍 delivery information, 🛒 cart and ❤️ wishlist. Just ask me naturally!",
+          "😊 You can ask me natural questions such as:\n\n• Where is my order?\n• Can I cancel my order?\n• How can I return an item?\n• Where is my refund?\n• Find a medicine\n• Find groceries\n• What's the cheapest price?\n• How does Smart Scan work?\n• Where do you deliver?\n• Show my cart\n• Open my wishlist\n• How does OneBasket work?",
         action: null,
       };
     }
-
-
-    /* THANK YOU */
-
     if (
-      query.includes("thank") ||
-      query.includes("thanks")
+      hasAny(query, [
+        "thank you",
+        "thanks",
+        "thank",
+        "thx",
+        "thank u",
+      ])
     ) {
-
       return {
         text:
           "You're very welcome! 😊 I'm always here to help you shop smarter with OneBasket.",
         action: null,
       };
     }
+    if (
+      query === "bye" ||
+      query === "goodbye" ||
+      query === "ok bye" ||
+      query.includes("see you") ||
+      query.includes("talk later")
+    ) {
+      return {
+        text:
+          "Goodbye! 👋 Come back anytime when you need help with OneBasket.",
+        action: null,
+      };
+    }
+ if (
+      query === "ok" ||
+      query === "okay" ||
+      query === "sure" ||
+      query === "yes" ||
+      query === "yeah" ||
+      query === "yep"
+    ) {
+      return {
+        text:
+          "😊 Great! What would you like help with — your order, medicines, groceries, delivery, prices, cart, wishlist or anything else on OneBasket?",
+        action: null,
+      };
+    }
 
-
-    /* DEFAULT */
-
+    if (
+      query === "no" ||
+      query === "not now" ||
+      query === "nothing"
+    ) {
+      return {
+        text:
+          "No problem 😊. I'm here whenever you need help with OneBasket.",
+        action: null,
+      };
+    }
     return {
       text:
-        "I'm still learning about that 😊. Try asking me about medicines, groceries, prices, deals, delivery, cart or wishlist.",
+        "I can help with that 😊. Try asking me about your order, delivery, cancellation, returns, refunds, medicines, groceries, price comparison, Smart Scan, deals, cart, wishlist, account or how the OneBasket website works.",
       action: null,
     };
   };
-
-
-  /* =========================================================
-     SEND MESSAGE
-  ========================================================= */
-
-  const sendMessage = (text = message) => {
-
+const sendMessage = (text = message) => {
     const cleanMessage = text.trim();
 
-    if (!cleanMessage) return;
-
-
-    /* CUSTOMER MESSAGE */
+    if (!cleanMessage) {
+      return;
+    }
 
     const userMessage = {
       id: Date.now(),
       sender: "user",
       text: cleanMessage,
     };
-
 
     setMessages((previous) => [
       ...previous,
@@ -331,11 +697,7 @@ function AskOneBasket() {
 
     setMessage("");
 
-
-    /* BOT RESPONSE */
-
     setTimeout(() => {
-
       const response = getBotResponse(cleanMessage);
 
       const botMessage = {
@@ -349,31 +711,41 @@ function AskOneBasket() {
         ...previous,
         botMessage,
       ]);
-
-    }, 500);
+    }, 450);
   };
 
-
-  /* =========================================================
-     ENTER KEY
-  ========================================================= */
-
   const handleKeyDown = (event) => {
-
-    if (event.key === "Enter" && !event.shiftKey) {
-
+    if (
+      event.key === "Enter" &&
+      !event.shiftKey
+    ) {
       event.preventDefault();
-
       sendMessage();
     }
   };
 
 
-  /* =========================================================
-     QUICK QUESTIONS
-  ========================================================= */
-
   const quickQuestions = [
+    {
+      text: "Where is my order?",
+      icon: Package,
+    },
+    {
+      text: "Can I cancel my order?",
+      icon: RotateCcw,
+    },
+    {
+      text: "How can I return an item?",
+      icon: RotateCcw,
+    },
+    {
+      text: "Where is my refund?",
+      icon: CreditCard,
+    },
+    {
+      text: "What is OneBasket?",
+      icon: Bot,
+    },
     {
       text: "Find a medicine",
       icon: Pill,
@@ -387,28 +759,35 @@ function AskOneBasket() {
       icon: Tag,
     },
     {
+      text: "How does Smart Scan work?",
+      icon: ScanLine,
+    },
+    {
+      text: "Show my cart",
+      icon: ShoppingCart,
+    },
+    {
+      text: "Open my wishlist",
+      icon: Heart,
+    },
+    {
+      text: "My account",
+      icon: UserCircle,
+    },
+    {
       text: "Where do you deliver?",
       icon: MapPin,
     },
   ];
-
-
   return (
-
     <div className="ask-page">
-
-      {/* =====================================================
-          HEADER
-      ===================================================== */}
-
-      <div className="ask-header">
+<div className="ask-header">
 
         <div className="ask-bot-icon">
           <Bot size={28} />
         </div>
 
         <div>
-
           <h1>
             Ask OneBasket
           </h1>
@@ -416,22 +795,12 @@ function AskOneBasket() {
           <p>
             Your personal shopping assistant
           </p>
-
         </div>
 
       </div>
+  <div className="chat-box">
 
-
-      {/* =====================================================
-          CHATBOX
-      ===================================================== */}
-
-      <div className="chat-box">
-
-
-        {/* CHAT HEADER */}
-
-        <div className="chat-header">
+    <div className="chat-header">
 
           <div className="chat-profile">
 
@@ -440,7 +809,6 @@ function AskOneBasket() {
             </div>
 
             <div>
-
               <strong>
                 OneBasket Assistant
               </strong>
@@ -448,18 +816,11 @@ function AskOneBasket() {
               <span>
                 ● Online
               </span>
-
             </div>
 
           </div>
 
         </div>
-
-
-        {/* ===================================================
-            MESSAGES
-        =================================================== */}
-
         <div className="messages-area">
 
           {messages.map((msg) => (
@@ -473,30 +834,19 @@ function AskOneBasket() {
               }
             >
 
-              {/* BOT ICON */}
-
               {msg.sender === "bot" && (
-
                 <div className="message-avatar bot-avatar">
                   <Bot size={17} />
                 </div>
-
               )}
-
 
               <div className="message-column">
 
                 <div className="message-bubble">
-
                   {msg.text}
-
                 </div>
 
-
-                {/* ACTION BUTTON */}
-
                 {msg.action && (
-
                   <button
                     type="button"
                     className="chat-action"
@@ -504,44 +854,25 @@ function AskOneBasket() {
                       navigate(msg.action.path)
                     }
                   >
-
                     {msg.action.label}
-
-                    <span>
-                      →
-                    </span>
-
+                    <span>→</span>
                   </button>
-
                 )}
 
               </div>
 
-
-              {/* USER ICON */}
-
               {msg.sender === "user" && (
-
                 <div className="message-avatar user-avatar">
                   <User size={17} />
                 </div>
-
               )}
 
             </div>
-
           ))}
-
 
           <div ref={messagesEndRef} />
 
         </div>
-
-
-        {/* ===================================================
-            QUICK QUESTIONS
-        =================================================== */}
-
         <div className="quick-question-area">
 
           <p>
@@ -555,19 +886,16 @@ function AskOneBasket() {
               const Icon = item.icon;
 
               return (
-
                 <button
                   key={item.text}
                   type="button"
-                  onClick={() => sendMessage(item.text)}
+                  onClick={() =>
+                    sendMessage(item.text)
+                  }
                 >
-
                   <Icon size={15} />
-
                   {item.text}
-
                 </button>
-
               );
 
             })}
@@ -575,11 +903,6 @@ function AskOneBasket() {
           </div>
 
         </div>
-
-
-        {/* ===================================================
-            INPUT
-        =================================================== */}
 
         <div className="chat-input-area">
 
@@ -595,18 +918,16 @@ function AskOneBasket() {
 
           <button
             type="button"
-            onClick={() => sendMessage()}
+            onClick={() =>
+              sendMessage()
+            }
             disabled={!message.trim()}
           >
-
             <Send size={19} />
-
           </button>
 
         </div>
-
-
-        <div className="chat-footer">
+  <div className="chat-footer">
           OneBasket Assistant • Shopping made smarter
         </div>
 

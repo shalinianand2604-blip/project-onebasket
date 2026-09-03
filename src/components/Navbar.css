@@ -179,3 +179,408 @@
   font-family: inherit;
   white-space: nowrap;
 }
+/* =========================================================
+   RIGHT SIDE ICON BUTTONS
+========================================================= */
+
+.icon-btn {
+  position: relative;
+
+  width: 38px;
+  height: 38px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #5B3A8E;
+  text-decoration: none;
+
+  border-radius: 10px;
+
+  transition:
+    background 0.25s ease,
+    color 0.25s ease,
+    transform 0.25s ease;
+}
+
+.icon-btn:hover {
+  background: rgba(91, 58, 142, 0.09);
+
+  color: #7A2348;
+
+  transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   CART
+========================================================= */
+
+.cart-btn {
+  position: relative;
+}
+
+.cart-btn svg {
+  color: #5B3A8E;
+  transition: 0.25s ease;
+}
+
+.cart-btn:hover svg {
+  color: #7A2348;
+}
+
+
+/* =========================================================
+   CART COUNT
+========================================================= */
+
+.cart-count {
+  position: absolute;
+
+  top: 1px;
+  right: 1px;
+
+  min-width: 15px;
+  height: 15px;
+
+  padding: 0 3px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  box-sizing: border-box;
+
+  border-radius: 50%;
+
+  background: #7A2348;
+  color: #FFFFFF;
+
+  font-size: 8px;
+  font-weight: 900;
+
+  line-height: 1;
+}
+
+
+/* =========================================================
+   ACCOUNT
+========================================================= */
+.account-btn {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+
+  padding: 8px 12px;
+
+  color: #5B3A8E;
+  text-decoration: none;
+
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 800;
+
+  white-space: nowrap;
+
+  background: #FFF0B8;
+  border: 1px solid #F4C84A;
+
+  border-radius: 10px;
+
+  box-shadow: 0 3px 10px rgba(244, 185, 66, 0.16);
+
+  transition: all 0.25s ease;
+}
+
+.account-btn svg {
+  color: #7A2348;
+  flex-shrink: 0;
+}
+
+.account-btn:hover {
+  background: #FFE38A;
+  border-color: #E9AE20;
+
+  box-shadow: 0 5px 14px rgba(244, 185, 66, 0.25);
+
+  transform: translateY(-1px);
+}
+
+.account-btn:hover svg {
+  color: #5B3A8E;
+}
+.account-btn svg {
+  color: #7A2348;
+  flex-shrink: 0;
+
+  transition: 0.25s ease;
+}
+
+.account-btn:hover {
+  background: rgba(244, 185, 66, 0.18);
+
+  border-color: rgba(244, 185, 66, 0.45);
+
+  box-shadow:
+    0 4px 12px rgba(244, 185, 66, 0.12);
+
+  transform: translateY(-1px);
+}
+
+.account-btn:hover svg {
+  color: #5B3A8E;
+}
+
+.account-btn svg {
+  color: #5B3A8E;
+  flex-shrink: 0;
+}
+
+.account-btn:hover {
+  background: rgba(91, 58, 142, 0.11);
+  border-color: rgba(91, 58, 142, 0.18);
+  color: #7A2348;
+  transform: translateY(-1px);
+}
+
+.account-btn:hover svg {
+  color: #7A2348;
+}
+
+.account-btn svg {
+  color: #5B3A8E;
+
+  flex-shrink: 0;
+
+  transition: 0.25s ease;
+}
+
+.account-btn:hover {
+  background: rgba(91, 58, 142, 0.08);
+
+  color: #7A2348;
+
+  transform: translateY(-1px);
+}
+
+.account-btn:hover svg {
+  color: #7A2348;
+}
+
+
+/* =========================================================
+   LOCATION SELECTOR
+========================================================= */
+
+.location-btn {
+  display: flex;
+  align-items: center;
+
+  gap: 6px;
+
+  padding: 7px 8px;
+
+  background: transparent;
+
+  border: none;
+
+  border-radius: 9px;
+
+  cursor: pointer;
+
+  color: #3E765B;
+
+  font-family: inherit;
+
+  white-space: nowrap;
+
+  transition:
+    background 0.25s ease,
+    transform 0.25s ease;
+}
+
+.location-btn:hover {
+  background: rgba(62, 118, 91, 0.08);
+
+  transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   LOCATION TEXT
+========================================================= */
+
+.location-text {
+  display: flex;
+  flex-direction: column;
+
+  align-items: flex-start;
+
+  line-height: 1.05;
+}
+
+.location-text small {
+  color: #8A7D82;
+
+  font-size: 9px;
+  font-weight: 600;
+}
+
+.location-text strong {
+  color: #30282B;
+
+  font-size: 12px;
+  font-weight: 800;
+}
+
+
+/* =========================================================
+   LOCATION ARROW
+========================================================= */
+
+.location-btn svg:last-child {
+  color: #3E765B;
+}
+
+
+/* =========================================================
+   NAV ACTION SPACING
+========================================================= */
+
+.nav-actions {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: flex-end;
+
+  gap: 4px;
+
+  margin-left: auto;
+
+  flex-shrink: 0;
+
+  white-space: nowrap;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1100px) {
+
+  .navbar {
+    padding: 0 2.5%;
+    gap: 14px;
+  }
+
+  .nav-links {
+    gap: 12px;
+  }
+
+  .nav-links > a {
+    font-size: 13px;
+  }
+
+  .logo-text {
+    font-size: 20px;
+  }
+
+  .account-btn {
+    padding: 7px;
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 800px) {
+
+  .navbar {
+    min-height: 68px;
+
+    padding: 0 14px;
+
+    gap: 10px;
+  }
+
+  .nav-links {
+    display: none;
+  }
+
+  .logo-img {
+    height: 36px;
+  }
+
+  .logo-text {
+    font-size: 19px;
+  }
+
+  .location-text {
+    display: none;
+  }
+
+  .location-btn {
+    padding: 7px;
+  }
+
+  .account-btn span {
+    display: none;
+  }
+
+  .account-btn {
+    padding: 8px;
+  }
+
+  .icon-btn {
+    width: 36px;
+    height: 36px;
+  }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 480px) {
+
+  .navbar {
+    padding: 0 10px;
+  }
+
+  .logo {
+    gap: 5px;
+  }
+
+  .logo-img {
+    height: 32px;
+  }
+
+  .logo-text {
+    font-size: 17px;
+  }
+
+  .nav-actions {
+    gap: 1px;
+  }
+
+  .icon-btn {
+    width: 34px;
+    height: 34px;
+  }
+
+  .cart-count {
+    top: 0;
+    right: 0;
+
+    min-width: 13px;
+    height: 13px;
+
+    font-size: 7px;
+  }
+}

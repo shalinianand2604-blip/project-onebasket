@@ -1,5 +1,9 @@
-import { useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { useState, useEffect, useRef } from "react";
+import {
+  Link,
+  useSearchParams,
+  useNavigate,
+} from "react-router-dom";
 
 import {
   Apple,
@@ -23,6 +27,8 @@ import {
 
 import "./Grocery.css";
 
+import { useWishlist } from "./WishListContext";
+import { useCart } from "./CartContext";
 const categories = [
   {
     id: "fruits",
@@ -167,11 +173,16 @@ const categories = [
   },
 ];
 
+/* =========================================================
+   PRODUCTS
+========================================================= */
+
 const products = [
   {
     id: 1,
     name: "Fresh Red Apples",
     category: "Fruits & Vegetables",
+    subcategory: "Fresh Fruits",
     description: "Crisp and naturally sweet apples",
     price: 149,
     mrp: 180,
@@ -184,6 +195,7 @@ const products = [
     id: 2,
     name: "Fresh Cow Milk",
     category: "Dairy & Breakfast",
+    subcategory: "Milk",
     description: "Fresh and nutritious dairy milk",
     price: 62,
     mrp: 68,
@@ -196,6 +208,7 @@ const products = [
     id: 3,
     name: "Premium Basmati Rice",
     category: "Atta, Rice & Dal",
+    subcategory: "Rice",
     description: "Long grain premium basmati rice",
     price: 299,
     mrp: 340,
@@ -208,6 +221,7 @@ const products = [
     id: 4,
     name: "Sunflower Cooking Oil",
     category: "Oil & Ghee",
+    subcategory: "Cooking Oils",
     description: "Light and healthy cooking oil",
     price: 139,
     mrp: 160,
@@ -220,6 +234,7 @@ const products = [
     id: 5,
     name: "Garam Masala",
     category: "Masala & Spices",
+    subcategory: "Masala Mixes",
     description: "Aromatic blend of Indian spices",
     price: 89,
     mrp: 105,
@@ -232,6 +247,7 @@ const products = [
     id: 6,
     name: "Chocolate Cookies",
     category: "Snacks & Biscuits",
+    subcategory: "Cookies",
     description: "Crunchy cookies with chocolate",
     price: 79,
     mrp: 95,
@@ -244,6 +260,7 @@ const products = [
     id: 7,
     name: "Premium Green Tea",
     category: "Beverages",
+    subcategory: "Tea",
     description: "Refreshing green tea bags",
     price: 129,
     mrp: 150,
@@ -256,6 +273,7 @@ const products = [
     id: 8,
     name: "Instant Noodles",
     category: "Packaged & Instant Food",
+    subcategory: "Noodles & Pasta",
     description: "Quick and delicious instant noodles",
     price: 55,
     mrp: 65,
@@ -268,6 +286,7 @@ const products = [
     id: 9,
     name: "Fresh Bananas",
     category: "Fruits & Vegetables",
+    subcategory: "Fresh Fruits",
     description: "Naturally sweet fresh bananas",
     price: 49,
     mrp: 60,
@@ -280,6 +299,7 @@ const products = [
     id: 10,
     name: "Classic Butter",
     category: "Dairy & Breakfast",
+    subcategory: "Butter & Cheese",
     description: "Creamy dairy butter",
     price: 58,
     mrp: 65,
@@ -292,6 +312,7 @@ const products = [
     id: 11,
     name: "Potato Chips",
     category: "Snacks & Biscuits",
+    subcategory: "Chips",
     description: "Crispy salted potato chips",
     price: 35,
     mrp: 40,
@@ -304,6 +325,7 @@ const products = [
     id: 12,
     name: "Premium Coffee",
     category: "Beverages",
+    subcategory: "Coffee",
     description: "Rich and aromatic coffee",
     price: 199,
     mrp: 230,
@@ -313,11 +335,45 @@ const products = [
   },
 ];
 
+/* =========================================================
+   GROCERY
+========================================================= */
+
 function Grocery() {
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
 
-  const searchQuery =
-    searchParams.get("search")?.trim().toLowerCase() || "";
+  /* =========================================================
+     CONTEXT
+  ========================================================= */
+
+  const {
+    toggleWishlist,
+    isWishlisted,
+  } = useWishlist();
+
+  const {
+    cart,
+    addToCart,
+  } = useCart();
+
+  /* =========================================================
+     SEARCH
+  ========================================================= */
+
+  const search =
+    searchParams.get("search") || "";
+
+  /* =========================================================
+     REF
+  ========================================================= */
+
+  const productsSectionRef =
+    useRef(null);
+
+  /* =========================================================
+     STATE
+  ========================================================= */
 
   const [openCategory, setOpenCategory] =
     useState(null);
@@ -325,69 +381,206 @@ function Grocery() {
   const [selectedCategory, setSelectedCategory] =
     useState("All");
 
-  const [wishlist, setWishlist] = useState([]);
+  const [selectedSubcategory, setSelectedSubcategory] =
+    useState(null);
 
-  const [cart, setCart] = useState([]);
+  /* =========================================================
+     FIND SELECTED CATEGORY
+  ========================================================= */
 
-  const toggleCategory = (id) => {
-    setOpenCategory(
-      openCategory === id ? null : id
-    );
-  };
-
-  const selectCategory = (categoryName) => {
-    setSelectedCategory(categoryName);
-    setOpenCategory(null);
-  };
-
-  const toggleWishlist = (id) => {
-    setWishlist((previous) =>
-      previous.includes(id)
-        ? previous.filter(
-            (item) => item !== id
-          )
-        : [...previous, id]
-    );
-  };
-
-  const addToCart = (id) => {
-    if (!cart.includes(id)) {
-      setCart([...cart, id]);
+  useEffect(() => {
+    if (!search.trim() || search === "__ALL__") {
+      setSelectedCategory("All");
+      setSelectedSubcategory(null);
+      return;
     }
-  };
 
-  const filteredProducts = products.filter(
-    (product) => {
+    const query =
+      search.toLowerCase().trim();
 
-      const matchesSearch =
-        !searchQuery ||
-        product.name
-          .toLowerCase()
-          .includes(searchQuery) ||
-        product.category
-          .toLowerCase()
-          .includes(searchQuery) ||
-        product.description
-          .toLowerCase()
-          .includes(searchQuery);
+    const matchingCategory =
+      categories.find((category) => {
+        return (
+          category.name
+            .toLowerCase() === query ||
+          category.subcategories.some(
+            (subcategory) =>
+              subcategory.toLowerCase() ===
+              query
+          )
+        );
+      });
 
-      const matchesCategory =
-        selectedCategory === "All" ||
-        product.category === selectedCategory;
+    if (matchingCategory) {
+      setSelectedCategory(
+        matchingCategory.name
+      );
 
-      return (
-        matchesSearch &&
-        matchesCategory
+      const matchingSubcategory =
+        matchingCategory.subcategories.find(
+          (subcategory) =>
+            subcategory.toLowerCase() ===
+            query
+        );
+
+      setSelectedSubcategory(
+        matchingSubcategory || null
       );
     }
-  );
+  }, [search]);
+
+  /* =========================================================
+     SCROLL RESULTS TO TOP
+  ========================================================= */
+
+  useEffect(() => {
+    if (!search.trim()) {
+      return;
+    }
+
+    const timer = setTimeout(() => {
+      const section =
+        productsSectionRef.current;
+
+      if (!section) {
+        return;
+      }
+
+      const sectionTop =
+        section.getBoundingClientRect().top +
+        window.scrollY;
+
+      const navbarHeight = 90;
+
+      window.scrollTo({
+        top: Math.max(
+          0,
+          sectionTop - navbarHeight
+        ),
+        left: 0,
+        behavior: "smooth",
+      });
+    }, 150);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [search]);
+
+  /* =========================================================
+     CATEGORY CLICK
+  ========================================================= */
+
+  const handleCategoryClick = (
+    categoryName
+  ) => {
+    setOpenCategory((current) =>
+      current === categoryName
+        ? null
+        : categoryName
+    );
+  };
+
+  /* =========================================================
+     SUBCATEGORY CLICK
+  ========================================================= */
+
+  const handleSubcategoryClick = (
+    categoryName,
+    subcategory
+  ) => {
+    setSelectedCategory(categoryName);
+    setSelectedSubcategory(subcategory);
+    setOpenCategory(null);
+
+    navigate(
+      `/grocery?search=${encodeURIComponent(
+        subcategory
+      )}`
+    );
+  };
+
+  /* =========================================================
+     ALL GROCERIES
+  ========================================================= */
+
+  const handleAllGroceries = () => {
+    setSelectedCategory("All");
+    setSelectedSubcategory(null);
+    setOpenCategory(null);
+
+    navigate(
+      "/grocery?search=__ALL__"
+    );
+  };
+
+  /* =========================================================
+     FILTER RESULTS
+  ========================================================= */
+
+  const results =
+    search === "__ALL__"
+      ? products
+      : products.filter((product) => {
+          if (!search.trim()) {
+            return false;
+          }
+
+          const query =
+            search.toLowerCase().trim();
+
+          return (
+            product.subcategory
+              .toLowerCase()
+              .includes(query) ||
+            product.category
+              .toLowerCase()
+              .includes(query) ||
+            product.name
+              .toLowerCase()
+              .includes(query) ||
+            product.description
+              .toLowerCase()
+              .includes(query)
+          );
+        });
+
+  /* =========================================================
+     PRODUCT DISPLAY
+  ========================================================= */
+
+  const showProducts =
+    search.trim() !== "";
+
+  const productTitle =
+    search === "__ALL__"
+      ? "All Groceries"
+      : search;
+
+  /* =========================================================
+     CART CHECK
+  ========================================================= */
+
+  const isProductInCart = (productId) => {
+    return cart.some(
+      (item) =>
+        String(item.id) ===
+        String(productId)
+    );
+  };
+
+  /* =========================================================
+     RETURN
+  ========================================================= */
 
   return (
     <div className="grocery-page">
 
       <div className="grocery-container">
 
-        {/* ================= BREADCRUMB ================= */}
+        {/* =================================================
+            BREADCRUMB
+        ================================================= */}
 
         <div className="grocery-breadcrumb">
 
@@ -403,8 +596,9 @@ function Grocery() {
 
         </div>
 
-
-        {/* ================= HEADER ================= */}
+        {/* =================================================
+            HEADER
+        ================================================= */}
 
         <section className="grocery-header">
 
@@ -420,7 +614,10 @@ function Grocery() {
 
             <h1>
               Groceries for
-              <span> everyday living.</span>
+
+              <span>
+                {" "}everyday living.
+              </span>
             </h1>
 
             <p>
@@ -430,7 +627,6 @@ function Grocery() {
             </p>
 
           </div>
-
 
           <div className="grocery-trust">
 
@@ -443,7 +639,6 @@ function Grocery() {
               </span>
 
             </div>
-
 
             <div className="grocery-trust-item">
 
@@ -459,33 +654,239 @@ function Grocery() {
 
         </section>
 
+        {/* =================================================
+            PRODUCTS / RESULTS
+            Hidden on initial page
+        ================================================= */}
 
-        {/* ================= SEARCH MESSAGE ================= */}
+        {showProducts && (
 
-        {searchQuery && (
+          <section
+            ref={productsSectionRef}
+            id="grocery-products"
+            className="grocery-shop"
+          >
 
-          <div className="grocery-search-result">
+            <div className="grocery-products">
 
-            <SearchX size={18} />
+              {/* PRODUCT HEADER */}
 
-            <div>
+              <div className="grocery-products-toolbar">
 
-              <strong>
-                Search results for:
-              </strong>
+                <div>
 
-              <span>
-                "{searchQuery}"
-              </span>
+                  <span className="grocery-products-label">
+                    GROCERY RESULTS
+                  </span>
+
+                  <h2>
+                    {productTitle}
+                  </h2>
+
+                  <span>
+                    {results.length} products
+                  </span>
+
+                </div>
+
+              </div>
+
+              {/* =================================================
+                  NO RESULTS
+              ================================================= */}
+
+              {results.length === 0 ? (
+
+                <div className="grocery-no-products">
+
+                  <SearchX size={40} />
+
+                  <h2>
+                    No groceries found
+                  </h2>
+
+                  <p>
+                    No products are currently
+                    available in this category.
+                  </p>
+
+                  <button
+                    type="button"
+                    className="grocery-all-button"
+                    onClick={() =>
+                      navigate("/grocery")
+                    }
+                  >
+                    Back to Categories
+                  </button>
+
+                </div>
+
+              ) : (
+
+                /* =================================================
+                   PRODUCT GRID
+                ================================================= */
+
+                <div className="grocery-product-grid">
+
+                  {results.map((product) => {
+
+                    const liked =
+                      isWishlisted(
+                        product.id
+                      );
+
+                    const added =
+                      isProductInCart(
+                        product.id
+                      );
+
+                    return (
+
+                      <div
+                        className="grocery-product-card"
+                        key={product.id}
+                      >
+
+                        {/* =================================================
+                            WISHLIST
+                        ================================================= */}
+
+                        <button
+                          type="button"
+                          className={`grocery-wishlist ${
+                            liked
+                              ? "liked"
+                              : ""
+                          }`}
+                          onClick={() =>
+                            toggleWishlist(
+                              product
+                            )
+                          }
+                          aria-label={
+                            liked
+                              ? "Remove from wishlist"
+                              : "Add to wishlist"
+                          }
+                        >
+
+                          <Heart
+                            size={18}
+                            fill={
+                              liked
+                                ? "currentColor"
+                                : "none"
+                            }
+                          />
+
+                        </button>
+
+                        {/* =================================================
+                            IMAGE
+                        ================================================= */}
+
+                        <div className="grocery-product-image">
+
+                          <div className="grocery-product-icon">
+                            {product.icon}
+                          </div>
+
+                        </div>
+
+                        {/* =================================================
+                            PRODUCT INFO
+                        ================================================= */}
+
+                        <div className="grocery-product-info">
+
+                          <span className="grocery-product-category">
+                            {product.category}
+                          </span>
+
+                          <h3>
+                            {product.name}
+                          </h3>
+
+                          <p>
+                            {product.description}
+                          </p>
+
+                          {/* RATING */}
+
+                          <div className="grocery-rating">
+
+                            <span>
+                              ★
+                            </span>
+
+                            {product.rating}
+
+                          </div>
+
+                          {/* PRICE */}
+
+                          <div className="grocery-price-row">
+
+                            <strong>
+                              ₹{product.price}
+                            </strong>
+
+                            <del>
+                              ₹{product.mrp}
+                            </del>
+
+                            <span>
+                              {product.discount}
+                            </span>
+
+                          </div>
+
+                          {/* CART */}
+
+                          <button
+                            type="button"
+                            className={`grocery-add-cart ${
+                              added
+                                ? "added"
+                                : ""
+                            }`}
+                            onClick={() =>
+                              addToCart(product)
+                            }
+                          >
+
+                            {added
+                              ? "Added to Cart"
+                              : "Add to Cart"}
+
+                            <ShoppingCart
+                              size={15}
+                            />
+
+                          </button>
+
+                        </div>
+
+                      </div>
+
+                    );
+                  })}
+
+                </div>
+
+              )}
 
             </div>
 
-          </div>
+          </section>
 
         )}
 
-
-        {/* ================= CATEGORY SECTION ================= */}
+        {/* =================================================
+            CATEGORY BROWSER
+        ================================================= */}
 
         <section className="grocery-category-browser">
 
@@ -509,21 +910,21 @@ function Grocery() {
 
           </div>
 
-
-          {/* ALL */}
+          {/* ALL GROCERIES */}
 
           <button
+            type="button"
             className={`grocery-all-button ${
-              selectedCategory === "All"
+              search === "__ALL__"
                 ? "active"
                 : ""
             }`}
-            onClick={() =>
-              selectCategory("All")
+            onClick={
+              handleAllGroceries
             }
           >
 
-            <span>
+            <span className="grocery-all-icon">
               <ShoppingCart size={16} />
             </span>
 
@@ -531,32 +932,48 @@ function Grocery() {
 
           </button>
 
-
           {/* CATEGORY GRID */}
 
           <div className="grocery-category-grid">
 
             {categories.map((category) => {
 
-              const Icon = category.icon;
+              const Icon =
+                category.icon;
 
               const isOpen =
-                openCategory === category.id;
+                openCategory ===
+                category.name;
+
+              const isSelected =
+                selectedCategory ===
+                category.name;
 
               return (
 
                 <div
                   key={category.id}
-                  className={`grocery-category-box ${category.color} ${
-                    isOpen ? "open" : ""
+                  className={`grocery-category-box ${
+                    category.color
+                  } ${
+                    isOpen
+                      ? "open"
+                      : ""
+                  } ${
+                    isSelected
+                      ? "selected"
+                      : ""
                   }`}
                 >
 
+                  {/* CATEGORY BUTTON */}
+
                   <button
+                    type="button"
                     className="grocery-category-button"
                     onClick={() =>
-                      toggleCategory(
-                        category.id
+                      handleCategoryClick(
+                        category.name
                       )
                     }
                   >
@@ -586,7 +1003,6 @@ function Grocery() {
 
                   </button>
 
-
                   {/* SUBCATEGORIES */}
 
                   {isOpen && (
@@ -598,14 +1014,23 @@ function Grocery() {
 
                           <button
                             key={subcategory}
-                            className="grocery-subcategory"
+                            type="button"
+                            className={`grocery-subcategory ${
+                              selectedSubcategory ===
+                              subcategory
+                                ? "active"
+                                : ""
+                            }`}
                             onClick={() =>
-                              selectCategory(
-                                category.name
+                              handleSubcategoryClick(
+                                category.name,
+                                subcategory
                               )
                             }
                           >
+
                             {subcategory}
+
                           </button>
 
                         )
@@ -618,233 +1043,16 @@ function Grocery() {
                 </div>
 
               );
+
             })}
 
           </div>
 
         </section>
 
-
-        {/* ================= PRODUCTS ================= */}
-
-        <section className="grocery-shop">
-
-          <div className="grocery-products">
-
-            <div className="grocery-products-toolbar">
-
-              <div>
-
-                <span className="grocery-products-label">
-
-                  {searchQuery
-                    ? "SEARCH RESULTS"
-                    : "FRESH PICKS"}
-
-                </span>
-
-                <h2>
-
-                  {searchQuery
-                    ? `Results for "${searchQuery}"`
-                    : selectedCategory === "All"
-                    ? "Popular Groceries"
-                    : selectedCategory}
-
-                </h2>
-
-                <span>
-                  {filteredProducts.length}
-                  {" "}
-                  products
-                </span>
-
-              </div>
-
-            </div>
-
-
-            {/* NO RESULTS */}
-
-            {filteredProducts.length === 0 ? (
-
-              <div className="grocery-no-products">
-
-                <SearchX size={40} />
-
-                <h2>
-                  No groceries found
-                </h2>
-
-                <p>
-                  We couldn't find anything
-                  matching
-                  <strong>
-                    {" "}
-                    "{searchQuery}"
-                  </strong>.
-                </p>
-
-                <Link to="/grocery">
-                  View all groceries
-                </Link>
-
-              </div>
-
-            ) : (
-
-              <div className="grocery-product-grid">
-
-                {filteredProducts.map(
-                  (product) => {
-
-                    const liked =
-                      wishlist.includes(
-                        product.id
-                      );
-
-                    const added =
-                      cart.includes(
-                        product.id
-                      );
-
-                    return (
-
-                      <div
-                        className="grocery-product-card"
-                        key={product.id}
-                      >
-
-                        {/* WISHLIST */}
-
-                        <button
-                          className={`grocery-wishlist ${
-                            liked
-                              ? "liked"
-                              : ""
-                          }`}
-                          onClick={() =>
-                            toggleWishlist(
-                              product.id
-                            )
-                          }
-                        >
-
-                          <Heart
-                            size={18}
-                            fill={
-                              liked
-                                ? "currentColor"
-                                : "none"
-                            }
-                          />
-
-                        </button>
-
-
-                        {/* PRODUCT IMAGE */}
-
-                        <div className="grocery-product-image">
-
-                          <div className="grocery-product-icon">
-                            {product.icon}
-                          </div>
-
-                        </div>
-
-
-                        {/* PRODUCT INFO */}
-
-                        <div className="grocery-product-info">
-
-                          <span className="grocery-product-category">
-                            {product.category}
-                          </span>
-
-                          <h3>
-                            {product.name}
-                          </h3>
-
-                          <p>
-                            {product.description}
-                          </p>
-
-
-                          {/* RATING */}
-
-                          <div className="grocery-rating">
-
-                            <span>
-                              ★
-                            </span>
-
-                            {product.rating}
-
-                          </div>
-
-
-                          {/* PRICE */}
-
-                          <div className="grocery-price-row">
-
-                            <strong>
-                              ₹{product.price}
-                            </strong>
-
-                            <del>
-                              ₹{product.mrp}
-                            </del>
-
-                            <span>
-                              {product.discount}
-                            </span>
-
-                          </div>
-
-
-                          {/* CART */}
-
-                          <button
-                            className={`grocery-add-cart ${
-                              added
-                                ? "added"
-                                : ""
-                            }`}
-                            onClick={() =>
-                              addToCart(
-                                product.id
-                              )
-                            }
-                          >
-
-                            {added
-                              ? "Added to Cart"
-                              : "Add to Cart"}
-
-                            <ShoppingCart
-                              size={15}
-                            />
-
-                          </button>
-
-                        </div>
-
-                      </div>
-
-                    );
-                  }
-                )}
-
-              </div>
-
-            )}
-
-          </div>
-
-        </section>
-
-
-        {/* ================= INFO STRIP ================= */}
+        {/* =================================================
+            INFO STRIP
+        ================================================= */}
 
         <section className="grocery-info-strip">
 
@@ -867,7 +1075,6 @@ function Grocery() {
 
           </div>
 
-
           <div>
 
             <ShieldCheck size={22} />
@@ -886,7 +1093,6 @@ function Grocery() {
             </div>
 
           </div>
-
 
           <div>
 

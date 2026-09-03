@@ -1,35 +1,34 @@
-/* =====================================================
-   ONEBASKET GROCERY
-   Cream + Purple + Burgundy + Green + Yellow
-===================================================== */
+/* =========================================================
+   ONEBASKET GROCERY PAGE
+========================================================= */
 
 .grocery-page {
+  width: 100%;
   min-height: 100vh;
   padding-bottom: 70px;
-
   background: #FFF9EC;
   color: #30282B;
+  box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 .grocery-container {
   width: min(1400px, 92%);
-  margin: auto;
+  margin: 0 auto;
+  box-sizing: border-box;
 }
 
 
-/* =====================================================
+/* =========================================================
    BREADCRUMB
-===================================================== */
+========================================================= */
 
 .grocery-breadcrumb {
   display: flex;
   align-items: center;
   gap: 7px;
-
-  padding: 22px 0 14px;
-
+  padding: 18px 0 12px;
   color: #8A7D82;
-
   font-size: 12px;
   font-weight: 600;
 }
@@ -44,44 +43,34 @@
 }
 
 
-/* =====================================================
+/* =========================================================
    HEADER
-===================================================== */
+========================================================= */
 
 .grocery-header {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-
-  gap: 30px;
-
-  padding: 25px 0 32px;
+  gap: 40px;
+  margin-bottom: 30px;
 }
 
 .grocery-label {
   display: flex;
   align-items: center;
   gap: 7px;
-
   margin-bottom: 12px;
-
   color: #3E765B;
-
   font-size: 11px;
   font-weight: 900;
-
   letter-spacing: 1.5px;
 }
 
 .grocery-header h1 {
   margin: 0;
-
   color: #201A1D;
-
   font-size: clamp(34px, 4vw, 50px);
-
   line-height: 1.05;
-
   letter-spacing: -1.8px;
 }
 
@@ -91,40 +80,31 @@
 
 .grocery-header p {
   max-width: 650px;
-
   margin: 13px 0 0;
-
   color: #766B73;
-
   font-size: 15px;
-
   line-height: 1.7;
 }
 
 
-/* =====================================================
+/* =========================================================
    TRUST
-===================================================== */
+========================================================= */
 
 .grocery-trust {
   display: flex;
   gap: 10px;
+  flex-shrink: 0;
 }
 
 .grocery-trust-item {
   display: flex;
   align-items: center;
-
   gap: 8px;
-
   padding: 11px 13px;
-
   border-radius: 12px;
-
   background: #EAF3ED;
-
   color: #3E765B;
-
   font-size: 11px;
   font-weight: 700;
 }
@@ -135,104 +115,122 @@
 }
 
 
-/* =====================================================
+/* =========================================================
+   SEARCH RESULT
+========================================================= */
+
+.grocery-search-result {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 24px;
+  padding: 12px 15px;
+  background: #F3EAFB;
+  border: 1px solid #E2D5ED;
+  border-radius: 12px;
+  color: #5B3A8E;
+  font-size: 12px;
+}
+
+.grocery-search-result svg {
+  flex-shrink: 0;
+}
+
+.grocery-search-result strong {
+  margin-right: 5px;
+}
+
+
+/* =========================================================
    CATEGORY BROWSER
-===================================================== */
+========================================================= */
 
 .grocery-category-browser {
   position: relative;
-
-  padding: 28px;
-
-  background: #FFFFFF;
-
-  border: 1px solid rgba(91, 58, 142, 0.10);
-
-  border-radius: 22px;
-
-  box-shadow:
-    0 10px 35px rgba(23, 21, 26, 0.06);
-
+  width: 100%;
+  margin-top: 0;
   overflow: visible;
+  z-index: 50;
 }
+
+
+/* =========================================================
+   CATEGORY HEADING
+========================================================= */
 
 .grocery-category-heading {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-
   gap: 20px;
+  margin-bottom: 18px;
+}
 
-  margin-bottom: 20px;
+.grocery-category-heading > div {
+  display: flex;
+  flex-direction: column;
 }
 
 .grocery-category-heading span {
+  margin-bottom: 7px;
   color: #7A2348;
-
-  font-size: 10px;
-  font-weight: 900;
-
-  letter-spacing: 1.5px;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 2px;
 }
 
 .grocery-category-heading h2 {
-  margin: 5px 0 0;
-
-  font-size: 23px;
-  font-weight: 900;
+  margin: 0;
+  color: #211C20;
+  font-size: 30px;
+  font-weight: 800;
+  line-height: 1.15;
 }
 
 .grocery-category-heading p {
   margin: 0;
-
   color: #8A7D82;
-
-  font-size: 12px;
+  font-size: 14px;
 }
 
 
-/* =====================================================
+/* =========================================================
    ALL GROCERIES
-===================================================== */
+========================================================= */
 
 .grocery-all-button {
   display: inline-flex;
   align-items: center;
-
+  justify-content: center;
   gap: 10px;
 
   margin-bottom: 14px;
-
   padding: 9px 14px;
 
   border: 1px solid #E5DCE9;
-
   border-radius: 11px;
 
   background: #F8F3FA;
-
   color: #5B3A8E;
 
   font-family: inherit;
-
   font-size: 12px;
   font-weight: 800;
 
   cursor: pointer;
 
-  transition: 0.25s ease;
+  transition: all 0.2s ease;
 }
 
 .grocery-all-button:hover {
   background: #EEE4F8;
+  border-color: #D6C4E4;
   transform: translateY(-1px);
 }
 
 .grocery-all-button.active {
   background: #5B3A8E;
-
   color: #FFFFFF;
-
   border-color: #5B3A8E;
 }
 
@@ -250,77 +248,84 @@
 }
 
 
-/* =====================================================
+/* =========================================================
    CATEGORY GRID
-===================================================== */
+========================================================= */
 
 .grocery-category-grid {
   position: relative;
 
+  width: 100%;
+
   display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
 
-  grid-template-columns:
-    repeat(4, minmax(0, 1fr));
+  gap: 16px;
 
-  gap: 12px;
+  margin-top: 18px;
 
-  align-items: start;
+  overflow: visible;
+
+  z-index: 60;
 }
 
 
-/* =====================================================
+/* =========================================================
    CATEGORY BOX
-===================================================== */
+========================================================= */
 
 .grocery-category-box {
   position: relative;
 
   width: 100%;
-
   min-height: 68px;
+
+  box-sizing: border-box;
 
   overflow: visible;
 
   border: 1px solid #EAE3E5;
-
   border-radius: 14px;
 
   background: #FFFDF7;
 
+  z-index: 1;
+
   transition:
-    border-color 0.25s ease,
-    box-shadow 0.25s ease,
-    transform 0.25s ease;
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .grocery-category-box:hover {
   border-color: rgba(91, 58, 142, 0.25);
 
   box-shadow:
-    0 7px 20px rgba(23, 21, 26, 0.06);
-
-  transform: translateY(-2px);
+    0 8px 22px rgba(23, 21, 26, 0.06);
 }
 
 .grocery-category-box.open {
-  z-index: 100;
+  z-index: 999999;
 
   border-color: #5B3A8E;
 
   box-shadow:
     0 10px 28px rgba(91, 58, 142, 0.14);
+}
 
-  transform: none;
+.grocery-category-box.selected {
+  border-color: #5B3A8E;
+
+  box-shadow:
+    0 6px 20px rgba(91, 58, 142, 0.10);
 }
 
 
-/* =====================================================
+/* =========================================================
    CATEGORY BUTTON
-===================================================== */
+========================================================= */
 
 .grocery-category-button {
   width: 100%;
-
   min-height: 68px;
 
   display: flex;
@@ -330,7 +335,10 @@
 
   padding: 13px;
 
+  box-sizing: border-box;
+
   border: none;
+  outline: none;
 
   background: transparent;
 
@@ -343,10 +351,19 @@
   cursor: pointer;
 }
 
+.grocery-category-button:focus {
+  outline: none;
+}
 
-/* =====================================================
+.grocery-category-button:focus-visible {
+  outline: 2px solid #CDB9E2;
+  outline-offset: -2px;
+}
+
+
+/* =========================================================
    CATEGORY ICON
-===================================================== */
+========================================================= */
 
 .grocery-category-icon {
   width: 40px;
@@ -362,15 +379,19 @@
 }
 
 
-/* =====================================================
+/* =========================================================
    CATEGORY NAME
-===================================================== */
+========================================================= */
 
 .grocery-category-name {
+  min-width: 0;
+
   display: flex;
   flex-direction: column;
 
   flex: 1;
+
+  color: #30282B;
 
   font-size: 12px;
   font-weight: 850;
@@ -387,101 +408,119 @@
   font-weight: 600;
 }
 
+.grocery-category-box.selected .grocery-category-name {
+  color: #5B3A8E;
+}
 
-/* =====================================================
+
+/* =========================================================
    ARROW
-===================================================== */
+========================================================= */
 
-.grocery-category-arrow {
+.grocery-category-button > svg:last-child {
   flex-shrink: 0;
 
   color: #8A7D82;
 
-  transition: transform 0.25s ease;
+  transition:
+    transform 0.25s ease,
+    color 0.25s ease;
 }
 
-.grocery-category-arrow.rotated {
+.grocery-category-button > svg.rotated {
   transform: rotate(180deg);
+  color: #5B3A8E;
 }
 
 
-/* =====================================================
+/* =========================================================
    CATEGORY COLORS
-===================================================== */
+========================================================= */
 
-.grocery-category-box.green
-.grocery-category-icon {
+.grocery-category-box.green .grocery-category-icon {
   background: #E1EFE5;
   color: #3E765B;
 }
 
-.grocery-category-box.purple
-.grocery-category-icon {
+.grocery-category-box.purple .grocery-category-icon {
   background: #EEE4F8;
   color: #5B3A8E;
 }
 
-.grocery-category-box.yellow
-.grocery-category-icon {
+.grocery-category-box.yellow .grocery-category-icon {
   background: #FFF1C8;
   color: #A1780D;
 }
 
-.grocery-category-box.burgundy
-.grocery-category-icon {
+.grocery-category-box.burgundy .grocery-category-icon {
   background: #F6E1E8;
   color: #7A2348;
 }
 
-.grocery-category-box.pink
-.grocery-category-icon {
+.grocery-category-box.pink .grocery-category-icon {
   background: #F8DFE8;
   color: #B85C78;
 }
 
 
-/* =====================================================
-   FLOATING SUBCATEGORIES
-===================================================== */
+/* =========================================================
+   ⭐ SUBCATEGORY
+   OPENS UPWARD
+========================================================= */
 
 .grocery-subcategory-list {
-  position: absolute;
+  position: absolute !important;
 
-  top: calc(100% + 8px);
+  left: 0 !important;
+  right: auto !important;
 
-  left: 0;
-  right: 0;
+  top: auto !important;
 
-  z-index: 200;
+  bottom: calc(100% + 10px) !important;
+
+  width: 100% !important;
+
+  box-sizing: border-box;
 
   display: grid;
 
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 
-  gap: 6px;
+  gap: 7px;
 
   padding: 10px;
 
   background: #FFFDF7;
 
-  border: 1px solid rgba(91, 58, 142, 0.18);
+  border: 1px solid rgba(91, 58, 142, 0.20);
 
   border-radius: 14px;
 
   box-shadow:
-    0 18px 40px rgba(23, 21, 26, 0.15);
+    0 18px 42px rgba(23, 21, 26, 0.16);
 
-  animation: grocerySubcategoryOpen 0.2s ease;
+  z-index: 9999999 !important;
+
+  transform-origin: bottom center;
+
+  animation: grocerySubcategoryUp 0.18s ease-out;
+
+  visibility: visible !important;
 }
 
-@keyframes grocerySubcategoryOpen {
+
+/* =========================================================
+   SUBCATEGORY ANIMATION
+========================================================= */
+
+@keyframes grocerySubcategoryUp {
 
   from {
     opacity: 0;
 
     transform:
-      translateY(-7px)
-      scale(0.98);
+      translateY(10px)
+      scale(0.97);
   }
 
   to {
@@ -491,56 +530,82 @@
       translateY(0)
       scale(1);
   }
+
 }
 
 
-/* =====================================================
-   SUBCATEGORY
-===================================================== */
+/* =========================================================
+   SUBCATEGORY BUTTON
+========================================================= */
 
 .grocery-subcategory {
   width: 100%;
+  min-width: 0;
+  min-height: 38px;
 
-  min-height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
 
-  padding: 8px 9px;
+  padding: 8px 10px;
 
-  border: none;
+  box-sizing: border-box;
 
-  border-radius: 8px;
+  border: 1px solid #EEE5F1;
 
-  background: #F8F4F5;
+  border-radius: 9px;
+
+  background: #FAF6FB;
 
   color: #71676C;
 
   font-family: inherit;
 
   font-size: 10px;
+  font-weight: 650;
 
   text-align: left;
 
   cursor: pointer;
 
-  transition: 0.2s ease;
+  transition: all 0.2s ease;
 }
 
 .grocery-subcategory:hover {
   background: #F3EAFB;
+
+  border-color: #DCCBEA;
 
   color: #5B3A8E;
 
   transform: translateX(2px);
 }
 
+.grocery-subcategory.active {
+  background: #5B3A8E;
 
-/* =====================================================
-   PRODUCTS
-===================================================== */
+  border-color: #5B3A8E;
+
+  color: #FFFFFF;
+}
+
+
+/* =========================================================
+   ⭐ PRODUCTS / GROCERY RESULTS
+========================================================= */
 
 .grocery-shop {
+  position: relative;
+
   width: 100%;
 
-  margin-top: 34px;
+  margin-top: 45px;
+
+  padding-top: 0;
+
+  z-index: 1;
+
+  scroll-margin-top: 95px;
 }
 
 .grocery-products {
@@ -548,91 +613,63 @@
 }
 
 
-/* =====================================================
-   TOOLBAR
-===================================================== */
+/* =========================================================
+   PRODUCT TOOLBAR
+========================================================= */
 
 .grocery-products-toolbar {
   display: flex;
-
   align-items: center;
   justify-content: space-between;
 
   gap: 20px;
 
-  margin-bottom: 17px;
+  margin-bottom: 18px;
+}
+
+.grocery-products-label {
+  display: block;
+
+  margin-bottom: 4px;
+
+  color: #7A2348 !important;
+
+  font-size: 10px !important;
+
+  font-weight: 850;
+
+  letter-spacing: 1.5px;
 }
 
 .grocery-products-toolbar h2 {
   margin: 0;
 
-  font-size: 21px;
+  color: #211C20;
+
+  font-size: 24px;
 
   font-weight: 900;
+
+  line-height: 1.2;
 }
 
-.grocery-products-toolbar > div:first-child span {
+.grocery-products-toolbar
+> div:first-child
+> span:last-child {
+
+  display: block;
+
+  margin-top: 5px;
+
   color: #8A7D82;
 
   font-size: 11px;
 }
 
-.grocery-sort-area {
-  display: flex;
-  align-items: center;
 
-  gap: 8px;
-}
-
-.grocery-sort-area > span {
-  color: #766B73;
-
-  font-size: 11px;
-}
-
-.grocery-sort-select {
-  position: relative;
-}
-
-.grocery-sort-select select {
-  appearance: none;
-
-  min-width: 175px;
-
-  padding: 10px 35px 10px 12px;
-
-  border: 1px solid #DDD5D8;
-
-  border-radius: 10px;
-
-  background: #FFFFFF;
-
-  color: #40373B;
-
-  font-family: inherit;
-
-  font-size: 12px;
-
-  outline: none;
-
-  cursor: pointer;
-}
-
-.grocery-sort-select svg {
-  position: absolute;
-
-  top: 50%;
-  right: 10px;
-
-  transform: translateY(-50%);
-
-  pointer-events: none;
-}
-
-
-/* =====================================================
+/* =========================================================
    PRODUCT GRID
-===================================================== */
+========================================================= */
 
 .grocery-product-grid {
   display: grid;
@@ -644,9 +681,9 @@
 }
 
 
-/* =====================================================
+/* =========================================================
    PRODUCT CARD
-===================================================== */
+========================================================= */
 
 .grocery-product-card {
   position: relative;
@@ -665,7 +702,9 @@
   box-shadow:
     0 6px 22px rgba(23, 21, 26, 0.045);
 
-  transition: 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .grocery-product-card:hover {
@@ -676,9 +715,9 @@
 }
 
 
-/* =====================================================
+/* =========================================================
    WISHLIST
-===================================================== */
+========================================================= */
 
 .grocery-wishlist {
   position: absolute;
@@ -686,7 +725,7 @@
   top: 11px;
   right: 11px;
 
-  z-index: 2;
+  z-index: 5;
 
   width: 34px;
   height: 34px;
@@ -716,9 +755,9 @@
 }
 
 
-/* =====================================================
+/* =========================================================
    PRODUCT IMAGE
-===================================================== */
+========================================================= */
 
 .grocery-product-image {
   height: 175px;
@@ -757,17 +796,16 @@
   transition: 0.3s ease;
 }
 
-.grocery-product-card:hover
-.grocery-product-icon {
+.grocery-product-card:hover .grocery-product-icon {
   transform:
     rotate(0deg)
     scale(1.05);
 }
 
 
-/* =====================================================
+/* =========================================================
    PRODUCT INFO
-===================================================== */
+========================================================= */
 
 .grocery-product-info {
   display: flex;
@@ -795,6 +833,8 @@
 
   margin: 7px 0 4px;
 
+  color: #30282B;
+
   font-size: 14px;
 
   line-height: 1.4;
@@ -808,12 +848,14 @@
   color: #8A7D82;
 
   font-size: 10px;
+
+  line-height: 1.5;
 }
 
 
-/* =====================================================
+/* =========================================================
    RATING
-===================================================== */
+========================================================= */
 
 .grocery-rating {
   display: flex;
@@ -822,6 +864,8 @@
   gap: 5px;
 
   margin-bottom: 12px;
+
+  color: #30282B;
 
   font-size: 10px;
 }
@@ -833,9 +877,9 @@
 }
 
 
-/* =====================================================
+/* =========================================================
    PRICE
-===================================================== */
+========================================================= */
 
 .grocery-price-row {
   display: flex;
@@ -862,7 +906,7 @@
   font-size: 11px;
 }
 
-.grocery-price-row span {
+.grocery-price-row > span {
   padding: 3px 5px;
 
   border-radius: 5px;
@@ -877,9 +921,9 @@
 }
 
 
-/* =====================================================
+/* =========================================================
    ADD TO CART
-===================================================== */
+========================================================= */
 
 .grocery-add-cart {
   width: 100%;
@@ -922,22 +966,30 @@
 }
 
 
-/* =====================================================
+/* =========================================================
    NO PRODUCTS
-===================================================== */
+========================================================= */
 
 .grocery-no-products {
-  grid-column: 1 / -1;
+  width: 100%;
 
-  padding: 70px 20px;
+  min-height: 260px;
 
   display: flex;
   flex-direction: column;
+
   align-items: center;
+  justify-content: center;
+
+  box-sizing: border-box;
+
+  padding: 50px 20px;
 
   text-align: center;
 
   background: #FFFFFF;
+
+  border: 1px solid #EEE5F1;
 
   border-radius: 18px;
 
@@ -946,12 +998,16 @@
 
 .grocery-no-products svg {
   color: #5B3A8E;
+
+  margin-bottom: 10px;
 }
 
-.grocery-no-products h3 {
-  margin: 12px 0 4px;
+.grocery-no-products h2 {
+  margin: 5px 0 8px;
 
   color: #30282B;
+
+  font-size: 20px;
 }
 
 .grocery-no-products p {
@@ -961,9 +1017,9 @@
 }
 
 
-/* =====================================================
+/* =========================================================
    INFO STRIP
-===================================================== */
+========================================================= */
 
 .grocery-info-strip {
   display: grid;
@@ -990,6 +1046,8 @@
 }
 
 .grocery-info-strip svg {
+  flex-shrink: 0;
+
   color: #5B3A8E;
 }
 
@@ -997,6 +1055,8 @@
   display: block;
 
   margin-bottom: 4px;
+
+  color: #30282B;
 
   font-size: 12px;
 }
@@ -1010,137 +1070,61 @@
 }
 
 
-/* =====================================================
-   RESPONSIVE
-===================================================== */
+/* =========================================================
+   LARGE DESKTOP
+========================================================= */
 
-@media (max-width: 1200px) {
+@media (min-width: 1400px) {
+
+  .grocery-container {
+    width: min(1500px, 92%);
+  }
 
   .grocery-category-grid {
-    grid-template-columns:
-      repeat(3, minmax(0, 1fr));
+    gap: 18px;
   }
 
   .grocery-product-grid {
-    grid-template-columns:
-      repeat(3, minmax(0, 1fr));
+    gap: 20px;
   }
 
 }
 
 
-@media (max-width: 900px) {
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1000px) {
 
   .grocery-header {
-    flex-direction: column;
     align-items: flex-start;
+
+    flex-direction: column;
+
+    margin-bottom: 25px;
   }
 
   .grocery-trust {
     width: 100%;
-  }
-
-  .grocery-category-grid {
-    grid-template-columns:
-      repeat(2, minmax(0, 1fr));
-  }
-
-  .grocery-product-grid {
-    grid-template-columns:
-      repeat(2, minmax(0, 1fr));
-  }
-
-}
-
-
-@media (max-width: 650px) {
-
-  .grocery-container {
-    width: 94%;
-  }
-
-  .grocery-header h1 {
-    font-size: 34px;
-  }
-
-  .grocery-header p {
-    font-size: 13px;
-  }
-
-  .grocery-trust {
-    flex-direction: column;
-  }
-
-  .grocery-trust-item {
-    width: fit-content;
-  }
-
-  .grocery-category-browser {
-    padding: 18px;
   }
 
   .grocery-category-heading {
-    flex-direction: column;
     align-items: flex-start;
+
+    flex-direction: column;
+
+    gap: 8px;
   }
 
   .grocery-category-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .grocery-subcategory-list {
-    grid-template-columns: 1fr 1fr;
-
-    max-height: 300px;
-
-    overflow-y: auto;
-  }
-
-  .grocery-products-toolbar {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .grocery-sort-area {
-    width: 100%;
-    justify-content: space-between;
-  }
-
-  .grocery-sort-select {
-    flex: 1;
-  }
-
-  .grocery-sort-select select {
-    width: 100%;
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
   }
 
   .grocery-product-grid {
-    grid-template-columns: 1fr 1fr;
-
-    gap: 12px;
-  }
-
-  .grocery-product-image {
-    height: 145px;
-  }
-
-  .grocery-product-icon {
-    width: 78px;
-    height: 78px;
-
-    font-size: 38px;
-  }
-
-  .grocery-product-info {
-    padding: 12px;
-  }
-
-  .grocery-product-info h3 {
-    font-size: 12px;
-  }
-
-  .grocery-price-row strong {
-    font-size: 16px;
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
   }
 
   .grocery-info-strip {
@@ -1150,23 +1134,102 @@
 }
 
 
-@media (max-width: 430px) {
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+  .grocery-container {
+    width: 92%;
+  }
+
+  .grocery-breadcrumb {
+    padding-top: 14px;
+  }
+
+  .grocery-header h1 {
+    font-size: 34px;
+
+    letter-spacing: -1.2px;
+  }
+
+  .grocery-header p {
+    font-size: 13px;
+  }
+
+  .grocery-trust {
+    flex-direction: column;
+
+    width: 100%;
+  }
+
+  .grocery-category-heading h2 {
+    font-size: 25px;
+  }
+
+  .grocery-category-grid {
+    grid-template-columns: 1fr;
+
+    gap: 12px;
+  }
 
   .grocery-product-grid {
     grid-template-columns: 1fr;
   }
 
-  .grocery-category-heading p {
-    display: none;
+
+  /* =====================================================
+     MOBILE SUBCATEGORY
+     STILL OPENS UPWARD
+  ===================================================== */
+
+  .grocery-subcategory-list {
+    top: auto !important;
+
+    bottom: calc(100% + 7px) !important;
+
+    grid-template-columns: 1fr;
+
+    max-height: 250px;
+
+    overflow-y: auto;
   }
 
-  .grocery-all-button {
-    width: 100%;
-    justify-content: center;
+
+  .grocery-product-image {
+    height: 190px;
+  }
+
+  .grocery-info-strip {
+    padding: 18px;
+  }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 420px) {
+
+  .grocery-header h1 {
+    font-size: 30px;
+  }
+
+  .grocery-category-heading h2 {
+    font-size: 23px;
   }
 
   .grocery-subcategory-list {
-    grid-template-columns: 1fr;
+    padding: 8px;
+  }
+
+  .grocery-subcategory {
+    min-height: 38px;
+
+    font-size: 10px;
   }
 
 }

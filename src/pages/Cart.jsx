@@ -29,11 +29,6 @@ function Cart() {
     removeFromCart,
   } = useCart();
 
-
-  /* ================================
-     SUBTOTAL
-  ================================= */
-
   const subtotal = cart.reduce(
     (total, item) =>
       total +

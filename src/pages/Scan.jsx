@@ -10,6 +10,7 @@ import {
   X,
   ArrowRight,
   Tag,
+  Heart,
 } from "lucide-react";
 
 import { Html5Qrcode } from "html5-qrcode";
@@ -20,11 +21,10 @@ import "./Scan.css";
 
 
 /* =========================================================
-   DEMO PRODUCTS
+   PRODUCTS
 ========================================================= */
 
 const products = {
-
   "8901234567890": {
     id: "medicine-paracetamol-650",
     name: "Paracetamol 650mg",
@@ -51,7 +51,6 @@ const products = {
       },
     ],
   },
-
 
   "8901234567891": {
     id: "medicine-dolo-650",
@@ -80,7 +79,6 @@ const products = {
     ],
   },
 
-
   "8901234567892": {
     id: "grocery-milk",
     name: "Fresh Milk",
@@ -107,16 +105,14 @@ const products = {
       },
     ],
   },
-
 };
 
 
 /* =========================================================
-   DEFAULT DEMO PRODUCT
+   DEFAULT PRODUCT
 ========================================================= */
 
-const defaultProduct =
-  products["8901234567890"];
+const defaultProduct = products["8901234567890"];
 
 
 /* =========================================================
@@ -126,17 +122,13 @@ const defaultProduct =
 function Scan() {
 
   /* =======================================================
-     CAMERA REFERENCES
+     REFERENCES
   ======================================================= */
 
   const videoRef = useRef(null);
-
   const streamRef = useRef(null);
-
   const scannerRef = useRef(null);
-
   const scannerInstance = useRef(null);
-
   const fileInputRef = useRef(null);
 
 
@@ -144,36 +136,34 @@ function Scan() {
      STATES
   ======================================================= */
 
-  const [scannerOpen, setScannerOpen] =
-    useState(false);
+  const [scannerOpen, setScannerOpen] = useState(false);
+  const [scanning, setScanning] = useState(false);
 
-  const [scanning, setScanning] =
-    useState(false);
+  const [cameraOpen, setCameraOpen] = useState(false);
 
-  const [cameraOpen, setCameraOpen] =
-    useState(false);
+  const [capturedImage, setCapturedImage] = useState(null);
+  const [uploadedImage, setUploadedImage] = useState(null);
 
-  const [capturedImage, setCapturedImage] =
-    useState(null);
+  const [product, setProduct] = useState(null);
 
-  const [product, setProduct] =
-    useState(null);
-
-  const [uploadedImage, setUploadedImage] =
-    useState(null);
-
-  const [message, setMessage] =
-    useState("");
+  const [message, setMessage] = useState("");
 
 
-  const {
-    toggleWishlist,
-    isWishlisted,
-  } = useWishlist();
+  /* =======================================================
+     WISHLIST
+  ======================================================= */
+
+  const wishlistContext = useWishlist();
+
+  const toggleWishlist =
+    wishlistContext?.toggleWishlist || (() => {});
+
+  const isWishlisted =
+    wishlistContext?.isWishlisted || (() => false);
 
 
   /* =========================================================
-     OPEN TAKE PHOTO CAMERA
+     OPEN CAMERA
   ========================================================= */
 
   const openCamera = async () => {
@@ -181,38 +171,32 @@ function Scan() {
     try {
 
       setMessage("");
-
       setProduct(null);
+      setCapturedImage(null);
 
       setCameraOpen(true);
 
-
       const stream =
         await navigator.mediaDevices.getUserMedia({
-
           video: {
             facingMode: "environment",
           },
-
           audio: false,
-
         });
-
 
       streamRef.current = stream;
 
 
       /*
-        Wait until React renders
-        the <video> element.
+        Wait for React to render
+        the video element.
       */
 
       setTimeout(() => {
 
         if (videoRef.current) {
 
-          videoRef.current.srcObject =
-            stream;
+          videoRef.current.srcObject = stream;
 
           videoRef.current
             .play()
@@ -220,15 +204,11 @@ function Scan() {
 
         }
 
-      }, 100);
-
+      }, 150);
 
     } catch (error) {
 
-      console.error(
-        "Camera error:",
-        error
-      );
+      console.error("Camera error:", error);
 
       setCameraOpen(false);
 
@@ -242,7 +222,7 @@ function Scan() {
 
 
   /* =========================================================
-     CLOSE TAKE PHOTO CAMERA
+     CLOSE CAMERA
   ========================================================= */
 
   const closeCamera = () => {
@@ -262,11 +242,9 @@ function Scan() {
 
     if (videoRef.current) {
 
-      videoRef.current.srcObject =
-        null;
+      videoRef.current.srcObject = null;
 
     }
-
 
     setCameraOpen(false);
 
@@ -274,7 +252,7 @@ function Scan() {
 
 
   /* =========================================================
-     CAPTURE PHOTO FROM CAMERA
+     CAPTURE PHOTO
   ========================================================= */
 
   const capturePhoto = () => {
@@ -283,9 +261,7 @@ function Scan() {
       return;
     }
 
-
-    const video =
-      videoRef.current;
+    const video = videoRef.current;
 
 
     if (
@@ -305,12 +281,8 @@ function Scan() {
     const canvas =
       document.createElement("canvas");
 
-
-    canvas.width =
-      video.videoWidth;
-
-    canvas.height =
-      video.videoHeight;
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
 
 
     const context =
@@ -334,13 +306,9 @@ function Scan() {
 
 
     setCapturedImage(image);
-
     setUploadedImage(image);
 
     closeCamera();
-
-
-    setProduct(null);
 
     setMessage(
       "Photo captured. Identifying product..."
@@ -349,19 +317,11 @@ function Scan() {
     setScanning(true);
 
 
-    /*
-      Demo product identification.
-      Later this can be connected
-      to real AI/product recognition.
-    */
-
     setTimeout(() => {
 
       setScanning(false);
 
-      setProduct(
-        defaultProduct
-      );
+      setProduct(defaultProduct);
 
       setMessage(
         "Product identified successfully!"
@@ -379,11 +339,10 @@ function Scan() {
   const startScanner = async () => {
 
     setProduct(null);
-
     setMessage("");
+    setCameraOpen(false);
 
     setScannerOpen(true);
-
     setScanning(true);
 
 
@@ -391,11 +350,12 @@ function Scan() {
 
       try {
 
-        if (
-          !document.getElementById(
+        const reader =
+          document.getElementById(
             "barcode-reader"
-          )
-        ) {
+          );
+
+        if (!reader) {
           return;
         }
 
@@ -423,7 +383,6 @@ function Scan() {
               width: 250,
               height: 160,
             },
-
           },
 
           async (decodedText) => {
@@ -443,9 +402,7 @@ function Scan() {
 
             if (foundProduct) {
 
-              setProduct(
-                foundProduct
-              );
+              setProduct(foundProduct);
 
               setMessage(
                 "Product found successfully!"
@@ -453,13 +410,7 @@ function Scan() {
 
             } else {
 
-              /*
-                Demo fallback
-              */
-
-              setProduct(
-                defaultProduct
-              );
+              setProduct(defaultProduct);
 
               setMessage(
                 `Barcode detected: ${decodedText}`
@@ -483,7 +434,6 @@ function Scan() {
         );
 
         setScanning(false);
-
         setScannerOpen(false);
 
         setMessage(
@@ -492,7 +442,7 @@ function Scan() {
 
       }
 
-    }, 150);
+    }, 200);
 
   };
 
@@ -505,27 +455,20 @@ function Scan() {
 
     try {
 
-      if (
-        scannerInstance.current
-      ) {
+      if (scannerInstance.current) {
 
         const scanner =
           scannerInstance.current;
 
 
-        if (
-          scanner.isScanning
-        ) {
-
+        if (scanner.isScanning) {
           await scanner.stop();
-
         }
 
 
         await scanner.clear();
 
-        scannerInstance.current =
-          null;
+        scannerInstance.current = null;
 
       }
 
@@ -540,13 +483,16 @@ function Scan() {
 
 
     setScanning(false);
-
     setScannerOpen(false);
 
   };
-  const handleUpload = (
-    event
-  ) => {
+
+
+  /* =========================================================
+     UPLOAD IMAGE
+  ========================================================= */
+
+  const handleUpload = (event) => {
 
     const file =
       event.target.files?.[0];
@@ -561,15 +507,10 @@ function Scan() {
       URL.createObjectURL(file);
 
 
-    setUploadedImage(
-      imageUrl
-    );
-
-    setCapturedImage(
-      null
-    );
-
+    setUploadedImage(imageUrl);
+    setCapturedImage(null);
     setProduct(null);
+
 
     setMessage(
       "Image uploaded. Identifying product..."
@@ -582,9 +523,7 @@ function Scan() {
 
       setScanning(false);
 
-      setProduct(
-        defaultProduct
-      );
+      setProduct(defaultProduct);
 
       setMessage(
         "Product identified from image!"
@@ -593,12 +532,17 @@ function Scan() {
     }, 1200);
 
   };
+
+
+  /* =========================================================
+     CLEAR EVERYTHING
+  ========================================================= */
+
   const clearScan = async () => {
 
     await stopScanner();
 
     closeCamera();
-
 
     setProduct(null);
 
@@ -611,16 +555,18 @@ function Scan() {
     setScanning(false);
 
 
-    if (
-      fileInputRef.current
-    ) {
+    if (fileInputRef.current) {
 
-      fileInputRef.current.value =
-        "";
+      fileInputRef.current.value = "";
 
     }
 
   };
+
+
+  /* =========================================================
+     CLEANUP
+  ========================================================= */
 
   useEffect(() => {
 
@@ -635,9 +581,9 @@ function Scan() {
           });
 
       }
-      if (
-        scannerInstance.current
-      ) {
+
+
+      if (scannerInstance.current) {
 
         scannerInstance.current
           .stop()
@@ -648,19 +594,34 @@ function Scan() {
     };
 
   }, []);
+
+
+  /* =========================================================
+     BEST PRICE
+  ========================================================= */
+
   const bestPrice =
     product
       ? Math.min(
           ...product.stores.map(
-            (store) =>
-              store.price
+            (store) => store.price
           )
         )
       : 0;
 
+
+  /* =========================================================
+     RENDER
+  ========================================================= */
+
   return (
 
     <div className="scan-page">
+
+
+      {/* =====================================================
+          PAGE HEADER
+      ===================================================== */}
 
       <section className="scan-header">
 
@@ -690,11 +651,118 @@ function Scan() {
 
       </section>
 
+
+      {/* =====================================================
+          SCANNER CARD
+      ===================================================== */}
+
       {!product && (
 
         <section className="scanner-card">
 
-          {scannerOpen ? (
+
+          {/* =================================================
+              CAMERA / QR / DEFAULT VIEW
+          ================================================= */}
+
+          {cameraOpen ? (
+
+            /* =================================================
+               TAKE PHOTO — INSIDE SCANNER BOX
+            ================================================= */
+
+            <div className="camera-inside-scanner">
+
+
+              {/* LIVE VIDEO */}
+
+              <video
+                ref={videoRef}
+                autoPlay
+                playsInline
+                muted
+                className="camera-video"
+              />
+
+
+              {/* DARK OVERLAY */}
+
+              <div className="camera-dark-overlay" />
+
+
+              {/* CAMERA HEADER */}
+
+              <div className="camera-title">
+
+                <span>
+                  PRODUCT CAMERA
+                </span>
+
+                <h2>
+                  Take a Photo
+                </h2>
+
+              </div>
+
+
+              {/* CLOSE */}
+
+              <button
+                type="button"
+                className="camera-close"
+                onClick={closeCamera}
+                aria-label="Close camera"
+              >
+
+                <X size={21} />
+
+              </button>
+
+
+              {/* CAMERA FRAME */}
+
+              <div className="camera-frame">
+
+                <span className="frame-top-left" />
+                <span className="frame-top-right" />
+                <span className="frame-bottom-left" />
+                <span className="frame-bottom-right" />
+
+              </div>
+
+
+              {/* HINT */}
+
+              <p className="camera-hint">
+
+                Position the product inside
+                the frame
+
+              </p>
+
+
+              {/* CAPTURE */}
+
+              <button
+                type="button"
+                className="capture-button"
+                onClick={capturePhoto}
+              >
+
+                <Camera size={20} />
+
+                Capture Photo
+
+              </button>
+
+
+            </div>
+
+          ) : scannerOpen ? (
+
+            /* =================================================
+               QR / BARCODE CAMERA
+            ================================================= */
 
             <div className="real-scanner-wrapper">
 
@@ -741,6 +809,10 @@ function Scan() {
 
           ) : (
 
+            /* =================================================
+               DEFAULT SCANNER VIEW
+            ================================================= */
+
             <div className="scanner-view">
 
               <div className="scanner-corner top-left" />
@@ -770,8 +842,13 @@ function Scan() {
             </div>
 
           )}
-          {message &&
-            !scannerOpen && (
+
+
+          {/* =================================================
+              MESSAGE
+          ================================================= */}
+
+          {message && !scannerOpen && (
 
             <div className="scan-status">
 
@@ -783,9 +860,7 @@ function Scan() {
 
               ) : (
 
-                <CheckCircle2
-                  size={16}
-                />
+                <CheckCircle2 size={16} />
 
               )}
 
@@ -794,25 +869,37 @@ function Scan() {
             </div>
 
           )}
+
+
+          {/* =================================================
+              OPTIONS
+          ================================================= */}
+
           <div className="scan-options">
-                        <button
+
+
+            {/* QR / BARCODE */}
+
+            <button
               type="button"
-              className="scan-option primary"
+              className={
+                `scan-option ${
+                  scannerOpen
+                    ? "primary active"
+                    : "primary"
+                }`
+              }
               onClick={
                 scannerOpen
                   ? stopScanner
                   : startScanner
               }
-              disabled={
-                cameraOpen
-              }
+              disabled={cameraOpen}
             >
 
               <div className="scan-option-icon">
 
-                <ScanLine
-                  size={23}
-                />
+                <ScanLine size={23} />
 
               </div>
 
@@ -838,20 +925,26 @@ function Scan() {
               </div>
 
             </button>
-    <button
+
+
+            {/* TAKE PHOTO */}
+
+            <button
               type="button"
-              className="scan-option"
-              onClick={openCamera}
-              disabled={
-                scannerOpen
+              className={
+                `scan-option ${
+                  cameraOpen
+                    ? "primary active"
+                    : ""
+                }`
               }
+              onClick={cameraOpen ? closeCamera : openCamera}
+              disabled={scannerOpen}
             >
 
               <div className="scan-option-icon">
 
-                <Camera
-                  size={23}
-                />
+                <Camera size={23} />
 
               </div>
 
@@ -859,23 +952,29 @@ function Scan() {
               <div>
 
                 <strong>
-                  Take Photo
+                  {cameraOpen
+                    ? "Close Camera"
+                    : "Take Photo"}
                 </strong>
 
                 <span>
-                  Open your camera
+                  {cameraOpen
+                    ? "Return to scanner"
+                    : "Open your camera"}
                 </span>
 
               </div>
 
             </button>
+
+
+            {/* UPLOAD */}
+
             <button
               type="button"
               className="scan-option"
               onClick={() =>
-                fileInputRef
-                  .current
-                  ?.click()
+                fileInputRef.current?.click()
               }
               disabled={
                 scannerOpen ||
@@ -885,9 +984,7 @@ function Scan() {
 
               <div className="scan-option-icon">
 
-                <Upload
-                  size={23}
-                />
+                <Upload size={23} />
 
               </div>
 
@@ -906,17 +1003,26 @@ function Scan() {
 
             </button>
 
+
           </div>
+
+
+          {/* =================================================
+              HIDDEN FILE INPUT
+          ================================================= */}
+
           <input
             ref={fileInputRef}
             type="file"
             accept="image/*"
-            onChange={
-              handleUpload
-            }
+            onChange={handleUpload}
             hidden
           />
 
+
+          {/* =================================================
+              PRIVACY NOTE
+          ================================================= */}
 
           <p className="scan-note">
 
@@ -925,104 +1031,16 @@ function Scan() {
 
           </p>
 
+
         </section>
 
       )}
-  {cameraOpen && (
-
-        <div className="camera-overlay">
-
-          <div className="camera-modal">
 
 
-            {/* CAMERA HEADER */}
+      {/* =====================================================
+          CAPTURED IMAGE
+      ===================================================== */}
 
-            <div className="camera-header">
-
-              <div>
-
-                <p>
-                  PRODUCT CAMERA
-                </p>
-
-                <h2>
-                  Take a Photo
-                </h2>
-
-              </div>
-
-
-              <button
-                type="button"
-                className="camera-close"
-                onClick={
-                  closeCamera
-                }
-                aria-label="Close camera"
-              >
-
-                <X size={20} />
-
-              </button>
-
-            </div>
-
-
-            {/* LIVE CAMERA */}
-
-            <div className="camera-preview">
-
-              <video
-                ref={videoRef}
-                autoPlay
-                playsInline
-                muted
-              />
-
-
-              {/* CAMERA FRAME */}
-
-              <div className="camera-frame">
-
-                <span />
-                <span />
-                <span />
-                <span />
-
-              </div>
-
-            </div>
-
-
-            <p className="camera-hint">
-
-              Position the product inside
-              the frame
-
-            </p>
-
-
-            {/* CAPTURE */}
-
-            <button
-              type="button"
-              className="capture-button"
-              onClick={
-                capturePhoto
-              }
-            >
-
-              <Camera size={22} />
-
-              Capture Photo
-
-            </button>
-
-          </div>
-
-        </div>
-
-      )}
       {capturedImage &&
         !cameraOpen &&
         !product && (
@@ -1057,9 +1075,7 @@ function Scan() {
 
             <button
               type="button"
-              onClick={
-                openCamera
-              }
+              onClick={openCamera}
             >
 
               <Camera size={14} />
@@ -1073,12 +1089,20 @@ function Scan() {
         </div>
 
       )}
-{product && (
+
+
+      {/* =====================================================
+          PRODUCT RESULT
+      ===================================================== */}
+
+      {product && (
 
         <section className="scan-result-card">
 
 
-          {/* RESULT HEADER */}
+          {/* =================================================
+              RESULT HEADER
+          ================================================= */}
 
           <div className="result-heading">
 
@@ -1093,11 +1117,9 @@ function Scan() {
               </h2>
 
               <span>
-
                 {product.category}
                 {" • "}
                 {product.description}
-
               </span>
 
             </div>
@@ -1106,9 +1128,7 @@ function Scan() {
             <button
               type="button"
               className="close-scan"
-              onClick={
-                clearScan
-              }
+              onClick={clearScan}
               aria-label="Scan another product"
             >
 
@@ -1117,6 +1137,12 @@ function Scan() {
             </button>
 
           </div>
+
+
+          {/* =================================================
+              PRODUCT INFORMATION
+          ================================================= */}
+
           <div className="scan-product-info">
 
 
@@ -1183,6 +1209,12 @@ function Scan() {
             </div>
 
           </div>
+
+
+          {/* =================================================
+              BEST PRICE
+          ================================================= */}
+
           <div className="best-price-box">
 
             <div className="best-price-icon">
@@ -1205,14 +1237,14 @@ function Scan() {
             </div>
 
 
-            <CheckCircle2
-              size={23}
-            />
+            <CheckCircle2 size={23} />
 
           </div>
 
 
-          {/* STORE COMPARISON */}
+          {/* =================================================
+              STORE COMPARISON
+          ================================================= */}
 
           <div className="store-comparison">
 
@@ -1227,15 +1259,12 @@ function Scan() {
               <div
                 className={
                   `store-row ${
-                    store.price ===
-                    bestPrice
+                    store.price === bestPrice
                       ? "best-store"
                       : ""
                   }`
                 }
-                key={
-                  store.name
-                }
+                key={store.name}
               >
 
                 <div>
@@ -1245,8 +1274,7 @@ function Scan() {
                   </strong>
 
 
-                  {store.price ===
-                    bestPrice && (
+                  {store.price === bestPrice && (
 
                     <span>
                       BEST PRICE
@@ -1266,33 +1294,62 @@ function Scan() {
             ))}
 
           </div>
+
+
+          {/* =================================================
+              ACTIONS
+          ================================================= */}
+
           <div className="scan-actions">
+
+
+            {/* WISHLIST */}
 
             <button
               type="button"
-              onClick={
-                clearScan
+              className={
+                `scan-wishlist ${
+                  isWishlisted(product.id)
+                    ? "liked"
+                    : ""
+                }`
+              }
+              onClick={() =>
+                toggleWishlist(product)
               }
             >
 
-              📷 Scan QR / Barcode
+              <Heart
+                size={18}
+                fill={
+                  isWishlisted(product.id)
+                    ? "currentColor"
+                    : "none"
+                }
+              />
+
+              {isWishlisted(product.id)
+                ? "Wishlisted"
+                : "Wishlist"}
 
             </button>
 
+
+            {/* CART */}
 
             <Link
               to="/cart"
               className="scan-cart"
             >
 
-              <ShoppingCart
-                size={18}
-              />
+              <ShoppingCart size={18} />
 
               Add to Cart
 
             </Link>
 
+
+            {/* COMPARE */}
 
             <Link
               to="/compare"
@@ -1301,19 +1358,21 @@ function Scan() {
 
               Compare Prices
 
-              <ArrowRight
-                size={17}
-              />
+              <ArrowRight size={17} />
 
             </Link>
 
           </div>
-           <button
+
+
+          {/* =================================================
+              SCAN AGAIN
+          ================================================= */}
+
+          <button
             type="button"
             className="scan-again"
-            onClick={
-              clearScan
-            }
+            onClick={clearScan}
           >
 
             <ScanLine size={17} />
@@ -1322,6 +1381,7 @@ function Scan() {
 
           </button>
 
+
         </section>
 
       )}
@@ -1329,7 +1389,6 @@ function Scan() {
     </div>
 
   );
-
 }
 
 

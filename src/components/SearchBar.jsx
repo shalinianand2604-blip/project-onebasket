@@ -9,7 +9,6 @@ import {
 
 import "./SearchBar.css";
 
-
 const suggestions = [
   "Paracetamol",
   "Paracetamol 500mg",
@@ -32,8 +31,6 @@ const suggestions = [
   "Vitamins & Supplements",
   "Health Devices",
 ];
-
-
 function SearchBar({
   placeholder = "Search medicines, groceries & more...",
 }) {
@@ -41,9 +38,6 @@ function SearchBar({
   const [search, setSearch] = useState("");
 
   const navigate = useNavigate();
-
-
-  /* ================= FILTER ================= */
 
   const filteredSuggestions =
     search.trim().length > 0
@@ -55,9 +49,6 @@ function SearchBar({
           )
           .slice(0, 6)
       : [];
-
-
-  /* ================= SEARCH ================= */
 
   const handleSearch = (value = search) => {
 
@@ -72,9 +63,6 @@ function SearchBar({
     );
   };
 
-
-  /* ================= SUGGESTION ================= */
-
   const handleSuggestionClick = (suggestion) => {
 
     setSearch(suggestion);
@@ -83,8 +71,6 @@ function SearchBar({
   };
 
 
-  /* ================= ENTER ================= */
-
   const handleKeyDown = (event) => {
 
     if (event.key === "Enter") {
@@ -92,15 +78,14 @@ function SearchBar({
     }
   };
 
-
+  const handleScan = () => {
+    navigate("/scan");
+  };
   return (
 
     <div className="search-wrapper">
 
       <div className="search-container">
-
-
-        {/* ================= SEARCH BAR ================= */}
 
         <div className="search-bar">
 
@@ -121,10 +106,6 @@ function SearchBar({
 
             onKeyDown={handleKeyDown}
           />
-
-
-          {/* CLEAR */}
-
           {search && (
 
             <button
@@ -135,27 +116,25 @@ function SearchBar({
                 setSearch("")
               }
             >
+
               <X size={17} />
+
             </button>
 
           )}
 
-
-          {/* SCAN */}
-
           <button
             type="button"
             className="scan-button"
+            onClick={handleScan}
+            aria-label="Open scanner"
           >
+
             <Camera size={18} />
-
-            <span>
               Scan
-            </span>
+            
+
           </button>
-
-
-          {/* SEARCH */}
 
           <button
             type="button"
@@ -165,14 +144,12 @@ function SearchBar({
               handleSearch()
             }
           >
+
             Search
+
           </button>
 
         </div>
-
-
-        {/* ================= SUGGESTIONS ================= */}
-
         {filteredSuggestions.length > 0 && (
 
           <div className="search-suggestions">
@@ -213,5 +190,6 @@ function SearchBar({
 
   );
 }
+
 
 export default SearchBar;
