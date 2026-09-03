@@ -12,6 +12,7 @@ import Home from "./pages/Home";
 import Medicines from "./pages/Medicines";
 import Grocery from "./pages/Grocery";
 import AskOneBasket from "./pages/AskOneBasket";
+import Account from "./pages/Account";
 
 import { WishlistProvider } from "./pages/WishListContext";
 import { CartProvider } from "./pages/CartContext";
@@ -20,13 +21,11 @@ function App() {
   return (
     <CartProvider>
       <WishlistProvider>
-
         <ScrollToTop />
 
         <Navbar />
 
         <Routes>
-
           {/* HOME */}
           <Route
             path="/"
@@ -89,10 +88,14 @@ function App() {
             }
           />
 
+          {/* ACCOUNT */}
+          <Route
+            path="/account"
+            element={<Account />}
+          />
         </Routes>
 
         <Footer />
-
       </WishlistProvider>
     </CartProvider>
   );
