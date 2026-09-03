@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 import { useWishlist } from "./WishListContext";
 import { useCart } from "./CartContext";
 
-import "./Wishlist.css";
+import "./WishList.css";
 
 
 function Wishlist() {
