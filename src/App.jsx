@@ -1,8 +1,10 @@
-import { Routes, Route } from "react-router-dom";
+// ==========================================================================
+// FILE: src/App.jsx
+// COMPONENT: App (Root Router & Application Provider Composition)
+// ==========================================================================
 
-import Scan from "./pages/Scan";
-import Wishlist from "./pages/WishList";
-import Cart from "./pages/Cart";
+import React from "react";
+import { Routes, Route } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -11,93 +13,87 @@ import ScrollToTop from "./components/ScrollToTop";
 import Home from "./pages/Home";
 import Medicines from "./pages/Medicines";
 import Grocery from "./pages/Grocery";
+import SmartCart from "./pages/SmartCart";
+import Compare from "./pages/Compare";
+import Bidding from "./pages/Bidding";
+import OrderTracking from "./pages/OrderTracking";
+import VendorDashboard from "./pages/VendorDashboard";
+import Auth from "./pages/Auth";
+import Checkout from "./pages/Checkout";
+import Deals from "./pages/Deals";
 import AskOneBasket from "./pages/AskOneBasket";
 import Account from "./pages/Account";
+import Scan from "./pages/Scan";
+import Wishlist from "./pages/WishList";
 
 import { WishlistProvider } from "./pages/WishListContext";
 import { CartProvider } from "./pages/CartContext";
+import { UserProvider } from "./pages/UserContext";
 
 function App() {
   return (
-    <CartProvider>
-      <WishlistProvider>
-        <ScrollToTop />
+    <UserProvider>
+      <CartProvider>
+        <WishlistProvider>
+          <ScrollToTop />
 
-        <Navbar />
+          <Navbar />
 
-        <Routes>
-          {/* HOME */}
-          <Route
-            path="/"
-            element={<Home />}
-          />
+          <Routes>
+            {/* 1. HOME */}
+            <Route path="/" element={<Home />} />
 
-          {/* SMART SCAN */}
-          <Route
-            path="/scan"
-            element={<Scan />}
-          />
+            {/* 2. MEDICINES DISCOVERY */}
+            <Route path="/medicines" element={<Medicines />} />
 
-          {/* MEDICINES */}
-          <Route
-            path="/medicines"
-            element={<Medicines />}
-          />
+            {/* 3. GROCERY DISCOVERY */}
+            <Route path="/grocery" element={<Grocery />} />
 
-          {/* GROCERY */}
-          <Route
-            path="/grocery"
-            element={<Grocery />}
-          />
+            {/* 4. CORE FEATURE #4: SMART CART & MULTI-VENDOR SPLIT */}
+            <Route path="/cart" element={<SmartCart />} />
+            <Route path="/smart-cart" element={<SmartCart />} />
 
-          {/* ASK ONEBASKET */}
-          <Route
-            path="/ask"
-            element={<AskOneBasket />}
-          />
+            {/* 5. CORE FEATURE #2: LIVE PRICE COMPARISON & GENERIC FINDER */}
+            <Route path="/compare" element={<Compare />} />
 
-          {/* WISHLIST */}
-          <Route
-            path="/wishlist"
-            element={<Wishlist />}
-          />
+            {/* 6. CORE FEATURE #3: REVERSE MARKETPLACE BIDDING */}
+            <Route path="/bidding" element={<Bidding />} />
 
-          {/* CART */}
-          <Route
-            path="/cart"
-            element={<Cart />}
-          />
+            {/* 7. CORE FEATURE #5: MULTI-STEP ORDER TRACKING */}
+            <Route path="/tracking" element={<OrderTracking />} />
+            <Route path="/order-tracking" element={<OrderTracking />} />
 
-          {/* COMPARE */}
-          <Route
-            path="/compare"
-            element={
-              <div style={{ padding: "100px" }}>
-                <h1>Compare Coming Soon ⚖️</h1>
-              </div>
-            }
-          />
+            {/* 8. CORE FEATURE #6: VENDOR DASHBOARD & INVENTORY */}
+            <Route path="/vendor-dashboard" element={<VendorDashboard />} />
 
-          {/* DEALS */}
-          <Route
-            path="/deals"
-            element={
-              <div style={{ padding: "100px" }}>
-                <h1>Deals Coming Soon 🔥</h1>
-              </div>
-            }
-          />
+            {/* 9. CORE FEATURE #1: AUTHENTICATION (CUSTOMER & VENDOR) */}
+            <Route path="/auth" element={<Auth />} />
+            <Route path="/login" element={<Auth />} />
+            <Route path="/register" element={<Auth />} />
 
-          {/* ACCOUNT */}
-          <Route
-            path="/account"
-            element={<Account />}
-          />
-        </Routes>
+            {/* 10. CHECKOUT */}
+            <Route path="/checkout" element={<Checkout />} />
 
-        <Footer />
-      </WishlistProvider>
-    </CartProvider>
+            {/* 11. DEALS */}
+            <Route path="/deals" element={<Deals />} />
+
+            {/* 12. ASK ONEBASKET ASSISTANT */}
+            <Route path="/ask" element={<AskOneBasket />} />
+
+            {/* 13. SCAN MEDICINES / QR */}
+            <Route path="/scan" element={<Scan />} />
+
+            {/* 14. WISHLIST */}
+            <Route path="/wishlist" element={<Wishlist />} />
+
+            {/* 15. ACCOUNT */}
+            <Route path="/account" element={<Account />} />
+          </Routes>
+
+          <Footer />
+        </WishlistProvider>
+      </CartProvider>
+    </UserProvider>
   );
 }
 

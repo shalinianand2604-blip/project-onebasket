@@ -1,735 +1,240 @@
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+// ==========================================================================
+// FILE: src/pages/UserContext.jsx
+// CONTEXT: UserContext (Multi-Role Auth: Customer & Local Vendor Support)
+// ==========================================================================
 
-
-// =========================================================
-// USER CONTEXT
-// =========================================================
+import React, { createContext, useContext, useEffect, useState } from "react";
 
 const UserContext = createContext(null);
 
-
-// =========================================================
-// DEFAULT USER DATA
-// =========================================================
-
-const emptyUser = {
-  name: "",
-  email: "",
-  phone: "",
-
-  // Shared delivery location
+const defaultCustomer = {
+  id: "usr-cust-001",
+  name: "Dr. Shalini Anand",
+  email: "shalini.anand@medcare.org",
+  phone: "+91 98765 43210",
+  role: "customer", // 'customer' | 'vendor'
   location: {
-    city: "",
-    state: "",
+    city: "New Delhi",
+    state: "Delhi",
+    area: "Sector 14, Urban Estate",
+    pincode: "110078",
   },
-
-  addresses: [],
-
-  payments: [],
-
+  addresses: [
+    {
+      id: 1,
+      type: "Home",
+      line1: "Flat 402, Apex Green Apartments",
+      area: "Sector 14, Urban Estate",
+      city: "New Delhi",
+      pincode: "110078",
+      isDefault: true,
+    },
+    {
+      id: 2,
+      type: "Clinic / Office",
+      line1: "City Diagnostic Care Centre, Main Road",
+      area: "Sector 15 Market",
+      city: "New Delhi",
+      pincode: "110079",
+      isDefault: false,
+    },
+  ],
+  payments: [
+    { id: 1, type: "UPI", handle: "shalini@oksbi", isDefault: true },
+    { id: 2, type: "Card", label: "HDFC Regalia •••• 4291", isDefault: false },
+  ],
   orders: [],
-
-  notifications: [],
-
+  notifications: [
+    {
+      id: "notif-1",
+      title: "Smart Split Order Placed",
+      message: "Order #OB-882103 dispatched from Jan Aushadhi & Sharma Mart.",
+      timestamp: "10 mins ago",
+      read: false,
+    },
+  ],
   scanHistory: [],
-
   settings: {
     notifications: true,
     priceAlerts: true,
+    genericAlternativesFirst: true,
   },
 };
 
-
-// =========================================================
-// PROVIDER
-// =========================================================
+const defaultVendor = {
+  id: "v-med-03",
+  name: "Rajesh Kumar (Store Manager)",
+  shopName: "Sanjeevani Local Chemist & Generic Hub",
+  email: "contact@sanjeevanimeds.in",
+  phone: "+91 98112 34503",
+  role: "vendor",
+  licenseNo: "DL-SANJ-1192-291",
+  gstin: "07AAAAA0000A1Z5",
+  type: "pharmacy",
+  category: "Prescription & Generic Medicines",
+  rating: 4.8,
+  verified: true,
+  distanceKm: 0.4,
+  location: {
+    address: "Corner Store, Pocket 1, Sector 14",
+    city: "New Delhi",
+    pincode: "110078",
+  },
+};
 
 export function UserProvider({ children }) {
-
-  const [user, setUser] = useState(() => {
-
-    try {
-
-      const savedUser =
-        localStorage.getItem("onebasketUser");
-
-      if (savedUser) {
-
-        const parsedUser =
-          JSON.parse(savedUser);
-
-        // Make sure older saved users also
-        // get the new location property
-        return {
-          ...emptyUser,
-          ...parsedUser,
-
-          location: {
-            ...emptyUser.location,
-            ...(parsedUser.location || {}),
-          },
-
-          settings: {
-            ...emptyUser.settings,
-            ...(parsedUser.settings || {}),
-          },
-
-          addresses:
-            parsedUser.addresses || [],
-
-          payments:
-            parsedUser.payments || [],
-
-          orders:
-            parsedUser.orders || [],
-
-          notifications:
-            parsedUser.notifications || [],
-
-          scanHistory:
-            parsedUser.scanHistory || [],
-        };
-
-      }
-
-      return null;
-
-    } catch (error) {
-
-      console.error(
-        "Unable to load OneBasket user:",
-        error
-      );
-
-      return null;
-
-    }
-
+  // Active role: 'customer' or 'vendor'
+  const [activeRole, setActiveRole] = useState(() => {
+    return localStorage.getItem("onebasketActiveRole") || "customer";
   });
 
+  const [user, setUser] = useState(() => {
+    try {
+      const savedUser = localStorage.getItem("onebasketUser");
+      if (savedUser) {
+        return JSON.parse(savedUser);
+      }
+      return defaultCustomer;
+    } catch (e) {
+      console.error("Failed to load user:", e);
+      return defaultCustomer;
+    }
+  });
 
-  // =======================================================
-  // SAVE USER AUTOMATICALLY
-  // =======================================================
+  const [vendorProfile, setVendorProfile] = useState(() => {
+    try {
+      const savedVendor = localStorage.getItem("onebasketVendor");
+      if (savedVendor) {
+        return JSON.parse(savedVendor);
+      }
+      return defaultVendor;
+    } catch (e) {
+      return defaultVendor;
+    }
+  });
+
+  // Sync to localStorage
+  useEffect(() => {
+    localStorage.setItem("onebasketActiveRole", activeRole);
+  }, [activeRole]);
 
   useEffect(() => {
-
     if (user) {
-
-      localStorage.setItem(
-        "onebasketUser",
-        JSON.stringify(user)
-      );
-
-    } else {
-
-      localStorage.removeItem(
-        "onebasketUser"
-      );
-
+      localStorage.setItem("onebasketUser", JSON.stringify(user));
     }
-
   }, [user]);
 
+  useEffect(() => {
+    if (vendorProfile) {
+      localStorage.setItem("onebasketVendor", JSON.stringify(vendorProfile));
+    }
+  }, [vendorProfile]);
 
-  // =======================================================
-  // REGISTER USER
-  // =======================================================
-
-  const registerUser = ({
-    name,
-    email,
-    phone = "",
-  }) => {
-
-    const newUser = {
-
-      ...emptyUser,
-
-      name: name.trim(),
-
-      email: email.trim(),
-
-      phone: phone.trim(),
-
-    };
-
-
-    setUser(newUser);
-
-
-    localStorage.setItem(
-      "onebasketLoggedIn",
-      "true"
-    );
-
-    localStorage.setItem(
-      "onebasketUserName",
-      newUser.name
-    );
-
-
-    return newUser;
-
+  // Role switching
+  const switchRole = (newRole) => {
+    if (newRole === "vendor" || newRole === "customer") {
+      setActiveRole(newRole);
+    }
   };
 
-
-  // =======================================================
-  // LOGIN USER
-  // =======================================================
-
-  const loginUser = ({
-    name,
-    email,
-    phone = "",
-  }) => {
-
-    const existingUser =
-      user || {
-
-        ...emptyUser,
-
-        name:
-          name?.trim() ||
-          email
-            ?.split("@")[0]
-            ?.replace(/[._-]/g, " ") ||
-          "OneBasket User",
-
-        email:
-          email?.trim() || "",
-
-        phone:
-          phone?.trim() || "",
-
+  // Login handler supporting roles
+  const loginUser = ({ email, name, role = "customer", shopName = "" }) => {
+    if (role === "vendor") {
+      const newVendor = {
+        ...defaultVendor,
+        name: name || "Store Partner",
+        shopName: shopName || "Neighborhood Pharmacy & Grocery",
+        email: email || "vendor@onebasket.in",
+        role: "vendor",
       };
-
-
-    setUser(existingUser);
-
-
-    localStorage.setItem(
-      "onebasketLoggedIn",
-      "true"
-    );
-
-    localStorage.setItem(
-      "onebasketUserName",
-      existingUser.name
-    );
-
-
-    return existingUser;
-
-  };
-
-
-  // =======================================================
-  // UPDATE PROFILE
-  // =======================================================
-
-  const updateProfile = (updates) => {
-
-    setUser((currentUser) => {
-
-      if (!currentUser) {
-        return currentUser;
-      }
-
-
-      const updatedUser = {
-
-        ...currentUser,
-
-        ...updates,
-
+      setVendorProfile(newVendor);
+      setActiveRole("vendor");
+      return newVendor;
+    } else {
+      const newCustomer = {
+        ...defaultCustomer,
+        name: name || email?.split("@")[0] || "OneBasket Customer",
+        email: email || "",
+        role: "customer",
       };
-
-
-      localStorage.setItem(
-        "onebasketUserName",
-        updatedUser.name
-      );
-
-
-      return updatedUser;
-
-    });
-
+      setUser(newCustomer);
+      setActiveRole("customer");
+      return newCustomer;
+    }
   };
 
-
-  // =======================================================
-  // UPDATE DELIVERY LOCATION
-  // =======================================================
-
-  const updateLocation = ({
-    city = "",
-    state = "",
-  }) => {
-
-    setUser((currentUser) => {
-
-      if (!currentUser) {
-
-        return currentUser;
-
-      }
-
-
-      return {
-
-        ...currentUser,
-
-        location: {
-
-          city: city.trim(),
-
-          state: state.trim(),
-
-        },
-
-      };
-
-    });
-
+  const registerUser = (userData) => {
+    return loginUser(userData);
   };
-
-
-  // =======================================================
-  // CLEAR DELIVERY LOCATION
-  // =======================================================
-
-  const clearLocation = () => {
-
-    setUser((currentUser) => {
-
-      if (!currentUser) {
-
-        return currentUser;
-
-      }
-
-
-      return {
-
-        ...currentUser,
-
-        location: {
-
-          city: "",
-
-          state: "",
-
-        },
-
-      };
-
-    });
-
-  };
-
-
-  // =======================================================
-  // ADD ADDRESS
-  // =======================================================
-
-  const addAddress = (address) => {
-
-    setUser((currentUser) => {
-
-      if (!currentUser) {
-
-        return currentUser;
-
-      }
-
-
-      return {
-
-        ...currentUser,
-
-        addresses: [
-
-          ...currentUser.addresses,
-
-          {
-
-            id: Date.now(),
-
-            ...address,
-
-          },
-
-        ],
-
-      };
-
-    });
-
-  };
-
-
-  // =======================================================
-  // REMOVE ADDRESS
-  // =======================================================
-
-  const removeAddress = (id) => {
-
-    setUser((currentUser) => {
-
-      if (!currentUser) {
-
-        return currentUser;
-
-      }
-
-
-      return {
-
-        ...currentUser,
-
-        addresses:
-          currentUser.addresses.filter(
-            (address) =>
-              address.id !== id
-          ),
-
-      };
-
-    });
-
-  };
-
-
-  // =======================================================
-  // ADD PAYMENT
-  // =======================================================
-
-  const addPayment = (payment) => {
-
-    setUser((currentUser) => {
-
-      if (!currentUser) {
-
-        return currentUser;
-
-      }
-
-
-      return {
-
-        ...currentUser,
-
-        payments: [
-
-          ...currentUser.payments,
-
-          {
-
-            id: Date.now(),
-
-            ...payment,
-
-          },
-
-        ],
-
-      };
-
-    });
-
-  };
-
-
-  // =======================================================
-  // ADD ORDER
-  // =======================================================
-
-  const addOrder = (order) => {
-
-    setUser((currentUser) => {
-
-      if (!currentUser) {
-
-        return currentUser;
-
-      }
-
-
-      return {
-
-        ...currentUser,
-
-        orders: [
-
-          {
-
-            id: Date.now(),
-
-            date:
-              new Date().toISOString(),
-
-            status:
-              "Placed",
-
-            ...order,
-
-          },
-
-          ...currentUser.orders,
-
-        ],
-
-      };
-
-    });
-
-  };
-
-
-  // =======================================================
-  // ADD SCAN HISTORY
-  // =======================================================
-
-  const addScanHistory = (product) => {
-
-    setUser((currentUser) => {
-
-      if (!currentUser) {
-
-        return currentUser;
-
-      }
-
-
-      return {
-
-        ...currentUser,
-
-        scanHistory: [
-
-          {
-
-            id: Date.now(),
-
-            date:
-              new Date().toISOString(),
-
-            ...product,
-
-          },
-
-          ...currentUser.scanHistory,
-
-        ],
-
-      };
-
-    });
-
-  };
-
-
-  // =======================================================
-  // ADD NOTIFICATION
-  // =======================================================
-
-  const addNotification = (notification) => {
-
-    setUser((currentUser) => {
-
-      if (!currentUser) {
-
-        return currentUser;
-
-      }
-
-
-      return {
-
-        ...currentUser,
-
-        notifications: [
-
-          {
-
-            id: Date.now(),
-
-            date:
-              new Date().toISOString(),
-
-            read: false,
-
-            ...notification,
-
-          },
-
-          ...currentUser.notifications,
-
-        ],
-
-      };
-
-    });
-
-  };
-
-
-  // =======================================================
-  // UPDATE SETTINGS
-  // =======================================================
-
-  const updateSettings = (settings) => {
-
-    setUser((currentUser) => {
-
-      if (!currentUser) {
-
-        return currentUser;
-
-      }
-
-
-      return {
-
-        ...currentUser,
-
-        settings: {
-
-          ...currentUser.settings,
-
-          ...settings,
-
-        },
-
-      };
-
-    });
-
-  };
-
-
-  // =======================================================
-  // LOGOUT
-  // =======================================================
 
   const logoutUser = () => {
-
     setUser(null);
-
-    localStorage.removeItem(
-      "onebasketLoggedIn"
-    );
-
-    localStorage.removeItem(
-      "onebasketUserName"
-    );
-
-    localStorage.removeItem(
-      "onebasketUser"
-    );
-
+    localStorage.removeItem("onebasketUser");
+    localStorage.removeItem("onebasketLoggedIn");
   };
 
+  const updateProfile = (updates) => {
+    if (activeRole === "vendor") {
+      setVendorProfile((prev) => ({ ...prev, ...updates }));
+    } else {
+      setUser((prev) => ({ ...prev, ...updates }));
+    }
+  };
 
-  // =======================================================
-  // CONTEXT VALUE
-  // =======================================================
+  const addOrder = (order) => {
+    setUser((prev) => {
+      if (!prev) return prev;
+      return {
+        ...prev,
+        orders: [
+          {
+            id: order.orderId || "OB-" + Math.floor(100000 + Math.random() * 900000),
+            date: new Date().toISOString(),
+            status: "Confirmed",
+            ...order,
+          },
+          ...(prev.orders || []),
+        ],
+      };
+    });
+  };
+
+  const updateLocation = (loc) => {
+    setUser((prev) => {
+      if (!prev) return prev;
+      return {
+        ...prev,
+        location: {
+          ...prev.location,
+          ...loc,
+        },
+      };
+    });
+  };
 
   const value = {
-
-    // User
     user,
-
+    vendorProfile,
+    activeRole,
+    switchRole,
+    isVendor: activeRole === "vendor",
+    isCustomer: activeRole === "customer",
     isLoggedIn: Boolean(user),
-
-
-    // Authentication
-    registerUser,
-
     loginUser,
-
+    registerUser,
     logoutUser,
-
-
-    // Profile
     updateProfile,
-
-
-    // Delivery location
     updateLocation,
-
-    clearLocation,
-
-
-    // Addresses
-    addAddress,
-
-    removeAddress,
-
-
-    // Payments
-    addPayment,
-
-
-    // Orders
     addOrder,
-
-
-    // Scan
-    addScanHistory,
-
-
-    // Notifications
-    addNotification,
-
-
-    // Settings
-    updateSettings,
-
   };
 
-
-  return (
-
-    <UserContext.Provider
-      value={value}
-    >
-
-      {children}
-
-    </UserContext.Provider>
-
-  );
-
+  return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 }
 
-
-// =========================================================
-// USE USER
-// =========================================================
-
 export function useUser() {
-
-  const context =
-    useContext(UserContext);
-
-
+  const context = useContext(UserContext);
   if (!context) {
-
-    throw new Error(
-      "useUser must be used inside UserProvider"
-    );
-
+    throw new Error("useUser must be used within a UserProvider");
   }
-
-
   return context;
-
 }
